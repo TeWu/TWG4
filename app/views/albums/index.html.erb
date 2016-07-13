@@ -24,6 +24,9 @@
   </tbody>
 </table>
 
-<br>
+<hr/>
 
-<%= link_to 'New Album', new_album_path %>
+<section>
+  <h1>New Album</h1>
+  <%= render 'form', album: @new_album %>
+</section>

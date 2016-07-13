@@ -3,6 +3,7 @@ class AlbumsController < ApplicationController
 
   def index
     @albums = Album.all
+    @new_album = Album.new
   end
 
   def show
