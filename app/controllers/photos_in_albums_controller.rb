@@ -1,4 +1,4 @@
-class PhotoInAlbumsController < ApplicationController
+class PhotosInAlbumsController < ApplicationController
   before_action :set_photo_in_album, only: [:show, :edit, :update, :destroy]
 
   # GET /photo_in_albums
