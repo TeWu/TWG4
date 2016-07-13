@@ -4,9 +4,9 @@
       <h2><%= pluralize(album.errors.count, "error") %> prohibited this album from being saved:</h2>
 
       <ul>
-      <% album.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% album.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -15,7 +15,7 @@
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
-  
+
   <div class="field">
     <%= f.label :owner_id %>
     <%= f.text_field :owner_id %>

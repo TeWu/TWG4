@@ -4,9 +4,9 @@
       <h2><%= pluralize(photo_in_album.errors.count, "error") %> prohibited this photo_in_album from being saved:</h2>
 
       <ul>
-      <% photo_in_album.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% photo_in_album.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
