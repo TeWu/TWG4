@@ -3,7 +3,7 @@ class AlbumsController < ApplicationController
 
   def index
     @albums = Album.all
-    @new_album = Album.new
+    @new_album = @album || Album.new
   end
 
   def show
@@ -20,7 +20,10 @@ class AlbumsController < ApplicationController
         format.html { redirect_to @album, notice: "Album was successfully created." }
         format.json { render :show, status: :created, location: @album }
       else
-        format.html { render :new }
+        format.html do
+          index
+          render :index
+        end
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end
     end
@@ -56,4 +59,5 @@ class AlbumsController < ApplicationController
   def album_params
     params.require(:album).permit(:name, :owner_id)
   end
+
 end

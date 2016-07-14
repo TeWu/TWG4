@@ -1,18 +1,20 @@
 class CommentsController < ApplicationController
+  before_action :set_album_and_photo
   before_action :set_comment, only: [:edit, :update, :destroy]
 
-  def edit
-  end
 
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @photo.comments.build content: comment_content, author: User.take # <--- TODO: change to logged in user after authentication is added
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: "Comment was successfully created." }
-        format.json { render :show, status: :created, location: @comment }
+        format.html { redirect_to [@album, @photo], notice: "Comment was successfully created." }
+        format.json { render json: @comment, status: :created, location: [@album, @photo] }
       else
-        format.html { render :new }
+        format.html do
+          flash[:new_comment] = {content: @comment.content[0..@comment.max_length]}
+          redirect_to [@album, @photo]
+        end
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -20,9 +22,9 @@ class CommentsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: "Comment was successfully updated." }
-        format.json { render :show, status: :ok, location: @comment }
+      if @comment.update(content: comment_content)
+        format.html { redirect_to [@album, @photo], notice: "Comment was successfully updated." }
+        format.json { render json: @comment, status: :ok, location: [@album, @photo] }
       else
         format.html { render :edit }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -33,7 +35,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: "Comment was successfully destroyed." }
+      format.html { redirect_to [@album, @photo], notice: "Comment was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -41,11 +43,17 @@ class CommentsController < ApplicationController
 
   private
 
+  def comment_content
+    params.require(:comment)[:content]
+  end
+
   def set_comment
     @comment = Comment.find(params[:id])
   end
 
-  def comment_params
-    params.require(:comment).permit(:content, :author_id, :photo_id)
+  def set_album_and_photo
+    @album = Album.find(params[:album_id])
+    @photo = Photo.find(params[:photo_id])
   end
+
 end

@@ -1,0 +1,16 @@
+<h1>New Photo In Album</h1>
+
+<%= simple_form_for @photo_in_album, url: add_photo_to_album_path, validate: true do |f| %>
+  <section class="form-fields">
+    <%= field_set do %>
+      <%= f.association :photo, label_method: :path, input_html: {id: 'photo_id', name: 'photo_id'} %>
+    <% end %>
+  </section>
+
+  <hr/>
+  <section class="form-actions">
+    <%= f.button :submit, "Add photo to album" %>
+  </section>
+<% end %>
+
+<%= link_to 'Back', @album %>

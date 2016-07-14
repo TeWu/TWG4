@@ -10,5 +10,20 @@
   <%= @photo.description %>
 </p>
 
-<%= link_to 'Edit', edit_photo_path(@photo) %> |
-<%= link_to 'Back', photos_path %>
+<hr/>
+<h2>Comments:</h2>
+<ul>
+  <% for comment in @photo.comments %>
+    <li>
+      <strong><%= comment.author.display_name %>:</strong> <%= comment.content %><br/>
+      <%= edit_link [@album, @photo, comment] %> <%= destroy_link [@album, @photo, comment] %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Add comment</h2>
+<%= render 'comments/form', comment: @new_comment %>
+
+
+<%= link_to 'Edit', edit_album_photo_path(@album, @photo) %> |
+<%= link_to 'Back', @album %>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       get 'add_photo' => 'photos_in_albums#new', as: 'add_photo_to'
       post 'add_photo' => 'photos_in_albums#create', as: nil
 
-      delete 'remove_photo/:id' => 'photos_in_albums#destroy', as: 'remove_photo_from'
+      delete 'remove_photo/:photo_id' => 'photos_in_albums#destroy', as: 'remove_photo_from'
     end
   end
 

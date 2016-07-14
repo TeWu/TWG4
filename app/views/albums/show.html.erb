@@ -1,9 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @album.name %>
-</p>
+<h1><%= @album.name %></h1>
+<div>
+  <%= link_to "Add new photo", new_album_photo_path(@album) %> |
+  <%= link_to "Add existing photo", add_photo_to_album_path(@album) %>
+</div>
+<hr/>
+
+<h2>Photos:</h2>
+<table>
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>path</th>
+    <th colspan="2">actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% for photo in @album.photos do %>
+    <tr>
+      <td><%= photo.id %></td>
+      <td><%= link_to photo.path, [@album, photo] %></td>
+      <td><%= link_to "Remove from album", remove_photo_from_album_path(@album, photo), method: :delete %></td>
+      <td><%= destroy_link [@album, photo] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_album_path(@album) %> |
 <%= link_to 'Back', albums_path %>
