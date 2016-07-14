@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+form tr.field th {
+    text-align: right;
+}

@@ -34,3 +34,8 @@ group :development do
 end
 
 gem 'argon2' # Password hashing with Argon2 - OWASP recommended algorithm and the Password Hashing Competition winner https://github.com/P-H-C/phc-winner-argon2
+
+# Forms related gems
+gem 'simple_form'
+gem 'client_side_validations', github: 'DavyJonesLocker/client_side_validations', branch: 'rails5'
+gem 'client_side_validations-simple_form', github: 'TeWu/client_side_validations-simple_form', branch: 'rails5_with_nested_wrappers'
