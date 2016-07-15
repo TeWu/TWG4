@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root to: redirect('albums')
 
+  get 'login' => 'auth#login_page'
+  post 'login' => 'auth#login'
+  delete 'logout' => 'auth#logout'
+
   resources :albums, except: :new do
     resources :photos, except: :index do
       resources :comments, only: [:create, :edit, :update, :destroy]

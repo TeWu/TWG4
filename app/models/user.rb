@@ -15,6 +15,13 @@ class User < ApplicationRecord
   attr_accessor :password, :password_confirmation
 
 
+  def self.authenticate(username, password)
+    user = find_by username: username
+    return user if user && TWG4::Crypt.verify_password(password, user.passhash)
+    return nil
+  end
+
+
   private
 
   def hash_password
@@ -23,4 +30,5 @@ class User < ApplicationRecord
       self.password = self.password_confirmation = nil
     end
   end
+
 end

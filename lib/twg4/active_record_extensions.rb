@@ -1,5 +1,4 @@
 module TWG4
-  
   module ActiveRecordExtensions
     extend ActiveSupport::Concern
 
@@ -14,5 +13,4 @@ module TWG4
 
     end
   end
-  
 end

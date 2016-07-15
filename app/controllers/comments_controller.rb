@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
 
 
   def create
-    @comment = @photo.comments.build content: comment_content, author: User.take # <--- TODO: change to logged in user after authentication is added
+    @comment = @photo.comments.build content: comment_content, author: current_user
 
     respond_to do |format|
       if @comment.save

@@ -9,13 +9,8 @@
 </head>
 
 <body>
-<div>
-  <% if logged_in? %>
-    Logged in as <strong><%= current_user.display_name %></strong> | <%= link_to "Log out", logout_url, method: :delete %>
-  <% end %>
-</div>
-<hr/>
+<%= flash[:alert] if flash[:alert] %>
+<%= flash[:notice] if flash[:notice] %>
 <%= yield %>
-<pre><%= cookies.encrypted[TWG4::Auth::COOKIE_NAME].inspect %></pre>
 </body>
 </html>

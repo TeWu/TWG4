@@ -1,0 +1,20 @@
+<div id="login-box">
+  <header>Login</header>
+  <section id="content">
+    <%= form_for :credentials, url: login_path, id: 'login-form' do |f| %>
+      <section class="form-fields">
+        <dl>
+          <dt><%= f.label :username %></dt>
+          <dd><%= f.text_field :username, value: flash[:username], autofocus: flash[:username].blank? %></dd>
+        </dl>
+        <dl>
+          <dt><%= f.label :password %></dt>
+          <dd><%= f.password_field :password, autofocus: flash[:username].present? %></dd>
+        </dl>
+      </section>
+      <section class="form-actions">
+        <%= f.submit "Log in" %>
+      </section>
+    <% end %>
+  </section>
+</div>
