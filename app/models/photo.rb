@@ -3,7 +3,7 @@ class Photo < ApplicationRecord
   has_many :albums, through: :photo_in_albums
   has_many :comments
 
-  validates :path, presence: true, uniqueness: true, length: {maximum: 512}
+  validates :image, presence: true, uniqueness: true, length: {maximum: 512}
   validates :description, allow_nil: true, length: {maximum: 1_000}
 
 

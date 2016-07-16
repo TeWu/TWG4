@@ -20,7 +20,7 @@
   <% for photo in @album.photos do %>
     <tr>
       <td><%= photo.id %></td>
-      <td><%= link_to photo.path, [@album, photo] %></td>
+      <td><%= link_to photo.image, [@album, photo] %></td>
       <td><%= link_to "Remove from album", remove_photo_from_album_path(@album, photo), method: :delete %></td>
       <td><%= destroy_link [@album, photo] %></td>
     </tr>
