@@ -6,12 +6,6 @@ class AlbumsController < ApplicationController
     @new_album = @album || Album.new(owner: current_user)
   end
 
-  def show
-  end
-
-  def edit
-  end
-
   def create
     @album = Album.new(album_params)
 
