@@ -12,6 +12,7 @@ module Twg4
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    # Autoloading paths
     config.autoload_paths << "#{Rails.root}/lib"
   end
 end
