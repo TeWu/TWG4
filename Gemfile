@@ -39,3 +39,6 @@ gem 'argon2' # Password hashing with Argon2 - OWASP recommended algorithm and th
 gem 'simple_form'
 gem 'client_side_validations', github: 'DavyJonesLocker/client_side_validations', branch: 'rails5'
 gem 'client_side_validations-simple_form', github: 'TeWu/client_side_validations-simple_form', branch: 'rails5_with_nested_wrappers'
+
+gem 'mini_magick' # For image processing
+gem 'carrierwave' # For image upload and processing automation
