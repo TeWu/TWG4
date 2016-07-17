@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     return @current_user if defined? @current_user
     @current_user = begin
       id = TWG4::Auth.new(cookies).current_user_id
-      User.find(id) if id
+      User.find_by(id: id) if id
     end
   end
 
