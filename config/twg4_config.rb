@@ -8,7 +8,7 @@ module TWG4
 
 
   for (name, spec) in CONFIG[:image_sizes]
-    CONFIG[:image_sizes][name].merge!(size: [spec[:width], spec[:height]])
+    CONFIG[:image_sizes][name].merge!(as_array: [spec[:width], spec[:height]])
   end
 
   CONFIG.freeze

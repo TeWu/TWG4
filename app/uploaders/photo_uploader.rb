@@ -3,6 +3,11 @@
 class PhotoUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
+  THUMBNAIL_SIZE = TWG4::CONFIG[:image_sizes][:thumbnail]
+  THUMBNAIL_GENERATION_MARGIN = 30
+  MEDIUM_SIZE = TWG4::CONFIG[:image_sizes][:medium]
+  MEDIUM_GENERATION_MARGIN = 200
+
   storage :file
 
   # Override the directory where uploaded files will be stored.
@@ -23,11 +28,11 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # process resize_to_limit: [4096, 2160]
 
   # Create different versions of your uploaded files:
-  version :thumbnail do
-    process resize_to_limit: TWG4::CONFIG[:image_sizes][:thumbnail][:size]
+  version :thumbnail, if: :generate_thumbnail? do
+    process resize_to_limit: THUMBNAIL_SIZE[:as_array]
   end
-  version :medium do
-    process resize_to_limit: TWG4::CONFIG[:image_sizes][:medium][:size]
+  version :medium, if: :generate_medium? do
+    process resize_to_limit: MEDIUM_SIZE[:as_array]
   end
 
 
@@ -57,6 +62,16 @@ class PhotoUploader < CarrierWave::Uploader::Base
         break name unless Photo.exists?(image: name)
       end
     end
+  end
+
+  def generate_thumbnail?(picture)
+    image = MiniMagick::Image.open(picture.path)
+    image.width > THUMBNAIL_SIZE[:width] + THUMBNAIL_GENERATION_MARGIN || image.height > THUMBNAIL_SIZE[:height] + THUMBNAIL_GENERATION_MARGIN
+  end
+
+  def generate_medium?(picture)
+    image = MiniMagick::Image.open(picture.path)
+    image.width > MEDIUM_SIZE[:width] + MEDIUM_GENERATION_MARGIN || image.height > MEDIUM_SIZE[:height] + MEDIUM_GENERATION_MARGIN
   end
 
 end

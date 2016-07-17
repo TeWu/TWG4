@@ -18,4 +18,10 @@ class Photo < ApplicationRecord
     end
   end
 
+  def image_url(version = :default)
+    return image.thumbnail.url if version == :thumbnail && image.thumbnail.file.exists?
+    return image.medium.url if (version == :medium || version == :thumbnail) && image.medium.file.exists?
+    image.url
+  end
+
 end

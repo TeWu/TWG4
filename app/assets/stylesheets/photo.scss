@@ -1,0 +1,11 @@
+@import 'config';
+
+.photo-thumbnail-img {
+  max-width: $photo-image-thumbnail-width;
+  max-height: $photo-image-thumbnail-height;
+}
+
+.photo-medium-img {
+  max-width: $photo-image-medium-width;
+  max-height: $photo-image-medium-height;
+}
