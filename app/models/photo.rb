@@ -3,8 +3,10 @@ class Photo < ApplicationRecord
   has_many :albums, through: :photo_in_albums
   has_many :comments
 
-  validates :image, presence: true, uniqueness: true, length: {maximum: 512}
+  validates :image, presence: true
   validates :description, allow_nil: true, length: {maximum: 1_000}
+
+  mount_uploader :image, PhotoUploader
 
 
   def save_and_add_to_album(album)

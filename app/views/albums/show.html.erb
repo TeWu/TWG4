@@ -11,7 +11,8 @@
 <table>
   <thead>
   <tr>
-    <th>#</th>
+    <th>id</th>
+    <th>image</th>
     <th>path</th>
     <th colspan="2">actions</th>
   </tr>
@@ -20,6 +21,7 @@
   <% for photo in @album.photos do %>
     <tr>
       <td><%= photo.id %></td>
+      <td><%= link_to image_tag(photo.image.thumbnail.url), [@album, photo] %></td>
       <td><%= link_to photo.image, [@album, photo] %></td>
       <td><%= link_to "Remove from album", remove_photo_from_album_path(@album, photo), method: :delete %></td>
       <td><%= destroy_link [@album, photo] %></td>

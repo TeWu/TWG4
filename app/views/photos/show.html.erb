@@ -1,9 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Path:</strong>
-  <%= @photo.image %>
-</p>
+<%= image_tag @photo.image.medium.url %>
 
 <p>
   <strong>Description:</strong>

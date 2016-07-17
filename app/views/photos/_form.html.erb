@@ -1,4 +1,4 @@
-<%= simple_form_for [@album, photo], validate: true do |f| %>
+<%= simple_form_for [@album, photo], validate: true, html: {multipart: true} do |f| %>
   <section class="form-fields">
     <%= field_set do %>
       <%= f.input :image %>
