@@ -34,6 +34,7 @@ group :development do
 end
 
 gem 'argon2' # Password hashing with Argon2 - OWASP recommended algorithm and the Password Hashing Competition winner https://github.com/P-H-C/phc-winner-argon2
+gem 'cancancan', github: 'CanCanCommunity/cancancan', branch: 'develop' # For authorization. Using develop branch for as much Rails 5 support as possible.
 
 # Forms related gems
 gem 'simple_form'
