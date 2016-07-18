@@ -6,6 +6,10 @@ class AlbumsController < ApplicationController
     @new_album = @album || Album.new(owner: current_user)
   end
 
+  def show
+    @photos = @album.ordered_photos.page(params[:page])
+  end
+
   def create
     @album = Album.new(album_params)
 

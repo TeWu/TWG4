@@ -8,6 +8,8 @@ class Photo < ApplicationRecord
 
   mount_uploader :image, PhotoUploader
 
+  paginates_per 5
+
 
   def save_and_add_to_album(album)
     convert_exception_to_boolean do

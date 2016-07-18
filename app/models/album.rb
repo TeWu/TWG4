@@ -7,6 +7,11 @@ class Album < ApplicationRecord
   validates :owner, presence: true, on: :create
 
 
+  def ordered_photos
+    pia = PhotoInAlbum.table_name
+    Photo.joins(:photo_in_albums).where(pia => {album_id: id}).order("#{pia}.display_order ASC")
+  end
+
   def add_photo!(photo)
     photo_in_albums.create! photo: photo, display_order: position_to_add_photo
   end
