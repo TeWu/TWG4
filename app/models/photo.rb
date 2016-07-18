@@ -1,7 +1,7 @@
 class Photo < ApplicationRecord
   has_many :photo_in_albums, dependent: :destroy
   has_many :albums, through: :photo_in_albums
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   validates :image, presence: true
   validates :description, allow_nil: true, length: {maximum: 1_000}
