@@ -24,6 +24,15 @@ class User < ApplicationRecord
     return nil
   end
 
+  def self.guest_ability
+    @guest_ability ||= Ability.new(nil)
+  end
+
+  def ability
+    @ability ||= Ability.new(self)
+  end
+  delegate :can?, :cannot?, to: :ability
+
   def has_role?(role)
     roles.include? role
   end

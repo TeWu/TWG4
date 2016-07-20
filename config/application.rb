@@ -13,6 +13,6 @@ module Twg4
     # -- all .rb files in that directory are automatically loaded.
 
     # Autoloading paths
-    config.autoload_paths << "#{Rails.root}/lib"
+    config.autoload_paths += ['lib', 'config/abilities'].map { |p| config.root + p }
   end
 end

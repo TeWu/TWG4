@@ -1,5 +1,6 @@
 class AuthController < ApplicationController
   layout 'login_page'
+  skip_authorization_check
   before_action :set_auth
 
 
@@ -25,10 +26,6 @@ class AuthController < ApplicationController
 
   def set_auth
     @auth = TWG4::Auth.new(cookies)
-  end
-
-  def bypass_authentication_check?
-    true
   end
 
 end
