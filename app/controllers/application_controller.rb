@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include NestedAuthorizationCheckers
   protect_from_forgery with: :exception
   check_authorization
   helper_method :current_user, :logged_in?
