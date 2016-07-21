@@ -33,11 +33,11 @@ class PhotosInAlbumsController < ApplicationController
   private
 
   def set_album
-    @album = Album.find(params[:id])
+    @album = Album.find(params.require(:id))
   end
 
   def set_photo
-    @photo = Photo.find(params[:photo_id])
+    @photo = Photo.find(params.require(:photo_id))
   end
 
 end

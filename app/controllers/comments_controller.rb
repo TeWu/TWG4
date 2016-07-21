@@ -48,12 +48,12 @@ class CommentsController < ApplicationController
   end
 
   def set_comment
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find(params.require(:id))
   end
 
   def set_album_and_photo
-    @album = Album.find(params[:album_id])
-    @photo = Photo.find(params[:photo_id])
+    @album = Album.find(params.require(:album_id))
+    @photo = Photo.find(params.require(:photo_id))
   end
 
 end
