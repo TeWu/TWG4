@@ -1,18 +1,22 @@
 class AlbumsController < ApplicationController
-  before_action :set_album, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource except: :index
 
+
+  # NOTE: Called from +create+
   def index
-    @albums = Album.all
-    @new_album = @album || Album.new(owner: current_user)
+    authorize! :index, Album
+    @albums = Album.accessible_by(current_ability)
+    if can? :new, Album
+      @new_album = @album || Album.new(current_ability.attributes_for(:new, Album).merge(owner: current_user))
+    end
   end
 
   def show
-    @photos = @album.ordered_photos.page(params[:page])
+    authorize! :index, Photo
+    @photos = @album.ordered_photos.accessible_by(current_ability).page(params[:page])
   end
 
   def create
-    @album = Album.new(album_params)
-
     respond_to do |format|
       if @album.save
         format.html { redirect_to @album, notice: "Album was successfully created." }
@@ -49,10 +53,6 @@ class AlbumsController < ApplicationController
 
 
   private
-
-  def set_album
-    @album = Album.find(params[:id])
-  end
 
   def album_params
     params.require(:album).permit(:name, :owner_id)

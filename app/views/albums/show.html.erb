@@ -1,10 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @album.name %></h1>
-<div>
-  <%= link_to "Add new photo", new_album_photo_path(@album) %> |
-  <%= link_to "Add existing photo", add_photo_to_album_path(@album) %>
-</div>
+<% if can? :edit, @album or can? :add_new_photo, @album or can? :add_existing_photo, @album %>
+  <div><%= [edit_link(@album), add_new_photo_link(@album), add_existing_photo_link(@album)].compact.join(" | ").html_safe %></div>
+<% end %>
 <hr/>
 
 <%= paginate @photos %>
@@ -23,14 +22,11 @@
   <% for photo in @photos do %>
     <tr>
       <td><%= photo.id %></td>
-      <td><%= link_to photo_image(photo, :thumbnail), [@album, photo] %></td>
-      <td><%= link_to photo.image, [@album, photo] %></td>
-      <td><%= link_to "Remove from album", remove_photo_from_album_path(@album, photo), method: :delete %></td>
+      <td><%= link_to photo_image(photo, :thumbnail), [@album, photo] if can? :show, photo %></td>
+      <td><%= link_to photo.image, [@album, photo] if can? :show, photo %></td>
+      <td><%= remove_photo_link @album, photo %></td>
       <td><%= destroy_link [@album, photo] %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
-
-<%= link_to 'Edit', edit_album_path(@album) %> |
-<%= link_to 'Back', albums_path %>
