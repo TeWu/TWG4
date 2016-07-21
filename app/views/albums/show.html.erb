@@ -25,8 +25,8 @@
       <td><%= photo.id %></td>
       <td><%= link_to photo_image(photo, :thumbnail), [@album, photo] %></td>
       <td><%= link_to photo.image, [@album, photo] %></td>
-      <td><%= link_to "Remove from album", remove_photo_from_album_path(@album, photo), method: :delete %></td>
-      <td><%= destroy_link [@album, photo] %></td>
+      <td><%= destroy_button remove_photo_from_album_path(@album, photo), "Remove from album" %></td>
+      <td><%= destroy_button [@album, photo] %></td>
     </tr>
   <% end %>
   </tbody>

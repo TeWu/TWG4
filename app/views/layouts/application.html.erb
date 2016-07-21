@@ -11,7 +11,7 @@
 <body>
 <div>
   <% if logged_in? %>
-    Logged in as <strong><%= current_user.display_name %></strong> | <%= link_to "Log out", logout_url, method: :delete %>
+    Logged in as <strong><%= current_user.display_name %></strong> | <%= destroy_button logout_url, "Log out" %>
   <% end %>
 </div>
 <hr/>

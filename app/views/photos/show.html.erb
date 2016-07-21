@@ -14,7 +14,7 @@
   <% for comment in @photo.comments %>
     <li>
       <strong><%= comment.author.display_name %>:</strong> <%= comment.content %><br/>
-      <%= edit_link [@album, @photo, comment] %> <%= destroy_link [@album, @photo, comment] %>
+      <%= edit_link [@album, @photo, comment] %> <%= destroy_button [@album, @photo, comment], data: {confirm: nil} %>
     </li>
   <% end %>
 </ul>

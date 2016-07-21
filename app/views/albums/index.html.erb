@@ -18,7 +18,7 @@
       <td><%= album.owner ? album.owner.display_name : "- NONE -" %></td>
       <td><%= link_to 'Show', album %></td>
       <td><%= link_to 'Edit', edit_album_path(album) %></td>
-      <td><%= link_to 'Destroy', album, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      <td><%= destroy_button album %></td>
     </tr>
   <% end %>
   </tbody>
