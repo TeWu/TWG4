@@ -9,11 +9,25 @@
 </head>
 
 <body>
-<div>
-  <% if logged_in? %>
-    Logged in as <strong><%= current_user.display_name %></strong> | <%= link_to "Log out", logout_url, method: :delete %>
-  <% end %>
-</div>
+<section style="display: -webkit-flex; display: flex;">
+  <nav style="width: 200px; -webkit-flex: 1; flex: 1;">
+    <%=
+      quick_nav = [link_to("Albums", albums_path)]
+      quick_nav << link_to(@album.name, @album) if @album
+      quick_nav << link_to("Photo", [@album, @photo]) if @album and @photo
+      quick_nav.join(" / ").html_safe
+    %>
+  </nav>
+  <section style="-webkit-flex: 1; flex: 1;text-align: right;">
+    <% if logged_in? %>
+      <% if can? :index, User %>
+        <%= link_to "Users", users_path %> |
+      <% end %>
+      Logged in as <strong><%= current_user.display_name %></strong> | <%= link_to "Log out", logout_url, method: :delete %>
+    <% end %>
+  </section>
+</section>
+
 <hr/>
 <%= yield %>
 <pre><%= cookies.encrypted[TWG4::Auth::COOKIE_NAME].inspect %></pre>
