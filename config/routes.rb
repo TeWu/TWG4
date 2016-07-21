@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: redirect('albums')
+  root to: 'auth#root'
 
   get 'login' => 'auth#login_page'
   post 'login' => 'auth#login'

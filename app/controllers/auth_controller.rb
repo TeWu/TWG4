@@ -1,7 +1,11 @@
 class AuthController < ApplicationController
   layout 'login_page'
-  before_action :set_auth
+  before_action :set_auth, except: :root
 
+
+  def root
+    redirect_to (logged_in? ? albums_path : login_path)
+  end
 
   def login
     credentials = params.require(:credentials)
