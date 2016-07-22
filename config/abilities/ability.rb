@@ -1,11 +1,11 @@
 class Ability < BaseAbility
   protected
 
-  def logged_in(user)
+  def logged_in user
   end
 
-  def active(user)
-    logged_in(user)
+  def active user
+    logged_in user
     can :read, Album
     can :read, Photo
     can :modify, Comment, author_id: user.id
@@ -13,8 +13,8 @@ class Ability < BaseAbility
     can :remove_photo, Album
   end
 
-  def moderator(user)
-    active(user)
+  def moderator
+    active user
     can :manage, Comment
     can :add_photo, Album
     can :remove_photo, Album

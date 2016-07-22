@@ -1,7 +1,10 @@
 class BaseAbility
   include CanCan::Ability
 
+  attr_reader :user
+
   def initialize(user)
+    @user = user
     create_action_aliases
     user ? draw(user) : draw_guest
   end
@@ -12,7 +15,8 @@ class BaseAbility
   def draw(user)
     logged_in(user)
     for role in user.roles
-      self.send(role, user)
+      m = method(role)
+      m.arity == 1 ? m.call(user) : m.call
     end
   end
 
@@ -48,8 +52,8 @@ class BaseAbility
   end
 
   def can(action = nil, *args)
-    msg = banned_actions[action.to_sym]
-    raise "Action :#{action} is banned; you can't use it when defining abilities. Reason: #{msg}." if msg
+    banned_action = (banned_actions.keys & [action].flatten.map(&:to_sym)).first
+    raise "Action :#{banned_action} is banned; you can't use it when defining abilities. Reason: #{banned_actions[banned_action]}." if banned_action
     super(action, *args)
   end
 
