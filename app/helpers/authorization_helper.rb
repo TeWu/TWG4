@@ -13,8 +13,11 @@ module AuthorizationHelper
 
   def minimize_possible_nesting(nested_subject)
     *nesting, subject = nested_subject
-    return [nesting.last, subject] if nesting.present? and nesting.none? { |s| s.is_a? Module }
-    nested_subject
+    if nesting.present? and nesting.all? { |s| s.is_a? ActiveRecord::Base }
+      subject.is_a?(Module) ? [nesting.last, subject] : subject
+    else
+      nested_subject
+    end
   end
 
 end
