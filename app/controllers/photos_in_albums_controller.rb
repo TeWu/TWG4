@@ -4,12 +4,12 @@ class PhotosInAlbumsController < ApplicationController
 
 
   def new
-    authorize! :add_existing_photo, @album
+    authorize! :add_photo, @album
     @photo_in_album = PhotoInAlbum.new
   end
 
   def create
-    authorize! :add_existing_photo, @album
+    authorize! :add_photo, @album
     @photo_in_album = @album.build_photo_in_album(@photo)
 
     respond_to do |format|

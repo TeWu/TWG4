@@ -9,7 +9,7 @@ class Ability < BaseAbility
     can :read, Album
     can :read, Photo
     can :modify, Comment, author_id: user.id
-    can :add_existing_photo, Album
+    can :add_photo, Album
     can :remove_photo, Album
   end
 
@@ -37,8 +37,6 @@ class Ability < BaseAbility
         :update => %i[ edit show ],
         :modify => %i[ update destroy ],
         :crud => %i[ create read update destroy ],
-
-        :add_photo => [:add_new_photo, :add_existing_photo]
     }
   end
 
