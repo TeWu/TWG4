@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<div><%= [edit_link([@album, @photo]), destroy_link([@album, @photo])].compact.join(" | ").html_safe %></div>
+
 <%= photo_image @photo, :medium %>
 <pre><%= "#{photo_image @photo, :medium}" %></pre>
 
@@ -9,19 +11,20 @@
 </p>
 
 <hr/>
+
 <h2>Comments:</h2>
-<ul>
-  <% for comment in @photo.comments %>
-    <li>
-      <strong><%= comment.author.display_name %>:</strong> <%= comment.content %><br/>
-      <%= edit_link [@album, @photo, comment] %> <%= destroy_link [@album, @photo, comment] %>
-    </li>
-  <% end %>
-</ul>
+<% if can? :show, @photo => Comment %>
+  <ul>
+    <% for comment in @photo.comments.accessible_by(current_ability, :show) %>
+      <li>
+        <strong><%= comment.author.try(:display_name) || "- USER DELETED -" %>:</strong> <%= comment.content %><br/>
+        <%= edit_link [@album, @photo, comment] %> <%= destroy_link [@album, @photo, comment] %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
 
-<h2>Add comment</h2>
-<%= render 'comments/form', comment: @new_comment %>
-
-
-<%= link_to 'Edit', edit_album_photo_path(@album, @photo) %> |
-<%= link_to 'Back', @album %>
+<% if can? :new, @photo => Comment %>
+  <h2>Add comment</h2>
+  <%= render 'comments/form', comment: @new_comment %>
+<% end %>
