@@ -2,6 +2,7 @@ class Ability < BaseAbility
   protected
 
   def logged_in user
+    can :read, main_models
   end
 
   def active user
@@ -22,6 +23,8 @@ class Ability < BaseAbility
 
   def admin(*)
     can :manage, main_models
+    can :manage, User
+    cannot :destroy, :all
   end
 
   def super_admin(*)
@@ -33,8 +36,9 @@ class Ability < BaseAbility
   def action_aliases
     {
         :read => %i[ index show ],
-        :create => %i[ new show ],
-        :update => %i[ edit show ],
+        :create => :new,
+        :update => :edit,
+        :delete => :destroy,
         :modify => %i[ update destroy ],
         :crud => %i[ create read update destroy ],
     }
