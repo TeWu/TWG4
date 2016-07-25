@@ -19,7 +19,7 @@ module CrudLinksHelper
 
   def destroy_button(object, content = "Destroy", **options)
     defaults = {method: :delete, data: {confirm: "Are you sure?"}, class: :destroy_button, form: {class: :destroy_button_form}}
-    button_to(content, object, defaults.deep_merge(options)) if soft_can? :destroy, object
+    button_to(content, object, defaults.deep_merge(options)) if object.class == String or soft_can? :destroy, object
   end
 
 end
