@@ -16,3 +16,4 @@
 
 # Uploaded files
 /public/uploads/*
+!public/uploads/photo_images/.keep
