@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/CanCanCommunity/cancancan.git
+  revision: f59ce6dfbdd9e405d4293a3f6a74e56ef5a17d24
+  branch: develop
+  specs:
+    cancancan (1.15.0)
+
+GIT
   remote: git://github.com/DavyJonesLocker/client_side_validations.git
   revision: 968e614c6a79fcd8ea55dad4aca3c4175e415870
   branch: rails5
@@ -208,6 +215,7 @@ PLATFORMS
 DEPENDENCIES
   argon2
   byebug
+  cancancan!
   carrierwave
   client_side_validations!
   client_side_validations-simple_form!

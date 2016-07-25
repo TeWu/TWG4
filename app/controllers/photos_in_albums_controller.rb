@@ -4,10 +4,12 @@ class PhotosInAlbumsController < ApplicationController
 
 
   def new
+    authorize! :add_photo, @album
     @photo_in_album = PhotoInAlbum.new
   end
 
   def create
+    authorize! :add_photo, @album
     @photo_in_album = @album.build_photo_in_album(@photo)
 
     respond_to do |format|
@@ -22,6 +24,7 @@ class PhotosInAlbumsController < ApplicationController
   end
 
   def destroy
+    authorize! :remove_photo, @album
     PhotoInAlbum.get(@album, @photo).destroy
     respond_to do |format|
       format.html { redirect_to @album, notice: "Photo was successfully removed from album." }

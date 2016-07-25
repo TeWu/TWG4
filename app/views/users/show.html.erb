@@ -15,5 +15,4 @@
   <%= @user.passhash %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div><%= [edit_link(@user), destroy_button(@user)].compact.join(" | ").html_safe %></div>

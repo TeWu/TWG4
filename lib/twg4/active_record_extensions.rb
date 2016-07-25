@@ -11,6 +11,10 @@ module TWG4
             .first
       end
 
+      def persisted
+        select(&:persisted?)
+      end
+
     end
   end
 end

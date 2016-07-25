@@ -15,9 +15,9 @@
   <% @albums.each do |album| %>
     <tr>
       <td><%= album.name %></td>
-      <td><%= album.owner ? album.owner.display_name : "- NONE -" %></td>
-      <td><%= link_to 'Show', album %></td>
-      <td><%= link_to 'Edit', edit_album_path(album) %></td>
+      <td><%= album.owner.try(:display_name) || "- NONE -" %></td>
+      <td><%= show_link album %></td>
+      <td><%= edit_link album %></td>
       <td><%= destroy_button album %></td>
     </tr>
   <% end %>
@@ -26,7 +26,9 @@
 
 <hr/>
 
-<section>
-  <h1>New Album</h1>
-  <%= render 'form', album: @new_album %>
-</section>
+<% if can? :new, Album %>
+  <section>
+    <h1>New Album</h1>
+    <%= render 'form', album: @new_album %>
+  </section>
+<% end %>

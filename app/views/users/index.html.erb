@@ -18,14 +18,13 @@
       <td><%= user.display_name %></td>
       <td><%= user.username %></td>
       <td><%= user.passhash %></td>
-      <td><%= link_to 'Show', user %></td>
-      <td><%= link_to 'Edit', edit_user_path(user) %></td>
-      <td><%= link_to 'Destroy', user, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      <td><%= show_link user %></td>
+      <td><%= edit_link user %></td>
+      <td><%= destroy_button user %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New User', new_user_path %>
+<%= create_link User %>

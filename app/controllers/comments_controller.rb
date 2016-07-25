@@ -1,10 +1,12 @@
 class CommentsController < ApplicationController
-  before_action :set_album_and_photo
-  before_action :set_comment, only: [:edit, :update, :destroy]
+  load_and_authorize_resource :album
+  load_and_authorize_resource :photo, through: :album
+  load_and_authorize_resource :comment, through: :photo, except: :create
 
 
   def create
     @comment = @photo.comments.build content: comment_content, author: current_user
+    authorize! :create, @comment
 
     respond_to do |format|
       if @comment.save
@@ -44,16 +46,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_content
-    params.require(:comment)[:content]
-  end
-
-  def set_comment
-    @comment = Comment.find(params.require(:id))
-  end
-
-  def set_album_and_photo
-    @album = Album.find(params.require(:album_id))
-    @photo = Photo.find(params.require(:photo_id))
+    params.require(:comment).require(:content)
   end
 
 end
