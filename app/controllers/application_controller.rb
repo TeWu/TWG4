@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include TWG4::Authentication::ControllerExtensions
   include NestedAuthorizationCheckers
   protect_from_forgery with: :exception
   check_authorization
