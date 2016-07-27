@@ -1,0 +1,18 @@
+
+#notifications {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+#notifications span {
+  padding: 2px 8px;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#notice { background-color: #3ea425; }
+
+#alert { background-color: #b51414; }
