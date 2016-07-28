@@ -12,10 +12,6 @@ class Album < ApplicationRecord
     Photo.joins(:photo_in_albums).where(pia => {album_id: id}).order("#{pia}.display_order ASC")
   end
 
-  def add_photo!(photo)
-    photo_in_albums.create! photo: photo, display_order: position_to_add_photo
-  end
-
   def build_photo_in_album(photo)
     photo_in_albums.build photo: photo, display_order: position_to_add_photo
   end

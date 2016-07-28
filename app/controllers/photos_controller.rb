@@ -9,8 +9,11 @@ class PhotosController < ApplicationController
   end
 
   def create
+    authorize! :add_new_photo, @album
+    @photo.photo_in_albums.first.display_order = @album.position_to_add_photo
+
     respond_to do |format|
-      if @photo.save_and_add_to_album(@album)
+      if @photo.save
         format.html { redirect_to [@album, @photo], notice: "Photo was successfully created." }
         format.json { render :show, status: :created, location: @photo }
       else

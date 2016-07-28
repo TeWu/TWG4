@@ -6,8 +6,7 @@ class Ability < BaseAbility
   end
 
   def active user
-    can :create, [Album, Comment]
-    can :create, Photo, album: {owner: user}
+    can :create, main_models
     can :modify, Album, owner: user
     can :modify, Comment, author: user
   end
@@ -35,8 +34,10 @@ class Ability < BaseAbility
         :create => :new,
         :update => :edit,
         :delete => :destroy,
-        :modify => %i[ update destroy add_photo remove_photo ],
+        :modify => %i[ update destroy add_new_photo add_existing_photo remove_photo ],
         :crud => %i[ create read update destroy ],
+
+        :add_photo => [:add_new_photo, :add_existing_photo]
     }
   end
 

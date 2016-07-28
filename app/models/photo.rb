@@ -11,15 +11,6 @@ class Photo < ApplicationRecord
   paginates_per 5
 
 
-  def save_and_add_to_album(album)
-    convert_exception_to_boolean do
-      transaction do
-        save!
-        album.add_photo! self
-      end
-    end
-  end
-
   def image_url(version = :default)
     return image.thumbnail.url if version == :thumbnail and image.thumbnail.file.exists?
     return image.medium.url if version.in? %i[ medium thumbnail ] and image.medium.file.exists?
