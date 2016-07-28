@@ -17,9 +17,7 @@ class Ability < BaseAbility
   end
 
   def admin(*)
-    can :manage, main_models
-    can :manage, User
-    cannot :destroy, :all
+    can :manage, main_models + [User]
   end
 
   def super_admin(*)
