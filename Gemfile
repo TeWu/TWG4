@@ -50,3 +50,6 @@ gem 'mini_magick' # For image processing
 gem 'carrierwave' # For image upload and processing automation
 
 gem 'kaminari' # For pagination
+
+gem 'autoprefixer-rails' # Adds vendor prefixes to CSS rules, using the Asset Pipeline
+gem 'bootstrap-sass' # Bootstrap framework
