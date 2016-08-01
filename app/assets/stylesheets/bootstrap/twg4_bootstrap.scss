@@ -6,13 +6,14 @@
 @import 'bootstrap-sprockets';
 
 //// Core variables and mixins
+@import "twg4_variables";
 @import "themes/cyborg/variables";
 @import "bootstrap/mixins";
 
 //// Reset and dependencies
 //@import "bootstrap/normalize";
 //@import "bootstrap/print";
-//@import "bootstrap/glyphicons";
+@import "bootstrap/glyphicons";
 
 //// Core CSS
 //@import "bootstrap/scaffolding";
@@ -21,7 +22,7 @@
 //@import "bootstrap/grid";
 //@import "bootstrap/tables";
 //@import "bootstrap/forms";
-//@import "bootstrap/buttons";
+@import "bootstrap/buttons";
 
 //// Components
 //@import "bootstrap/component-animations";
@@ -48,7 +49,7 @@
 
 //// Components w/ JavaScript
 //@import "bootstrap/modals";
-//@import "bootstrap/tooltip";
+@import "bootstrap/tooltip";
 //@import "bootstrap/popovers";
 //@import "bootstrap/carousel";
 

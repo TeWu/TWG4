@@ -1,0 +1,96 @@
+@import 'flexbox';
+
+html, body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: $body-min-width;
+  background-color: $body-bg-color;
+  color: $body-text-color;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body > header {
+  display: flex;
+  height: $header-height;
+  @include gradient-vertical(darken($header-bg-color, 5%), $header-bg-color);
+  border-bottom: solid 1px darken($header-bg-color, 6%);
+  font-size: $header-text-size;
+  font-weight: bold;
+
+  & > * { @include center-items-vertically; }
+
+  #logo {
+    padding: 0 30px;
+
+    h1 {
+      margin: 0;
+      font-size: 260%;
+      color: change-color($base-color, $lightness: 75%, $saturation: 30%, $alpha: 0.9);
+      text-shadow: 2px 1px 1px black, 1px 2px 3px black,
+      10px -3px 20px $header-logo-shadow-color,
+      -11px -3px 20px $header-logo-shadow-color,
+      7px -13px 24px adjust-hue($header-logo-shadow-color, 44%);
+    }
+  }
+
+  #album-menu {
+    padding: 0 10px;
+  }
+
+  .spacer { flex: 1 }
+
+  #pages-menu {
+    ul {
+      display: flex;
+      list-style: none;
+
+      li a {
+        padding: 0 8px;
+        color: $body-text-color;
+        text-decoration: none;
+
+        &:hover { color: saturate(lighten($body-text-color, 20%), 10%); }
+      }
+    }
+  }
+
+  #user-menu {
+    padding: 0 10px 0 30px;
+
+    .user-controls {
+      height: $header-control-group-height;
+      overflow: hidden;
+      border: 1px solid $header-control-group-border-color;
+      border-radius: 5px;
+      color: black;
+      background-color: $header-control-group-bg-color;
+      @include center-items-vertically;
+    }
+
+    .user-name { padding: 0 7px 0 10px; }
+    .btn { border-radius: 0; }
+  }
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 27px 0;
+  background-color: $content_bg_color;
+  border-style: solid;
+  border-width: 0 0 7px 0;
+  border-color: lighten($content_bg_color, 3%);
+  border-radius: 6px;
+}
+
+body > footer {
+  height: $footer-height;
+  padding: 10px;
+  font-size: 84%;
+  text-align: center;
+}

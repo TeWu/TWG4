@@ -1,0 +1,41 @@
+<section id="logo">
+  <h1><%= twg4 %></h1>
+</section>
+
+<nav id="album-menu">
+  <ul class="breadcrumb">
+    <%=
+      nav = [link_to("Albums", albums_path)]
+      nav << link_to(@album.name, @album) if @album
+      nav << link_to("Photo", [@album, @photo]) if @album and @photo
+      nav.map { |x| content_tag :li, x }.join.html_safe
+    %>
+  </ul>
+</nav>
+
+<nav id="context-menu">
+  <%= yield :context_menu %>
+</nav>
+
+<div class="spacer"></div>
+
+<nav id="pages-menu">
+  <ul>
+    <%=
+      nav = []
+      nav << link_to("Users", users_path) if can? :index, User
+      nav.map { |x| content_tag :li, x }.join.html_safe
+    %>
+  </ul>
+</nav>
+
+<% if logged_in? %>
+  <nav id="user-menu">
+    <div class="user-controls" role="group">
+      <span class="user-name"><%= current_user.display_name %></span>
+      <%= destroy_button logout_url, class: "btn btn-default", 'data-toggle': "tooltip", 'data-placement': "bottom", title: "Log&nbsp;out".html_safe do %>
+        <span class="glyphicon glyphicon-off"></span>
+      <% end %>
+    </div>
+  </nav>
+<% end %>

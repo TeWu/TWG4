@@ -1,0 +1,98 @@
+$bc_arrow_sharpness: 20px;
+$bc_arrow_length: 14px;
+$bc_arrow_vertical_position: 50%;
+
+$bc_height: $header-control-group-height;
+$bc_vertical_padding: 11px;
+$bc_top_padding: $bc_vertical_padding;
+$bc_bottom_padding: $bc_vertical_padding;
+$bc_element_left_padding: 10px;
+$bc_element_right_padding: 4px;
+$bc_first_element_left_padding: $bc_element_left_padding;
+$bc_last_element_right_padding: $bc_first_element_left_padding;
+
+$bc_color_border: $header-control-group-border-color;
+$bc_color_arrow: $bc_color_border;
+$bc_color_fill: $header-control-group-bg-color;
+$bc_color_fill_hover: lighten($bc_color_fill, 12%);
+$bc_color_fill_last_elem: lighten($bc_color_fill, 16%);
+$bc_color_text: #252525;
+$bc_color_text_last_elem: black;
+
+.breadcrumb {
+  height: $bc_height;
+  overflow: hidden;
+  padding: 0;
+  font-weight: bold;
+  list-style: none;
+  border: 1px solid $bc_color_border;
+  border-radius: 5px;
+
+  li {
+    float: left;
+
+    a {
+      display: block;
+      position: relative;
+      float: left;
+      padding: $bc_top_padding $bc_element_right_padding $bc_bottom_padding $bc_arrow_length + $bc_element_left_padding;
+      background: $bc_color_fill;
+      color: $bc_color_text;
+      text-decoration: none;
+
+      &:after {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: $bc_arrow_vertical_position;
+        left: 100%;
+        margin-top: -$bc_arrow_sharpness;
+        border-top: $bc_arrow_sharpness solid transparent; // Go big on the size, and let overflow hide
+        border-bottom: $bc_arrow_sharpness solid transparent;
+        border-left: $bc_arrow_length solid $bc_color_fill;
+        z-index: 2;
+      }
+
+      &:before {
+        content: " ";
+        display: block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: $bc_arrow_vertical_position;
+        left: 100%;
+        margin-top: -$bc_arrow_sharpness;
+        margin-left: 1px;
+        border-top: $bc_arrow_sharpness solid transparent; // Go big on the size, and let overflow hide
+        border-bottom: $bc_arrow_sharpness solid transparent;
+        border-left: $bc_arrow_length solid $bc_color_arrow;
+        z-index: 1;
+      }
+
+      &:hover { background: $bc_color_fill_hover; }
+      &:hover:after { border-left-color: $bc_color_fill_hover; }
+    }
+
+    &:first-child a {
+      padding-left: $bc_first_element_left_padding;
+    }
+
+    &:last-child a {
+      padding-right: $bc_last_element_right_padding;
+    }
+
+    &:nth-child(n+2):last-child a {
+      background: $bc_color_fill_last_elem !important;
+      color: $bc_color_text_last_elem;
+      pointer-events: none;
+      cursor: default;
+
+      &:after {
+        border: 0;
+      }
+    }
+
+  }
+}

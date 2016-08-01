@@ -9,7 +9,7 @@ module AlbumsHelper
   end
 
   def remove_photo_button(album, photo, content = "Remove from album", **options)
-    destroy_button(remove_photo_from_album_path(album, photo), content, **options) if can? :remove_photo, album
+    destroy_button(remove_photo_from_album_path(album, photo), content: content, **options) if can? :remove_photo, album
   end
 
 end

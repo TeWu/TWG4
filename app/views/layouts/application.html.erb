@@ -2,37 +2,25 @@
 <html lang="<%= locale %>">
 <head>
   <title>TWG4</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <%= csrf_meta_tags %>
-
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
-
 <body>
 
-<%= render 'notifications' %>
+<header>
+  <%= render 'notifications' %>
+  <%= render 'main_header' %>
+</header>
 
-<section style="display: -webkit-flex; display: flex;">
-  <nav style="width: 200px; -webkit-flex: 1; flex: 1;">
-    <%=
-      quick_nav = [link_to("Albums", albums_path)]
-      quick_nav << link_to(@album.name, @album) if @album
-      quick_nav << link_to("Photo", [@album, @photo]) if @album and @photo
-      quick_nav.join(" / ").html_safe
-    %>
-  </nav>
-  <section style="-webkit-flex: 1; flex: 1;text-align: right;">
-    <% if logged_in? %>
-      <% if can? :index, User %>
-        <%= link_to "Users", users_path %> |
-      <% end %>
-      Logged in as <strong><%= current_user.display_name %></strong> | <%= destroy_button logout_url, "Log out" %>
-    <% end %>
-  </section>
+<section id="content">
+  <%= yield %>
 </section>
 
-<hr/>
-<%= yield %>
-<pre><%= cookies.encrypted[TWG4::Authentication::AuthProxy::COOKIE_NAME].inspect %></pre>
+<footer>
+  <p><%= twg4 %> v<%= TWG4::VERSION %></p>
+</footer>
+
 </body>
 </html>

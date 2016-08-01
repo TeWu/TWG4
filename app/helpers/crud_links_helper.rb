@@ -17,9 +17,16 @@ module CrudLinksHelper
     link_to(content, [:edit, object].flatten) if soft_can? :edit, object
   end
 
-  def destroy_button(object, content = "Destroy", **options)
-    defaults = {method: :delete, data: {confirm: "Are you sure?"}, class: :destroy_button, form: {class: :destroy_button_form}}
-    button_to(content, object, defaults.deep_merge(options)) if object.class == String or soft_can? :destroy, object
+  def destroy_button(object, **options, &block)
+    if object.class == String or soft_can? :destroy, object
+      content = options.delete(:content) || "Destroy"
+      defaults = {method: :delete, data: {confirm: "Are you sure?"}, class: :destroy_button, form: {class: :destroy_button_form}}
+      if block_given?
+        button_to(object, defaults.deep_merge(options)) { yield block }
+      else
+        button_to(content, object, defaults.deep_merge(options))
+      end
+    end
   end
 
 end

@@ -1,7 +1,28 @@
-//---- Photo config ----//
+$base-color: #343333;
+
+//---- Layout config -----//
+$body-min-width: 750px;
+$body-text-color: darken(invert(change-color($base-color, $saturation: 0)), 3%);
+$body-bg-color: desaturate(darken($base-color, 15%), 30%);
+
+//---- Header ----//
+$header-height: 48px;
+$header-control-group-height: 37px;
+$header-text-size: 84%;
+$header-bg-color: desaturate($base-color, 5%);
+$header-logo-shadow-color: lighten(saturate($base-color, 100%), 30%);
+$header-control-group-bg-color: #999;
+$header-control-group-border-color: #000;
+
+//---- content ----//
+$content_bg_color: desaturate(darken($base-color, 13%), 78%);
+
+//---- Footer ----//
+$footer-height: 50px;
+
+//---- Photo config -----//
 $photo-image-thumbnail-width: <%= TWG4::CONFIG[:image_sizes][:thumbnail][:width] %>px;
 $photo-image-thumbnail-height: <%= TWG4::CONFIG[:image_sizes][:thumbnail][:height] %>px;
 
 $photo-image-medium-width: <%= TWG4::CONFIG[:image_sizes][:medium][:width] %>px;
 $photo-image-medium-height: <%= TWG4::CONFIG[:image_sizes][:medium][:height] %>px;
-//----------------------//
