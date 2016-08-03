@@ -7,4 +7,5 @@
 //= require bootstrap/twg4_bootstrap
 //
 // App:
+//= require table
 //= require form

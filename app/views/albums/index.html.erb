@@ -1,32 +1,23 @@
-<h1>Albums</h1>
+<% content_for :context_menu do %>
+  <%= button_to_modal_create_form @new_album, modal: {auto_open: @album.present?} %>
+<% end %>
 
-<table>
+<table id="albums" class="resources-list">
   <thead>
   <tr>
-    <th>Name</th>
+    <th>Album name</th>
+    <th>Photos</th>
     <th>Owner</th>
-    <th colspan="3"></th>
   </tr>
   </thead>
 
   <tbody>
   <% @albums.each do |album| %>
-    <tr>
-      <td><%= album.name %></td>
-      <td><%= album.owner.try(:display_name) || "- NONE -" %></td>
-      <td><%= show_link album %></td>
-      <td><%= edit_link album %></td>
-      <td><%= destroy_button album %></td>
+    <tr data-resource-url="<%= album_path(album) %>">
+      <td class="album-name"><%= show_link album, album.name %></td>
+      <td><%= album.photos.count %></td>
+      <td><%= album.owner.try(:display_name) %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
-
-<hr/>
-
-<% if can? :new, Album %>
-  <section>
-    <h1>New Album</h1>
-    <%= render 'form', album: @new_album %>
-  </section>
-<% end %>
