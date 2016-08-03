@@ -1,3 +1,4 @@
+<% self.title = "#{@photo.id} - #{@album.name}" %>
 <div><%= [edit_link([@album, @photo]), destroy_button([@album, @photo])].compact.join(" | ").html_safe %></div>
 
 <%= photo_image @photo, :medium %>

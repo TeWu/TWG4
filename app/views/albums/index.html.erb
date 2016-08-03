@@ -1,3 +1,4 @@
+<% self.title = "Albums" %>
 <% content_for :context_menu do %>
   <%= button_to_modal_create_form @new_album, modal: {auto_open: @album.present?} %>
 <% end %>

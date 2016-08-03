@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="<%= locale %>">
 <head>
-  <title>TWG4</title>
+  <title>Log in @ TWG4</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <%= csrf_meta_tags %>
-
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
-
 <body>
+
 <%= render 'notifications' %>
 <%= yield %>
+
 </body>
 </html>

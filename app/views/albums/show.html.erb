@@ -1,3 +1,4 @@
+<% self.title = @album.name %>
 <h1><%= @album.name %></h1>
 <div><%= [edit_link(@album), add_new_photo_link(@album), add_existing_photo_link(@album)].compact.join(" | ").html_safe %></div>
 <hr/>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<%= locale %>">
 <head>
-  <title>TWG4</title>
+  <title><%= title ? "#{title} @ " : "" %>TWG4</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
