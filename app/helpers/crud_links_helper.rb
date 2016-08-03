@@ -4,12 +4,38 @@ module CrudLinksHelper
     link_to(content, object) if soft_can? :show, object
   end
 
-  def create_link(object, content = nil)
-    if soft_can? :new, object
+  def create_button(object, **options, &block)
+    if options.delete(:skip_auth_check) or soft_can? :new, object
+      content = options.delete :content
+      location = options.delete :location
+      defaults = {class: "btn btn-create"}
+      html_options = defaults.deep_merge(options)
+
       model, super_model = object.is_a?(Array) ? object.reverse : object
-      model_class = model.is_a?(Class) ? model : model.class
-      content = "New #{model_class.name.humanize}" if content.blank?
-      link_to(content, [:new, super_model, model_class.name.underscore.to_sym].compact)
+      content = "New #{model.model_name.human.downcase}" if content.blank?
+      location_array = [:new, super_model, model.model_name.element.to_sym].compact
+
+      if block_given?
+        link_to(location || location_array, html_options) { yield block }
+      else
+        link_to(content, location || location_array, html_options)
+      end
+    end
+  end
+
+  def button_to_modal_create_form(object, **options, &block)
+    if soft_can? :new, object
+      resource_name = (object.is_a?(Array) ? object.last : object).model_name
+      modal_options = options.delete(:modal) || {}
+      modal_title = modal_options[:title] || "Create a new #{resource_name.human.downcase}"
+      modal_id = modal_title.dup.downcase!.gsub!(/[\s_]/, '-') + "-modal"
+      form_options = options.delete(:form) || {}
+      options.reverse_merge!(location: "#" + modal_id, 'data-toggle': "modal", skip_auth_check: true)
+      open_modal_script = modal_options[:auto_open] ? javascript_tag(%Q{$('##{modal_id}').modal('show');}) : ""
+
+      modal_form(resource: object, id: modal_id, title: modal_title, form_options: form_options) do |f|
+        field_set { render "#{resource_name.plural}/inputs", f: f }
+      end + open_modal_script + create_button(object, options, &block)
     end
   end
 
