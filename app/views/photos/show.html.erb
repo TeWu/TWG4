@@ -3,7 +3,7 @@
   <div><%= [edit_link([@album, @photo]), destroy_button([@album, @photo])].compact.join(" | ").html_safe %></div>
 <% end %>
 
-<div id="photo"></div>
+<div id="photo" data-scroll-snap></div>
 <section id="photo-image-container">
   <%= photo_image @photo, :medium %>
 </section>

@@ -1,4 +1,5 @@
-$(document).on 'turbolinks:load', ->
-  $(".resources-list tbody tr").click(->
-    window.location = @getAttribute("data-resource-url")
-  ).find("a").css('pointer-events', 'none')
+$(document).on 'click', '.resources-list tbody tr', ->
+  Turbolinks.visit(@getAttribute('data-resource-url'))
+
+$(document).on 'click', '.resources-list tbody tr a', (e) ->
+  e.preventDefault()
