@@ -1,13 +1,24 @@
 <% self.title = "#{@photo.id} - #{@album.name}" %>
-<div><%= [edit_link([@album, @photo]), destroy_button([@album, @photo])].compact.join(" | ").html_safe %></div>
+<% content_for :context_menu do %>
+  <div><%= [edit_link([@album, @photo]), destroy_button([@album, @photo])].compact.join(" | ").html_safe %></div>
+<% end %>
 
-<%= photo_image @photo, :medium %>
-<pre><%= "#{photo_image @photo, :medium}" %></pre>
+<div id="photo"></div>
+<section id="photo-image-container">
+  <%= photo_image @photo, :medium %>
+</section>
 
-<p>
-  <strong>Description:</strong>
-  <%= @photo.description %>
-</p>
+<section id="photo-info-and-ctrl">
+  <div id="photo-desc">
+    <%= @photo.description %>
+  </div>
+  <div id="photo-controls">
+    <div class="btn-group" role="group">
+      <button class="btn btn-default"><span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
+      <button class="btn btn-default">Next<span style="margin-left: 10px;" class="glyphicon glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
+    </div>
+  </div>
+</section>
 
 <hr/>
 <h2>Comments:</h2>

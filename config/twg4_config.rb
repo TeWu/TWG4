@@ -3,7 +3,7 @@ module TWG4
   CONFIG = {
       image_sizes: {
           thumbnail: {width: 170, height: 170},
-          medium: {width: 620, height: 620}
+          medium: {width: 1920, height: 1080}
       },
 
       # Roles are defined like 'role_name: position_in_roles_bitmask'.

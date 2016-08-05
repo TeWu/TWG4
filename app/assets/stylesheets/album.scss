@@ -4,7 +4,7 @@ $albums_border_color: lighten($base_color, 1%);
 
 table#albums {
   width: $body-min-width - 20px;
-  margin-bottom: 15px;
+  margin: 27px 0;
   background-color: $albums_bg_color;
   border: 5px solid $albums_border_color;
   border-radius: 6px;
