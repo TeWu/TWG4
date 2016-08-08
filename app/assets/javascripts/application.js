@@ -10,7 +10,9 @@
 // App:
 //= require core_extensions
 //= require setup
+//= require ajax
 //= require table
 //= require form
 //= require scroll_snap
+//= require grow_textarea
 //= require photo
