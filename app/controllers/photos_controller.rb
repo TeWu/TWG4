@@ -4,6 +4,7 @@ class PhotosController < ApplicationController
 
 
   def show
+    @comments = @photo.comments.accessible_by(current_ability, :show)
     @new_comment = @photo.comments.build(flash[:new_comment])
     @new_comment.valid? if flash[:new_comment]
   end
