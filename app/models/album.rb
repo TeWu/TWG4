@@ -25,4 +25,21 @@ class Album < ApplicationRecord
     photo_in_albums.maximum(:display_order)
   end
 
+
+  def prev_photo_id(current_photo)
+    neighbour_photo_id current_photo, true
+  end
+
+  def next_photo_id(current_photo)
+    neighbour_photo_id current_photo, false
+  end
+
+  def neighbour_photo_id(current_photo, is_prev)
+    rel, sort_order = is_prev ? ['<', 'DESC'] : ['>', 'ASC']
+    current_display_order = current_photo.photo_in_albums.find_by(album: self).display_order
+    PhotoInAlbum.where(["album_id = ? AND display_order #{rel} ?", id, current_display_order])
+        .order("display_order #{sort_order}")
+        .limit(1).pluck(:photo_id).first
+  end
+
 end

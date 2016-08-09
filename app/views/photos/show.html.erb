@@ -28,8 +28,8 @@
   </div>
   <div id="photo-controls">
     <div class="btn-group" role="group">
-      <button class="btn btn-default"><span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
-      <button class="btn btn-default">Next<span style="margin-left: 10px;" class="glyphicon glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
+      <a href="<%= prev_photo_path(@album, @photo) %>" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a>
+      <a href="<%= next_photo_path(@album, @photo) %>" class="btn btn-default">Next<span style="margin-left: 10px;" class="glyphicon glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a>
     </div>
   </div>
 </section>

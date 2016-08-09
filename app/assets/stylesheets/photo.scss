@@ -84,6 +84,13 @@
     }
 
   }
+
+  #photo-controls a[href=""] {
+    pointer-events: none;
+    color: fade_out($btn-default-color, 0.7);
+    background-color: fade_out($btn-default-bg, 0.7);
+    border-color: fade_out($btn-default-border, 0.9);
+  }
 }
 
 .photo-thumbnail-img {
