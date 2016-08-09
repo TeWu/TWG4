@@ -87,7 +87,7 @@ a.btn {
 }
 // Danger and error appear as red
 .btn-danger {
-  @include button-variant($body-text-color, mix($btn-danger-bg, $base-color, 40%), mix($btn-danger-border, $base-color, 40%), $btn-danger-color, $btn-danger-bg, $btn-danger-border);
+  @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
 }
 
 // TWG4 buttons
@@ -95,7 +95,12 @@ a.btn {
 .btn-create {
   @include button-variant($body-text-color, mix($btn-success-bg, $base-color, 40%), mix($btn-success-border, $base-color, 40%), $btn-success-color, $btn-success-bg, $btn-success-border);
 }
-
+.btn-edit {
+  @include button-variant($body-text-color, mix($btn-warning-bg, $base-color, 40%), mix($btn-warning-border, $base-color, 40%), $btn-warning-color, $btn-warning-bg, $btn-warning-border);
+}
+.btn-destroy {
+  @include button-variant($body-text-color, mix($btn-danger-bg, $base-color, 40%), mix($btn-danger-border, $base-color, 40%), $btn-danger-color, $btn-danger-bg, $btn-danger-border);
+}
 
 // Link buttons
 // -------------------------

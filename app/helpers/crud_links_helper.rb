@@ -45,8 +45,10 @@ module CrudLinksHelper
 
   def destroy_button(object, **options, &block)
     if object.class == String or soft_can? :destroy, object
-      content = options.delete(:content) || "Destroy"
-      defaults = {method: :delete, data: {confirm: "Are you sure?"}, class: :destroy_button, form: {class: :destroy_button_form}}
+      maybe_resource_human_name = suppress(Exception) { (object.is_a?(Array) ? object.last : object).model_name.human.downcase }
+      content = options.delete(:content) || "Destroy #{maybe_resource_human_name}".strip
+      confirm_msg = maybe_resource_human_name ? "Are you sure you want to #{content.downcase}?" : "Are you sure?"
+      defaults = {method: :delete, data: {confirm: confirm_msg}, class: 'btn btn-destroy', form: {class: :destroy_button_form}}
       if block_given?
         button_to(object, defaults.deep_merge(options)) { yield block }
       else
