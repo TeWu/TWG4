@@ -46,6 +46,7 @@ window.TWG4.photo.description_editor =
     t = @
     @desc.startEdit()
     $('#photo-desc-controls').hide 400, -> t.ctrl_buttons.show()
+    $.scrollSnap {condition_fn: -> not t.desc.textarea.is(':focus')}
   cancel: ->
     if @ctrl_buttons.are_enabled()
       @ctrl_buttons.hide -> $('#photo-desc-controls').show 400
