@@ -14,22 +14,18 @@
   <div id="photo-desc-buttons">
     <div id="photo-desc-spinner" style="display: none;"><%= render 'spinner' %></div>
     <div id="photo-desc-editor-controls">
-      <span id="save-desc-btn" style="display: none;" class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
-      <span id="cancel-desc-edit-btn" style="display: none;" class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+      <%= glyphicon 'ok', id: 'save-desc-btn', hidden: true %>
+      <%= glyphicon 'remove', id: 'cancel-desc-edit-btn', hidden: true %>
     </div>
     <div id="photo-desc-controls">
-      <% if soft_can? :update, [@album, @photo] %>
-        <span id="edit-desc-btn" class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span>
-      <% end %>
-      <% if @comments.any? %>
-        <span id="comment-indicator" class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span>
-      <% end %>
+      <%= glyphicon 'pencil', id: 'edit-desc-btn' if soft_can? :update, [@album, @photo] %>
+      <%= glyphicon 'comment', id: 'comment-indicator' if @comments.any? %>
     </div>
   </div>
   <div id="photo-controls">
     <div class="btn-group" role="group">
-      <a href="<%= prev_photo_path(@album, @photo) %>" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a>
-      <a href="<%= next_photo_path(@album, @photo) %>" class="btn btn-default">Next<span style="margin-left: 10px;" class="glyphicon glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a>
+      <a role="button" href="<%= prev_photo_path(@album, @photo) %>" class="btn btn-default"><%= glyphicon 'arrow-left' %></a>
+      <a role="button" href="<%= next_photo_path(@album, @photo) %>" class="btn btn-default">Next<%= glyphicon 'arrow-right', style: "margin-left: 10px" %></a>
     </div>
   </div>
 </section>

@@ -39,10 +39,10 @@
 
   #photo-description-textarea {
     color: $body-text-color;
-    background-color: transparent;
+    background: none;
     border: none;
     resize: none;
-    box-sizing: content-box;
+    box-sizing: border-box;
     overflow: auto;
     font-size: 130%;
 
@@ -64,25 +64,19 @@
       }
     }
 
-    #edit-desc-btn {
-      &:hover { color: #e7c217; }
-      &:active { color: #f6ee10; }
-    }
+    #edit-desc-btn { @include highlight-yellow }
     #save-desc-btn {
       color: #325520;
-      &:hover { color: #60d51d; }
-      &:active { color: #5df40e; }
+      @include highlight-green
     }
     #cancel-desc-edit-btn {
       color: #530e11;
-      &:hover { color: #d3212b; }
-      &:active { color: #ee1b2b; }
+      @include highlight-red
     }
     #comment-indicator {
       color: fade_out(#ee1b2b, 0.5);
       &:hover { color: fade_out(#ee1b2b, 0.2); }
     }
-
   }
 
   #photo-controls a[href=""] {

@@ -33,8 +33,8 @@
   <nav id="user-menu">
     <div class="user-controls" role="group">
       <span class="user-name"><%= current_user.display_name %></span>
-      <%= destroy_button logout_url, class: "btn btn-default", 'data-toggle': "tooltip", 'data-placement': "bottom", title: "Log&nbsp;out".html_safe do %>
-        <span class="glyphicon glyphicon-off"></span>
+      <%= destroy_button logout_url, class: "btn btn-default", title: "Log&nbsp;out".html_safe, 'data-toggle': "tooltip", 'data-placement': "bottom" do %>
+        <%= glyphicon 'off' %>
       <% end %>
     </div>
   </nav>

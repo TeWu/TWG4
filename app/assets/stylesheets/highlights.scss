@@ -1,0 +1,14 @@
+@mixin highlight-yellow {
+  &:hover { color: #e7c217; }
+  &:active { color: #f6ee10; }
+}
+
+@mixin highlight-green {
+  &:hover { color: #60d51d; }
+  &:active { color: #5df40e; }
+}
+
+@mixin highlight-red {
+  &:hover { color: #d3212b; }
+  &:active { color: #ee1b2b; }
+}

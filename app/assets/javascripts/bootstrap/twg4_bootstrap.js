@@ -1,4 +1,4 @@
-// require bootstrap/transition
+//= require bootstrap/transition
 // require bootstrap/alert
 // require bootstrap/button
 // require bootstrap/carousel
