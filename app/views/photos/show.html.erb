@@ -30,20 +30,19 @@
   </div>
 </section>
 
-<hr/>
-<h2>Comments:</h2>
-<% if can? :show, @photo => Comment %>
-  <ul>
-    <% for comment in @comments %>
-      <li>
-        <strong><%= comment.author.try(:display_name) || "- USER DELETED -" %>:</strong> <%= comment.content %><br/>
-        <%= edit_link [@album, @photo, comment] %> <%= destroy_button [@album, @photo, comment], data: {confirm: nil} %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<section id="comment-section">
+  <h3>Comments &#8226; <%= @comments.count %></h3>
 
-<% if can? :new, @photo => Comment %>
-  <h2>Add comment</h2>
-  <%= render 'comments/form', comment: @new_comment %>
-<% end %>
+  <% if can? :new, @photo => Comment %>
+    <%= render 'comments/form', comment: @new_comment %>
+    <hr/>
+  <% end %>
+
+  <section id="comments">
+    <% if can? :show, @photo => Comment %>
+      <% for comment in @comments %>
+        <%= render comment %>
+      <% end %>
+    <% end %>
+  </section>
+</section>

@@ -65,3 +65,5 @@ window.TWG4.photo.description_editor =
 $(document).on 'click', '#edit-desc-btn', -> TWG4.photo.description_editor.start()
 $(document).on 'click', '#save-desc-btn', -> TWG4.photo.description_editor.save()
 $(document).on 'click', '#cancel-desc-edit-btn', -> TWG4.photo.description_editor.cancel()
+
+$(document).on 'click', '#comment-indicator', -> $(window).scrollTo '#photo-info-and-ctrl', 200

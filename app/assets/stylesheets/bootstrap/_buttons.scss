@@ -95,6 +95,9 @@ a.btn {
 .btn-create {
   @include button-variant($body-text-color, mix($btn-success-bg, $base-color, 40%), mix($btn-success-border, $base-color, 40%), $btn-success-color, $btn-success-bg, $btn-success-border);
 }
+.btn-create-comment {
+  @include button-variant($body-text-color, mix($new-comment-glow-color, $base-color, 40%), mix($new-comment-border-color, $base-color, 40%), $body-text-color, darken($new-comment-glow-color, 16%), $new-comment-border-color);
+}
 .btn-edit {
   @include button-variant($body-text-color, mix($btn-warning-bg, $base-color, 40%), mix($btn-warning-border, $base-color, 40%), $btn-warning-color, $btn-warning-bg, $btn-warning-border);
 }

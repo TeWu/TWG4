@@ -1,12 +1,8 @@
-<%= simple_form_for [@album, @photo, comment], validate: true do |f| %>
-  <section class="form-fields">
-    <%= field_set do %>
-      <%= f.input :content %>
-    <% end %>
-  </section>
+<%= simple_form_for [@album, @photo, comment], wrapper: :minimalistic, html: {id: 'new-comment'} do |f| %>
+  <%= f.input :content, placeholder: "Drop a comment...", input_html: {rows: 3} %>
 
-  <hr/>
   <section class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :button, "Cancel", 'go-back': true, class: 'btn-sm btn-default' if comment.persisted? %>
+    <%= f.button :submit, class: 'btn-sm btn-create-comment' %>
   </section>
 <% end %>

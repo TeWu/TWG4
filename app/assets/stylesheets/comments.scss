@@ -1,0 +1,81 @@
+
+#comment-section {
+  width: $body-min-width - 30px;
+  margin-bottom: 27px;
+
+  h1, h2, h3, h4 {
+    color: darken($body-text-color, 10%);
+  }
+
+  form#new-comment {
+    textarea {
+      width: 100%;
+      padding: 7px;
+      margin-bottom: 5px;
+      box-sizing: border-box;
+      color: $body-text-color;
+      font-size: $comment-content-text-size;
+      background-color: lighten($body-bg-color, 5%);
+      border: 1px solid $new-comment-border-color;
+      box-shadow: 1px 1px 6px $new-comment-glow-color;
+      resize: none;
+
+      &:disabled { color: fade_out($body-text-color, 0.6) }
+    }
+
+    .form-actions {
+      text-align: right;
+    }
+  }
+
+  .comment {
+    margin: 15px 0;
+    overflow: hidden;
+    background-color: lighten($body-bg-color, 1%);
+    border: 1px solid #252627;
+    box-shadow: 1px 1px 3px #222;
+
+    & > header {
+      display: flex;
+      align-items: baseline;
+      overflow: hidden;
+      height: 22px;
+      padding: 4px 6px 0 6px;
+      color: darken($body-text-color, 20%);
+      font-size: $comment-header-text-size;
+      background-color: lighten($body-bg-color, 5%);
+
+      .user-name { font-weight: bold; }
+
+      .date {
+        margin-left: 10px;
+        color: darken($body-text-color, 35%);
+        font-size: 80%;
+      }
+
+      .comment-actions {
+        height: 13px;
+
+        .edit-comment, .destroy-comment {
+          padding: 1px 3px;
+          color: fade_out($body-text-color, 0.8);
+          text-decoration: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
+
+        .edit-comment { @include highlight-yellow }
+        .destroy-comment { @include highlight-red }
+      }
+    }
+
+    .comment-content {
+      margin: 8px 10px 12px 16px;
+      color: darken($body-text-color, 15%);
+      font-size: $comment-content-text-size;
+      line-height: 1.2;
+      white-space: pre-wrap;
+    }
+  }
+}

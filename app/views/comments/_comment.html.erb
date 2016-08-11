@@ -1,0 +1,14 @@
+<section id="cmnt<%= comment.id %>" class="comment">
+  <header>
+    <span class="user-name"><%= comment.author.try(:display_name) || "[USER DELETED]" %></span>
+    <span class="date" title="<%= comment.created_at.localtime.strftime("%d.%m.%Y %H:%M:%S") %>" data-toggle="tooltip" data-placement="right" data-delay="500">
+      <%= time_ago_in_words comment.created_at %> ago
+    </span>
+    <div class="spacer"></div>
+    <div class="comment-actions">
+      <%= edit_link [@album, @photo, comment], class: 'edit-comment' %>
+      <%= destroy_button [@album, @photo, comment], "Delete", class: 'destroy-comment' %>
+    </div>
+  </header>
+  <div class="comment-content"><%= comment.content %></div>
+</section>

@@ -22,6 +22,22 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :minimalistic,
+                  tag: :div,
+                  class: :field,
+                  error_class: :field_with_errors do |b|
+    # Form extensions
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+
+    # Form components
+    b.use :input
+    b.use :full_error, wrap_with: {tag: :span, class: :error}
+  end
 
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default

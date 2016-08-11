@@ -6,6 +6,8 @@ class Comment < ApplicationRecord
   validates :author, presence: true, on: :create
   validates :photo, presence: true
 
+  before_validation { self.content = content.strip }
+
 
   def max_length
     Comment.max_length(:content)
