@@ -1,8 +1,8 @@
-<section id="notifications">
+<section id="notifications" class="sticky">
   <% if flash.notice %>
-    <span id="notice"><%= flash.notice %></span>
+    <span id="notice"><%= glyphicon 'ok' %><%= flash.notice %><span class="close-notification">&times;</span></span>
   <% end %>
   <% if flash.alert %>
-    <span id="alert"><%= flash.alert %></span>
+    <span id="alert"><%= glyphicon 'alert' %><%= flash.alert %><span class="close-notification">&times;</span></span>
   <% end %>
 </section>

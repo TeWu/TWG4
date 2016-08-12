@@ -13,6 +13,7 @@
 //= require core_extensions
 //= require utils
 //= require ajax
+//= require notifications
 //= require table
 //= require form
 //= require scroll_snap

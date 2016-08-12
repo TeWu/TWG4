@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to [@album, @photo], notice: "Comment was successfully created." }
+        format.html { redirect_to [@album, @photo], notice: "Comment created successfully" }
         format.json { render json: @comment, status: :created, location: [@album, @photo] }
       else
         format.html do
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(content: comment_content)
-        format.html { redirect_to [@album, @photo], notice: "Comment was successfully updated." }
+        format.html { redirect_to [@album, @photo], notice: "Comment updated successfully" }
         format.json { render json: @comment, status: :ok, location: [@album, @photo] }
       else
         format.html { render :edit }
@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to [@album, @photo], notice: "Comment was successfully destroyed." }
+      format.html { redirect_to [@album, @photo], notice: "Comment deleted successfully" }
       format.json { head :no_content }
     end
   end

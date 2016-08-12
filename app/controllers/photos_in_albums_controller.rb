@@ -14,7 +14,7 @@ class PhotosInAlbumsController < ApplicationController
 
     respond_to do |format|
       if @photo_in_album.save
-        format.html { redirect_to @album, notice: "Photo was successfully added to album." }
+        format.html { redirect_to @album, notice: "Photo added to album successfully" }
         format.json { render json: @photo_in_album, status: :created, location: [@album, @photo] }
       else
         format.html { render :new }
@@ -27,7 +27,7 @@ class PhotosInAlbumsController < ApplicationController
     authorize! :remove_photo, @album
     PhotoInAlbum.get(@album, @photo).destroy
     respond_to do |format|
-      format.html { redirect_to @album, notice: "Photo was successfully removed from album." }
+      format.html { redirect_to @album, notice: "Photo removed from album successfully" }
       format.json { head :no_content }
     end
   end
