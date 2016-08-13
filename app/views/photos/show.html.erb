@@ -18,7 +18,7 @@
       <%= glyphicon 'remove', id: 'cancel-desc-edit-btn', hidden: true %>
     </div>
     <div id="photo-desc-controls">
-      <%= glyphicon 'pencil', id: 'edit-desc-btn' if soft_can? :update, [@album, @photo] %>
+      <%= glyphicon 'pencil', id: 'edit-desc-btn' if can? :update, @photo %>
       <%= glyphicon 'comment', id: 'comment-indicator' if @comments.any? %>
     </div>
   </div>
@@ -30,19 +30,19 @@
   </div>
 </section>
 
-<section id="comment-section">
-  <h3>Comments &#8226; <%= @comments.count %></h3>
+<% if can? :show, @photo => Comment %>
+  <section id="comment-section">
+    <h3>Comments &#8226; <%= @comments.count %></h3>
 
-  <% if can? :new, @photo => Comment %>
-    <%= render 'comments/form', comment: @new_comment %>
-    <hr/>
-  <% end %>
+    <% if can? :new, @photo => Comment %>
+      <%= render 'comments/form', comment: @new_comment %>
+      <hr/>
+    <% end %>
 
-  <section id="comments">
-    <% if can? :show, @photo => Comment %>
+    <section id="comments">
       <% for comment in @comments %>
         <%= render comment %>
       <% end %>
-    <% end %>
+    </section>
   </section>
-</section>
+<% end %>
