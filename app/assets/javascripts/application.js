@@ -18,4 +18,5 @@
 //= require form
 //= require scroll_snap
 //= require grow_textarea
+//= require album
 //= require photo

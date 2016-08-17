@@ -104,6 +104,14 @@ a.btn {
 .btn-destroy {
   @include button-variant($body-text-color, mix($btn-danger-bg, $base-color, 40%), mix($btn-danger-border, $base-color, 40%), $btn-danger-color, $btn-danger-bg, $btn-danger-border);
 }
+.btn-thumbnail {
+  width: $photo-image-thumbnail-width;
+  border-radius: 0 !important;
+}
+
+.btn-in-group-leftmost { border-radius: 6px 0 0 6px }
+.btn-in-group-rightmost { border-radius: 0 6px 6px 0 }
+.btn-in-group-middle { border-radius: 0 }
 
 // Link buttons
 // -------------------------

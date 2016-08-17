@@ -1,7 +1,17 @@
 
-.spacer { flex: 1 }
+a {
+  color: $link-color;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+}
 
 [hidden ~= hidden], [hidden ~= true] { display: none; }
+
+.spacer { flex: 1 }
 
 hr {
   width: 90%;

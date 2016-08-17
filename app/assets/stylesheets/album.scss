@@ -1,12 +1,9 @@
-$albums_header_bg_color: $base_color;
-$albums_bg_color: lighten($content_bg_color, 5%);
-$albums_border_color: lighten($base_color, 1%);
 
 table#albums {
   width: $body-min-width - 20px;
-  margin: 27px 0;
-  background-color: $albums_bg_color;
-  border: 5px solid $albums_border_color;
+  margin: 32px 0;
+  background-color: $albums-bg;
+  border: 5px solid $albums-border-color;
   border-radius: 6px;
 
   td, th {
@@ -16,8 +13,8 @@ table#albums {
 
   thead th {
     padding: 7px;
-    color: invert($albums_header_bg_color);
-    background-color: $albums_header_bg_color;
+    color: invert($albums-header-bg);
+    background-color: $albums-header-bg;
     text-align: left;
 
     a { text-decoration: none; }
@@ -30,7 +27,7 @@ table#albums {
 
     &:hover {
       cursor: pointer;
-      background-color: lighten($albums_bg_color, 3%);
+      background-color: lighten($albums-bg, 3%);
     }
 
     td.album-name {
@@ -44,5 +41,40 @@ table#albums {
       }
     }
   }
+}
 
+#album-title {
+  margin: 30px 0 0 0;
+}
+
+#album-content {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px;
+  margin: 13px 15px 30px 15px;
+  box-sizing: border-box;
+  background-color: #2e2f30;
+  border: 1px dashed #444;
+
+  .thumbnail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: $photo-image-thumbnail-width;
+    height: $photo-image-thumbnail-height;
+    margin: 5px;
+    background-color: #000;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid #333;
+    box-shadow: 1px 1px 8px #222;
+
+    a {
+      flex: 1;
+      width: 170px;
+      background: none;
+    }
+  }
 }

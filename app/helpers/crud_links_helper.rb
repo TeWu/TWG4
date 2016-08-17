@@ -13,7 +13,7 @@ module CrudLinksHelper
   def create_link(object, content = nil, **options, &block)
     if options.delete(:skip_auth_check) or soft_can? :new, object
       location = options.delete :location
-      defaults = {class: "btn btn-create"}
+      defaults = {role: 'button', class: "btn btn-create #{options[:add_class]}".strip}
       html_options = defaults.deep_merge(options)
 
       model, super_model = object.is_a?(Array) ? object.reverse : object
@@ -46,7 +46,7 @@ module CrudLinksHelper
 
   def edit_link(object, content = "Edit", **options, &block)
     if soft_can? :edit, object
-      defaults = {role: 'button', class: 'btn btn-edit'}
+      defaults = {role: 'button', class: "btn btn-edit #{options[:add_class]}".strip}
       if block_given?
         link_to([:edit, object].flatten, defaults.deep_merge!(options)) { yield block }
       else
@@ -63,7 +63,7 @@ module CrudLinksHelper
         content = "Delete #{maybe_resource_human_name}".strip
         confirm_msg = "Are you sure you want to #{content.downcase}?" if maybe_resource_human_name
       end
-      defaults = {method: :delete, data: {confirm: confirm_msg}, class: 'btn btn-destroy', form: {class: :destroy_button_form}}
+      defaults = {method: :delete, data: {confirm: confirm_msg}, class: "btn btn-destroy #{options[:add_class]}".strip, form: {class: :destroy_button_form}}
       if block_given?
         button_to(object, defaults.deep_merge!(options)) { yield block }
       else
