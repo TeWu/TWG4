@@ -1,4 +1,4 @@
-window.TWG4.json_ajax = (method, url, json_data, callbacks) ->
+TWG4.json_ajax = (method, url, json_data, callbacks) ->
   defaults = {dataType: 'json', contentType: 'application/json; charset=utf-8'}
   opts = $.extend defaults, opts
   callbacks ||= {}

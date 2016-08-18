@@ -1,13 +1,13 @@
-window.TWG4.notifications ||= {}
+TWG4.notifications ||= {}
 
-window.TWG4.notifications.adjust_stickiness = ->
+TWG4.notifications.adjust_stickiness = ->
   if $(window).scrollTop() > $('body > header').height()
     $('#notifications').addClass('sticky')
   else
     $('#notifications.sticky').removeClass('sticky')
 
-$(document).on 'turbolinks:load', window.TWG4.notifications.adjust_stickiness
-$(window).on 'scroll', window.TWG4.notifications.adjust_stickiness
+$(document).on 'turbolinks:load', TWG4.notifications.adjust_stickiness
+$(window).on 'scroll', TWG4.notifications.adjust_stickiness
 
 $(document).on 'click', -> $('#notifications').fadeOut(300)
 $(document).on 'turbolinks:load', ->

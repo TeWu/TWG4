@@ -1,9 +1,9 @@
-window.TWG4.photo ||= {}
+TWG4.photo ||= {}
 
-window.TWG4.photo.scroll_to_image = ->
+TWG4.photo.scroll_to_image = ->
   $(document).scrollTop($('#photo').offset().top)
 
-window.TWG4.photo.description_editor =
+TWG4.photo.description_editor =
   ctrl_buttons:
     elems: -> $('#photo-desc-editor-controls').find('span')
     are_enabled: -> not @elems().hasClass('disabled')

@@ -1,6 +1,6 @@
-window.TWG4.album ||= {}
+TWG4.album ||= {}
 
-window.TWG4.album.adjust_album_content_width = ->
+TWG4.album.adjust_album_content_width = ->
   content = $('#album-content')
   if content.size() == 1
     thumbnail_width = $('.thumbnail-container').outerHeight(true)
@@ -13,7 +13,7 @@ $(window).on 'resize', -> $.doTimeout 'adjust_album_content_width', 10, TWG4.alb
 
 
 (->
-  window.TWG4.album.modes = {}
+  TWG4.album.modes = {}
   modes = TWG4.album.modes
 
   class Mode
@@ -32,18 +32,18 @@ $(window).on 'resize', -> $.doTimeout 'adjust_album_content_width', 10, TWG4.alb
   modes.destroy_photo = $.extend new Mode(), {elemsSelector: '.destroy-photo-btn'}
 
 
-  window.TWG4.album.current_mode = modes.normal
+  TWG4.album.current_mode = modes.normal
 
-  window.TWG4.album.set_mode = (mode_name) ->
+  TWG4.album.set_mode = (mode_name) ->
     current_mode = TWG4.album.current_mode
     new_mode = modes[mode_name]
     current_mode.on_unset()
     if modes.normal in [current_mode, new_mode]
-      window.TWG4.album.current_mode = new_mode
+      TWG4.album.current_mode = new_mode
       new_mode.on_set()
     else
       current_mode.elems().promise().done ->
-        window.TWG4.album.current_mode = new_mode
+        TWG4.album.current_mode = new_mode
         new_mode.on_set()
 #
 )()
