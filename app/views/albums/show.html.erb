@@ -21,7 +21,7 @@
       <ul class="dropdown-menu" aria-labelledby="manage-photos-btn">
         <li class="dropdown-header">Add photos</li>
         <li><%= add_new_photo_link(@album) %></li>
-        <li><%= add_existing_photo_link(@album) %></li>
+        <li><%= add_existing_photo_link(@album, @albums_add_photos_from, @albums_add_photos_to) %></li>
         <li class="divider" role="separator"></li>
         <li class="dropdown-header">Remove photos</li>
         <li><a id="remove-photos-mode-link" href=""><%= glyphicon 'remove' %> Remove photos from this album</a></li>
@@ -30,6 +30,7 @@
     </div>
   </div>
   <a id="normal-mode-link" class="btn btn-default" href="#">Hide buttons</a>
+  <%= deferred_modals -%>
 <% end %>
 
 <h1 id="album-title"><%= @album.name %></h1>
@@ -42,6 +43,8 @@
       <%= link_to "", [@album, photo] if can? :show, photo %>
       <%= remove_photo_button @album, photo, hidden: true %>
       <%= destroy_button [@album, photo], add_class: 'btn-sm btn-thumbnail destroy-photo-btn', hidden: true %>
+      <%= button_tag glyphicon('plus') + "Add photo", type: "button", class: 'btn btn-sm btn-create-bright btn-thumbnail add-photo-btn',
+                     'data-photo-id': photo.id, hidden: true %>
     </div>
   <% end %>
 </section>

@@ -32,6 +32,11 @@ class PhotosInAlbumsController < ApplicationController
     end
   end
 
+  def photo_ids
+    authorize! :show, @album
+    ids = PhotoInAlbum.where(album: @album).pluck(:photo_id)
+    render json: {ids: ids}
+  end
 
   private
 

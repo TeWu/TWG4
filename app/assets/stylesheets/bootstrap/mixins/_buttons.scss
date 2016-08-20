@@ -42,11 +42,15 @@
   &.disabled,
   &[disabled],
   fieldset[disabled] & {
+    background-color: darken($background_action, 8%);
+        border-color: darken($border_action, 9%);
+    //background-color: change-color($background_action, $lightness: 6%);
+    //    border-color: change-color($border_action, $lightness: 7%);
+
     &:hover,
     &:focus,
     &.focus {
-      background-color: $background_action;
-          border-color: $border_action;
+      color: $color;
     }
   }
 

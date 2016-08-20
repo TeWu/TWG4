@@ -47,7 +47,9 @@
   &[disabled],
   fieldset[disabled] & {
     cursor: $cursor-disabled;
-    @include opacity(.65);
+    background-color: #333;
+    border-color: #363636;
+    @include opacity(.96);
     @include box-shadow(none);
   }
 
@@ -94,6 +96,9 @@ a.btn {
 // -----------------------------------------------------
 .btn-create {
   @include button-variant($body-text-color, mix($btn-success-bg, $base-color, 40%), mix($btn-success-border, $base-color, 40%), $btn-success-color, $btn-success-bg, $btn-success-border);
+}
+.btn-create-bright {
+  @include button-variant($body-text-color, $btn-success-bg, $btn-success-border, $btn-success-color);
 }
 .btn-create-comment {
   @include button-variant($body-text-color, mix($new-comment-glow-color, $base-color, 40%), mix($new-comment-border-color, $base-color, 40%), $body-text-color, darken($new-comment-glow-color, 16%), $new-comment-border-color);

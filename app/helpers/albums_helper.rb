@@ -5,9 +5,13 @@ module AlbumsHelper
     link_to(content, new_album_photo_path(album)) if can? :new, Photo and can? :add_new_photo, album
   end
 
-  def add_existing_photo_link(album, content = nil)
-    content ||= glyphicon('plus') + " Add photos from other album"
-    link_to(content, add_photo_to_album_path(album)) if can? :add_existing_photo, album
+  def add_existing_photo_link(current_album, albums_from, albums_to)
+    if can? :add_existing_photo, Album
+      link_content = glyphicon('plus') + " Add photos from other album"
+      link_to_modal link_content, modal: {title: "Add photos", primary_btn: {id: "add-photo-select-albums-btn"}, defer_output: true} do
+        render partial: 'photos_in_albums/add_existing_photo_form', locals: {current_album: current_album, albums_from: albums_from, albums_to: albums_to}
+      end
+    end
   end
 
   def remove_photo_button(album, photo, content = nil, **options)

@@ -30,13 +30,37 @@ $(window).on 'resize', -> $.doTimeout 'adjust_album_content_width', 10, TWG4.alb
     on_page_load: -> @elems().hide()
   modes.remove_photo = $.extend new Mode(), {elemsSelector: '.remove-photo-btn'}
   modes.destroy_photo = $.extend new Mode(), {elemsSelector: '.destroy-photo-btn'}
+  modes.add_photo = $.extend new Mode(),
+    elemsSelector: '.add-photo-btn'
+    on_set: ->
+      @setup_album_view()
+      @__proto__.on_set.call(@)
+    on_unset: ->
+      @__proto__.on_unset.call(@)
+      Turbolinks.visit "#{location.origin}/albums/#{@target_album.id}"
+    on_page_load: ->
+      @setup_album_view()
+      @__proto__.on_page_load.call(@)
+    setup_album_view: ->
+      @disable_add_buttons_for_already_added_photos()
+      $('#album-title').after(@album_subtitle_elem())
+    album_subtitle_elem: -> '<h2 id="adding-photos">(Adding photos to album: <span class="album-name">' + @target_album.name + '</span>)</h2>'
+    disable_add_buttons_for_already_added_photos: ->
+      t = @
+      $('.add-photo-btn').each ->
+        photo_id = parseInt($(@).data('photo-id'))
+        t.disable_add_button($(@)) if photo_id in t.target_album.photo_ids
+    disable_add_button: (btn) ->
+      btn.attr('disabled', 'disabled')
+      btn.html("Photo already in target album")
 
 
   TWG4.album.current_mode = modes.normal
 
-  TWG4.album.set_mode = (mode_name) ->
+  TWG4.album.set_mode = (name, params = {}) ->
     current_mode = TWG4.album.current_mode
-    new_mode = modes[mode_name]
+    new_mode = modes[name]
+    $.extend new_mode, params
     current_mode.on_unset()
     if modes.normal in [current_mode, new_mode]
       TWG4.album.current_mode = new_mode
@@ -56,3 +80,38 @@ $(document).on 'click', '#normal-mode-link, #remove-photos-mode-link, #destroy-p
     when 'remove-photos-mode-link' then 'remove_photo'
     when 'destroy-photos-mode-link' then 'destroy_photo'
   TWG4.album.set_mode(mode_name)
+
+$(document).on 'click', '#add-photo-select-albums-btn', (e) ->
+  btn = $(e.target).closest('#add-photo-select-albums-btn')
+  src_album_id = $('#add_existing_photo_from_album').val()
+  target_album =
+    id: $('#add_existing_photo_to_album').val()
+    name: $('#add_existing_photo_to_album option:selected').text()
+  TWG4.json_ajax('GET', "#{location.origin}/albums/#{target_album.id}/photo_ids")
+  .done (resp) ->
+    $(document).one 'turbolinks:load', -> TWG4.album.set_mode('add_photo', {target_album: $.extend target_album, {photo_ids: resp.ids}})
+    Turbolinks.visit "#{location.origin}/albums/#{src_album_id}"
+  .fail ->
+    $('form.add_existing_photo').closest('.modal').modal('hide')
+    TWG4.notifications.alert("Server couldn't be reached")
+    btn.prop('disabled', false)
+
+$(document).on 'click', '.add-photo-btn', (e) ->
+  btn = $(e.target).closest('.add-photo-btn')
+  photo_id = btn.data('photo-id')
+  target_album = TWG4.album.current_mode.target_album
+  btn_original_content = btn.html()
+  btn.prop('disabled', true)
+  btn.html("Adding photo &hellip;")
+  TWG4.json_ajax(
+    'POST', "#{location.origin}/albums/#{target_album.id}/add_photo",
+    {photo_id: photo_id}
+  )
+  .done ->
+    target_album.photo_ids.push(photo_id)
+    btn.html("Photo added successfully")
+    TWG4.notifications.notify("Photo added successfully")
+  .fail ->
+    btn.html(btn_original_content)
+    btn.prop('disabled', false)
+    TWG4.notifications.alert("Failed adding photo")

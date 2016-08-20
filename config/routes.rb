@@ -15,6 +15,11 @@ Rails.application.routes.draw do
       post 'add_photo' => 'photos_in_albums#create', as: nil
 
       delete 'remove_photo/:photo_id' => 'photos_in_albums#destroy', as: 'remove_photo_from'
+
+      # JSON API
+      scope format: false, constraints: lambda { |req| req.format == :json } do
+        get 'photo_ids' => 'photos_in_albums#photo_ids'
+      end
     end
   end
 
