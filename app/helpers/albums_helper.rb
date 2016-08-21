@@ -1,8 +1,10 @@
 module AlbumsHelper
 
-  def add_new_photo_link(album, content = nil)
-    content ||= glyphicon('cloud-upload') + " Upload new photos"
-    link_to(content, new_album_photo_path(album)) if can? :new, Photo and can? :add_new_photo, album
+  def add_new_photo_link(album)
+    if can? :new, Photo and can? :add_new_photo, album
+      link_to_modal_create_form [@album, @new_photo], glyphicon('cloud-upload') + " Upload new photos", class: "",
+                                modal: {title: "Upload photos", defer_output: true}, form: {html: {multipart: true}}
+    end
   end
 
   def add_existing_photo_link(current_album, albums_from, albums_to)

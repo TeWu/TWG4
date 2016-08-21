@@ -16,6 +16,7 @@ class AlbumsController < ApplicationController
     @photos = @album.ordered_photos.accessible_by(current_ability).page(params[:page])
     @albums_add_photos_from = Album.accessible_by(current_ability, :show)
     @albums_add_photos_to = Album.accessible_by(current_ability, :add_existing_photo)
+    @new_photo = Photo.new
   end
 
   def create

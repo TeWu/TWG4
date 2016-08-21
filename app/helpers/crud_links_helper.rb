@@ -28,22 +28,6 @@ module CrudLinksHelper
     end
   end
 
-  def link_to_modal_create_form(object, content = nil, **options, &block)
-    if soft_can? :new, object
-      resource_name = (object.is_a?(Array) ? object.last : object).model_name
-      modal_options = options.delete(:modal) || {}
-      modal_title = modal_options[:title] || "Create a new #{resource_name.human.downcase}"
-      modal_id = modal_title.dup.downcase!.gsub!(/[\s_]/, '-') + "-modal"
-      form_options = options.delete(:form) || {}
-      options.reverse_merge!(location: "#" + modal_id, 'data-toggle': "modal", skip_auth_check: true)
-      open_modal_script = modal_options[:auto_open] ? javascript_tag(%Q{$('##{modal_id}').modal('show');}) : ""
-
-      modal_form(resource: object, id: modal_id, title: modal_title, form_options: form_options) do |f|
-        field_set { render "#{resource_name.plural}/inputs", f: f }
-      end + open_modal_script + create_link(object, content, options, &block)
-    end
-  end
-
   def edit_link(object, content = "Edit", **options, &block)
     if soft_can? :edit, object
       defaults = {role: 'button', class: "btn btn-edit #{options[:add_class]}".strip}
