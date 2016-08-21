@@ -31,6 +31,11 @@ module ModalHelper
     )
   end
 
+  def dropdown_link_to_modal_form_for(object, content = nil, **options, &block)
+    options.deep_merge!(class: "", modal: {defer_output: true})
+    link_to_modal_form_for(object, content, options, &block)
+  end
+
   def link_to_modal_form_for(object, content = nil, **options, &block)
     if soft_can? :new, object
       resource = object.is_a?(Array) ? object.last : object
