@@ -28,13 +28,15 @@ module CrudLinksHelper
     end
   end
 
-  def edit_link(object, content = "Edit", **options, &block)
-    if soft_can? :edit, object
+  def edit_link(object, content = nil, **options, &block)
+    if options.delete(:skip_auth_check) or soft_can? :edit, object
+      content = "Edit" if content.blank?
       defaults = {role: 'button', class: "btn btn-edit #{options[:add_class]}".strip}
+      location = options.delete :location
       if block_given?
-        link_to([:edit, object].flatten, defaults.deep_merge!(options)) { yield block }
+        link_to(location || [:edit, object].flatten, defaults.deep_merge!(options)) { yield block }
       else
-        link_to(content, [:edit, object].flatten, defaults.deep_merge!(options))
+        link_to(content, location || [:edit, object].flatten, defaults.deep_merge!(options))
       end
     end
   end

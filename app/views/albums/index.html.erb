@@ -1,6 +1,6 @@
 <% self.title = "Albums" %>
 <% content_for :context_menu do %>
-  <%= link_to_modal_create_form @new_album, modal: {auto_open: @album.present?} %>
+  <%= link_to_modal_form_for @new_album, modal: {auto_open: @album.present?} %>
 <% end %>
 
 <table id="albums" class="resources-list">

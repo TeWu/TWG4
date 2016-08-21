@@ -31,21 +31,22 @@ module ModalHelper
     )
   end
 
-  def link_to_modal_create_form(object, content = nil, **options, &block)
+  def link_to_modal_form_for(object, content = nil, **options, &block)
     if soft_can? :new, object
-      resource_name = (object.is_a?(Array) ? object.last : object).model_name
+      resource = object.is_a?(Array) ? object.last : object
       modal_options = options.delete(:modal) || {}
-      modal_options[:title] ||= "Create a new #{resource_name.human.downcase}"
+      modal_options[:title] ||= (resource.persisted? ? "Edit " : "Create a new ") + resource.model_name.human.downcase
       modal_id = modal_options[:title].dup.downcase!.gsub!(/[\s_]/, '-') + "-modal"
       maybe_open_modal_script = modal_options.delete(:auto_open) ? open_modal_script(modal_id) : ""
       defer_modal_output = modal_options.delete(:defer_output)
       form_options = options.delete(:form) || {}
       options.reverse_merge!(location: "#" + modal_id, 'data-toggle': "modal", skip_auth_check: true)
 
+      link_elem = resource.persisted? ? edit_link(object, content, options, &block) : create_link(object, content, options, &block)
       link_and_possibly_deferred_modal(
-          create_link(object, content, options, &block),
+          link_elem,
           modal_form(modal_options.merge(resource: object, id: modal_id, form_options: form_options)) do |f|
-            field_set { render "#{resource_name.plural}/inputs", f: f }
+            field_set { render "#{resource.model_name.plural}/inputs", f: f }
           end + maybe_open_modal_script,
           defer_modal_output
       )

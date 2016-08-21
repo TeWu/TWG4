@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  load_and_authorize_resource except: :index
+  load_and_authorize_resource except: [:index, :show]
 
 
   # NOTE: Called from +create+
@@ -11,7 +11,10 @@ class AlbumsController < ApplicationController
     end
   end
 
+  # NOTE: Called from +update+
   def show
+    @album = Album.find(params[:id])
+    authorize! :show, @album
     authorize! :index, Photo
     @photos = @album.ordered_photos.accessible_by(current_ability).page(params[:page])
     @albums_add_photos_from = Album.accessible_by(current_ability, :show)
@@ -40,7 +43,11 @@ class AlbumsController < ApplicationController
         format.html { redirect_to @album, notice: "Album updated successfully" }
         format.json { render :show, status: :ok, location: @album }
       else
-        format.html { render :edit }
+        format.html do
+          @edited_album = @album
+          show
+          render :show
+        end
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end
     end
