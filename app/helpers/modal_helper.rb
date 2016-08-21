@@ -8,12 +8,13 @@ module ModalHelper
     }, &block
   end
 
-  def modal_form(id:, title:, resource:, form_options: {}, &block)
+  def modal_form(id:, title:, resource:, form_options: {}, primary_btn: {}, &block)
     render layout: 'modal_form', locals: {
         id: id,
         title: title,
         resource: resource,
-        form_options: form_options
+        form_options: form_options,
+        primary_btn: primary_btn
     }, &block
   end
 
@@ -34,16 +35,16 @@ module ModalHelper
     if soft_can? :new, object
       resource_name = (object.is_a?(Array) ? object.last : object).model_name
       modal_options = options.delete(:modal) || {}
-      modal_title = modal_options[:title] || "Create a new #{resource_name.human.downcase}"
-      modal_id = modal_title.dup.downcase!.gsub!(/[\s_]/, '-') + "-modal"
-      maybe_open_modal_script = modal_options[:auto_open] ? open_modal_script(modal_id) : ""
+      modal_options[:title] ||= "Create a new #{resource_name.human.downcase}"
+      modal_id = modal_options[:title].dup.downcase!.gsub!(/[\s_]/, '-') + "-modal"
+      maybe_open_modal_script = modal_options.delete(:auto_open) ? open_modal_script(modal_id) : ""
       defer_modal_output = modal_options.delete(:defer_output)
       form_options = options.delete(:form) || {}
       options.reverse_merge!(location: "#" + modal_id, 'data-toggle': "modal", skip_auth_check: true)
 
       link_and_possibly_deferred_modal(
           create_link(object, content, options, &block),
-          modal_form(resource: object, id: modal_id, title: modal_title, form_options: form_options) do |f|
+          modal_form(modal_options.merge(resource: object, id: modal_id, form_options: form_options)) do |f|
             field_set { render "#{resource_name.plural}/inputs", f: f }
           end + maybe_open_modal_script,
           defer_modal_output
