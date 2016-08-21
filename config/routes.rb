@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  json_only = {constraints: lambda { |req| req.format == :json }}
+
   root to: 'auth#root'
 
   get 'login' => 'auth#login_page'
@@ -7,7 +9,8 @@ Rails.application.routes.draw do
 
   resources :albums, except: [:new, :edit] do
     resources :photos, only: :show, defaults: {anchor: "photo"}
-    resources :photos, only: [:create, :update, :destroy] do
+    resources :photos, only: :update, **json_only
+    resources :photos, only: [:create, :destroy] do
       resources :comments, only: [:create, :edit, :update, :destroy]
     end
 
@@ -17,8 +20,7 @@ Rails.application.routes.draw do
 
       delete 'remove_photo/:photo_id' => 'photos_in_albums#destroy', as: 'remove_photo_from'
 
-      # JSON API
-      scope format: false, constraints: lambda { |req| req.format == :json } do
+      scope json_only do
         get 'photo_ids' => 'photos_in_albums#photo_ids'
       end
     end
