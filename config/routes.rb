@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   delete 'logout' => 'auth#logout'
 
   resources :albums, except: [:new, :edit] do
-    resources :photos, only: [:show, :create, :update, :destroy], defaults: {anchor: "photo"} do
+    resources :photos, only: :show, defaults: {anchor: "photo"}
+    resources :photos, only: [:create, :update, :destroy] do
       resources :comments, only: [:create, :edit, :update, :destroy]
     end
 
