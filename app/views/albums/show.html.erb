@@ -7,11 +7,12 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="manage-album-btn">
         <li><%= dropdown_link_to_modal_form_for @album_to_update || @album, glyphicon('pencil') + " Edit album", modal: {auto_open: @album_to_update.present?} %></li>
-        <li><a href="#"><%= glyphicon 'trash' %> Delete album</a></li>
-        <li><%= destroy_button @album, class: 'btn-link' do %>
-            <%= glyphicon 'trash', style: 'margin-right: 3px;' %> Delete album
-          <% end %></li>
+        <li><a href="#" id="dropdown-delete-album-btn"><%= glyphicon 'trash' %> Delete album</a></li>
       </ul>
+    </div>
+
+    <div class="btn-group" role="group">
+      <%= destroy_button @album, add_class: 'btn-in-group-middle', id: 'delete-album-btn', hidden: true %>
     </div>
 
     <div class="btn-group" role="group">

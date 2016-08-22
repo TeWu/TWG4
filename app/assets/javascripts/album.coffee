@@ -81,6 +81,10 @@ $(document).on 'click', '#normal-mode-link, #remove-photos-mode-link, #destroy-p
     when 'destroy-photos-mode-link' then 'destroy_photo'
   TWG4.album.set_mode(mode_name)
 
+$(document).on 'click', '#dropdown-delete-album-btn', (e) ->
+  e.preventDefault()
+  $('#delete-album-btn').toggle(200)
+
 $(document).on 'click', '#add-photo-select-albums-btn', (e) ->
   btn = $(e.target).closest('#add-photo-select-albums-btn')
   src_album_id = $('#add_existing_photo_from_album').val()
