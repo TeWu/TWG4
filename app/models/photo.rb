@@ -8,7 +8,7 @@ class Photo < ApplicationRecord
 
   mount_uploader :image, PhotoUploader
 
-  paginates_per 5
+  paginates_per 8
 
 
   def image_url(version = :default)
