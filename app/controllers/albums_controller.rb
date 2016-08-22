@@ -2,8 +2,11 @@ class AlbumsController < ApplicationController
   load_and_authorize_resource except: [:index, :show]
 
 
-  # NOTE: Called from +create+
   def index
+    prepare_and_render_view :index
+  end
+
+  view_preparation :index do
     authorize! :index, Album
     @albums = Album.accessible_by(current_ability)
     if can? :new, Album
@@ -11,15 +14,18 @@ class AlbumsController < ApplicationController
     end
   end
 
-  # NOTE: Called from +update+
   def show
-    @album = Album.find(params[:id])
+    prepare_and_render_view :show
+  end
+
+  view_preparation :show do
+    @album ||= Album.find(params[:id])
     authorize! :show, @album
     authorize! :index, Photo
-    @photos = @album.ordered_photos.accessible_by(current_ability).page(params[:page])
     @albums_add_photos_from = Album.accessible_by(current_ability, :show)
     @albums_add_photos_to = Album.accessible_by(current_ability, :add_existing_photo)
-    @new_photo = Photo.new
+    @photos = @album.ordered_photos.accessible_by(current_ability).page(params[:page])
+    @photo_to_upload = @photo || Photo.new
   end
 
   def create
@@ -28,10 +34,7 @@ class AlbumsController < ApplicationController
         format.html { redirect_to @album, notice: "Album created successfully" }
         format.json { render :show, status: :created, location: @album }
       else
-        format.html do
-          index
-          render :index
-        end
+        format.html { prepare_and_render_view :index }
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end
     end
@@ -44,9 +47,9 @@ class AlbumsController < ApplicationController
         format.json { render :show, status: :ok, location: @album }
       else
         format.html do
-          @edited_album = @album
-          show
-          render :show
+          @album_to_update = @album
+          @album = nil
+          prepare_and_render_view :show
         end
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end

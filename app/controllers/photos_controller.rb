@@ -18,7 +18,7 @@ class PhotosController < ApplicationController
         format.html { redirect_to [@album, @photo], notice: "Photo created successfully" }
         format.json { render :show, status: :created, location: [@album, @photo] }
       else
-        format.html { render :new }
+        format.html { prepare_and_render_view 'albums/show' }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
     end
