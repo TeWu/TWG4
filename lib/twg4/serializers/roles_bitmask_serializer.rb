@@ -4,7 +4,7 @@ module TWG4
 
       def initialize
         @bitval2obj = TWG4::CONFIG[:roles_values_inverse]
-        @obj2bitval = TWG4::CONFIG[:roles_values]
+        @obj2bitval = lambda { |key| TWG4::CONFIG[:roles_values][key.to_sym] }
       end
 
       class << self

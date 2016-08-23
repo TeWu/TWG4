@@ -1,18 +1,40 @@
 <% self.title = @user.display_name %>
+<% content_for :context_menu do %>
+  <div class="btn-group" role="group">
+    <%= link_to_modal_form_for @user_to_update || @user, glyphicon('pencil') + " Edit user", modal: {auto_open: @user_to_update.present?} %>
+    <%= destroy_button @user, add_class: 'btn-in-group-rightmost' %>
+  </div>
+<% end %>
 
-<p>
-  <strong>Display name:</strong>
-  <%= @user.display_name %>
-</p>
+<h1 id="user-title"><%= @user.display_name %></h1>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
-<p>
-  <strong>Passhash:</strong>
-  <%= @user.passhash %>
-</p>
-
-<div><%= [edit_link(@user), destroy_button(@user)].compact.join(" | ").html_safe %></div>
+<table id="user-info" class="resource-info">
+  <tr>
+    <th scope="row">Display name</th>
+    <td><%= @user.display_name %></td>
+  </tr>
+  <tr>
+    <th scope="row">Username</th>
+    <td><%= @user.username %></td>
+  </tr>
+  <tr>
+    <th scope="row">Roles</th>
+    <td><%= @user.roles_string %></td>
+  </tr>
+  <tr>
+    <th scope="row">Created at</th>
+    <td><%= @user.created_at.standard_string_form %></td>
+  </tr>
+  <tr>
+    <th scope="row">Updated at</th>
+    <td><%= @user.updated_at.standard_string_form %></td>
+  </tr>
+  <tr class="table-divider-above">
+    <th scope="row">Owned albums</th>
+    <td><%= @user.owned_albums.count %></td>
+  </tr>
+  <tr>
+    <th scope="row">Comments</th>
+    <td><%= @user.comments.count %></td>
+  </tr>
+</table>

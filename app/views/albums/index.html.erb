@@ -15,7 +15,7 @@
   <tbody>
   <% @albums.each do |album| %>
     <tr data-resource-url="<%= album_path(album) %>">
-      <td class="album-name"><%= show_link album, album.name %></td>
+      <td class="resource-name"><%= show_link album, album.name %></td>
       <td><%= album.photos.count %></td>
       <td><%= album.owner.try(:display_name) %></td>
     </tr>

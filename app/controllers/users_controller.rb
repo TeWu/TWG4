@@ -1,5 +1,16 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :index
+
+
+  def index
+    prepare_and_render_view :index
+  end
+
+  view_preparation :index do
+    authorize! :index, User
+    @users = User.accessible_by(current_ability)
+    @new_user = @user || User.new(current_ability.attributes_for(:new, User))
+  end
 
   def create
     respond_to do |format|
@@ -7,7 +18,7 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, notice: "User created successfully" }
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new }
+        format.html { prepare_and_render_view :index }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -19,7 +30,11 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, notice: "User updated successfully" }
         format.json { render :show, status: :ok, location: @user }
       else
-        format.html { render :edit }
+        format.html do
+          @user_to_update = @user
+          @user = User.find(params[:id])
+          render :show
+        end
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -37,7 +52,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:display_name, :username, :password, :password_confirmation)
+    params.require(:user).permit(:display_name, :username, :password, :password_confirmation, roles: [])
   end
 
 end

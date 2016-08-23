@@ -37,6 +37,10 @@ class User < ApplicationRecord
     roles.include? role
   end
 
+  def roles_string
+    roles.each(&:to_s) * ", "
+  end
+
 
   private
 

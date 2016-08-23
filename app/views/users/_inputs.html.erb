@@ -1,0 +1,6 @@
+<%= f.input :display_name %>
+<%= f.input :username %>
+<%= f.input :password %>
+<%= f.input :password_confirmation %>
+<% checked_roles = f.object.roles.presence || ([:active] if f.object.new_record?) %>
+<%= f.input :roles, collection: TWG4::CONFIG[:roles].keys, as: :check_boxes, checked: checked_roles %>

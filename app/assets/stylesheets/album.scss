@@ -1,51 +1,7 @@
 
-table#albums {
-  width: $body-min-width - 20px;
-  margin: 32px 0;
-  background-color: $albums-bg;
-  border: 5px solid $albums-border-color;
-  border-radius: 6px;
+#albums { margin: 32px 0; }
 
-  td, th {
-    padding: 3px 7px 2px 4px;
-    white-space: nowrap;
-  }
-
-  thead th {
-    padding: 7px;
-    color: invert($albums-header-bg);
-    background-color: $albums-header-bg;
-    text-align: left;
-
-    a { text-decoration: none; }
-    .asc:after { content: ' ▲' }
-    .desc:after { content: ' ▼' }
-  }
-
-  tbody tr {
-    height: 60px;
-
-    &:hover {
-      cursor: pointer;
-      background-color: lighten($albums-bg, 3%);
-    }
-
-    td.album-name {
-      width: 100%;
-
-      a {
-        color: $body_text_color;
-        font-size: 126%;
-        font-weight: bold;
-        text-decoration: none;
-      }
-    }
-  }
-}
-
-#album-title {
-  margin: 30px 0 0 0;
-}
+#album-title { margin: 30px 0 0 0; }
 
 h2#adding-photos {
   margin-top: 5px;
