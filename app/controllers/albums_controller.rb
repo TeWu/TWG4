@@ -9,9 +9,7 @@ class AlbumsController < ApplicationController
   view_preparation :index do
     authorize! :index, Album
     @albums = Album.accessible_by(current_ability)
-    if can? :new, Album
-      @new_album = @album || Album.new(current_ability.attributes_for(:new, Album).merge(owner: current_user))
-    end
+    @new_album = @album || Album.new(current_ability.attributes_for(:new, Album).merge(owner: current_user))
   end
 
   def show
