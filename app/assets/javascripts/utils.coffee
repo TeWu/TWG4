@@ -1,3 +1,4 @@
-$(document).on 'click', '[go-back]', (e) ->
+$(document).on 'click', '[data-turbolinks-visit]', (e) ->
   e.preventDefault()
-  window.history.back()
+  url = $(e.target).data('turbolinks-visit')
+  Turbolinks.visit(url)
