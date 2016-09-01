@@ -1,0 +1,21 @@
+#logo {
+  padding: 0 30px;
+  text-align: center;
+
+  h1 {
+    margin: 0;
+    color: change-color($base-color, $lightness: 75%, $saturation: 30%, $alpha: 0.9);
+    text-shadow: 2px 1px 1px black, 1px 2px 3px black,
+    10px -3px 20px $header-logo-shadow-color,
+    -11px -3px 20px $header-logo-shadow-color,
+    7px -13px 24px adjust-hue($header-logo-shadow-color, 44%);
+  }
+}
+
+.logo-small {
+  h1 { font-size: 260%; }
+}
+
+.logo-big {
+  h1 { font-size: 510%; }
+}

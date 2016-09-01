@@ -1,0 +1,53 @@
+#login-box-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  padding-top: 90px;
+
+  #login-box {
+    margin-top: 12px;
+    padding: 5px;
+    background-color: $login_box_bg_color;
+    border: 1px solid darken($login_box_bg_color, 6%);
+    border-radius: 7px;
+
+    & > header {
+      margin-bottom: 10px;
+      font-size: 140%;
+      font-weight: bold;
+      color: darken($body-text-color, 18%);
+      text-align: center;
+    }
+
+    & > #content {
+      padding: 15px;
+      background-color: darken($login_box_bg_color, 8%);
+
+      dl, dt, dd { margin: 0; }
+      dl { margin-bottom: 13px; }
+      dt { margin-bottom: 6px; }
+
+      input {
+        font-size: 130%;
+
+        &[type=text], &[type=password] {
+          width: 300px;
+          padding: 8px 12px;
+          color: #c0c0c0;
+          background-color: lighten($body-bg-color, 5%);
+          border: 1px solid #282828;
+          border-radius: 4px;
+          box-sizing: content-box;
+        }
+
+        &[type=submit] {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+
+    }
+  }
+}
