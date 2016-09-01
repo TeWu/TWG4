@@ -3,13 +3,45 @@
   display: inline-block;
 }
 
-.field_with_errors {
-  padding: 2px;
-  background-color: red;
-}
-
-form tr.field th {
-  text-align: right;
-}
-
 fieldset { border: 0; }
+
+form {
+  .input > input {
+    height: 20px;
+    padding: 2px 5px;
+    background-color: #fff;
+    border: 1px solid #282828;
+    border-radius: 4px;
+    box-sizing: content-box;
+
+    &[type=file] {
+      height: 100%;
+      background: none;
+    }
+  }
+
+  .field_with_errors {
+    .input > input {
+      background-color: change-color($brand-danger, $lightness: 95%);
+      border-color: #e00;
+      box-shadow: 0 0 4px $brand-danger;
+    }
+
+    .error {
+      display: block;
+      padding: 2px 5px;
+      color: #e00;
+    }
+  }
+
+  tr.field th {
+    padding-top: 7px;
+    text-align: right;
+    vertical-align: text-top;
+  }
+
+  span.checkbox > label {
+    display: inline-flex;
+    margin: 0 5px;
+  }
+}
