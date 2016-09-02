@@ -38,7 +38,7 @@ $(window).on 'resize', -> $.doTimeout 'adjust_album_content_width', 10, TWG4.alb
       @setup_album_view()
       @__proto__.on_set.call(@)
     on_unset: ->
-      @__proto__.on_unset.call(@)
+      $(document).one 'turbolinks:load', -> @elems().hide()
       Turbolinks.visit "#{location.origin}/albums/#{@target_album.id}?page=last"
     on_page_load: ->
       @setup_album_view()
