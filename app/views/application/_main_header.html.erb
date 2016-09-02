@@ -2,7 +2,7 @@
   <h1><%= twg4 %></h1>
 </section>
 
-<nav id="album-menu">
+<nav id="album-menu" <%= "data-current-album-id=\"#{@album.id}\"".html_safe if @album.present? %>>
   <ul class="breadcrumb">
     <%=
       nav = [link_to("Albums", albums_path)]

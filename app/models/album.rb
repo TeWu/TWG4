@@ -42,6 +42,10 @@ class Album < ApplicationRecord
         .limit(1).pluck(:photo_id).first
   end
 
+  def page_count
+    photos.page(1).total_pages
+  end
+
   def page_with(photo)
     photo ? photo.photo_in_albums.find_by(album: self).page : nil
   end

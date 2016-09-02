@@ -22,7 +22,7 @@ class AlbumsController < ApplicationController
     authorize! :index, Photo
     @albums_add_photos_from = Album.accessible_by(current_ability, :show)
     @albums_add_photos_to = Album.accessible_by(current_ability, :add_existing_photo)
-    @photos = @album.ordered_photos.accessible_by(current_ability).page(params[:page])
+    @photos = @album.ordered_photos.accessible_by(current_ability).page(page_num)
     @photo_to_upload = @photo || Photo.new
   end
 
@@ -67,6 +67,10 @@ class AlbumsController < ApplicationController
 
   def album_params
     params.require(:album).permit(:name, :owner_id)
+  end
+
+  def page_num
+    params[:page] == 'last' ? @album.page_count : params[:page]
   end
 
 end

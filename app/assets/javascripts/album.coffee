@@ -1,5 +1,7 @@
 TWG4.album ||= {}
 
+TWG4.album.current_album_id = -> $('nav[data-current-album-id]').data('current-album-id')
+
 TWG4.album.adjust_album_content_width = ->
   content = $('#album-content')
   if content.size() == 1
@@ -37,7 +39,7 @@ $(window).on 'resize', -> $.doTimeout 'adjust_album_content_width', 10, TWG4.alb
       @__proto__.on_set.call(@)
     on_unset: ->
       @__proto__.on_unset.call(@)
-      Turbolinks.visit "#{location.origin}/albums/#{@target_album.id}"
+      Turbolinks.visit "#{location.origin}/albums/#{@target_album.id}?page=last"
     on_page_load: ->
       @setup_album_view()
       @__proto__.on_page_load.call(@)
@@ -48,7 +50,7 @@ $(window).on 'resize', -> $.doTimeout 'adjust_album_content_width', 10, TWG4.alb
     disable_add_buttons_for_already_added_photos: ->
       t = @
       $('.add-photo-btn').each ->
-        photo_id = parseInt($(@).data('photo-id'))
+        photo_id = parseInt($(@).closest('[data-photo-id]').data('photo-id'))
         t.disable_add_button($(@)) if photo_id in t.target_album.photo_ids
     disable_add_button: (btn) ->
       btn.attr('disabled', 'disabled')
@@ -102,7 +104,7 @@ $(document).on 'click', '#add-photo-select-albums-btn', (e) ->
 
 $(document).on 'click', '.add-photo-btn', (e) ->
   btn = $(e.target).closest('.add-photo-btn')
-  photo_id = btn.data('photo-id')
+  photo_id = btn.closest('[data-photo-id]').data('photo-id')
   target_album = TWG4.album.current_mode.target_album
   btn_original_content = btn.html()
   btn.prop('disabled', true)
@@ -119,3 +121,25 @@ $(document).on 'click', '.add-photo-btn', (e) ->
     btn.html(btn_original_content)
     btn.prop('disabled', false)
     TWG4.notifications.alert("Failed adding photo")
+
+$(document).on 'click', '.remove-photo-btn', (e) ->
+  e.preventDefault()
+  btn = $(e.target).closest('.remove-photo-btn')
+  photo_id = btn.closest('[data-photo-id]').data('photo-id')
+  TWG4.json_ajax('DELETE', "#{location.origin}/albums/#{TWG4.album.current_album_id()}/remove_photo/#{photo_id}")
+  .done ->
+    $(document).one 'turbolinks:load', -> TWG4.notifications.notify("Photo removed from album successfully")
+    Turbolinks.clearCache()
+    Turbolinks.visit location.href
+  .fail -> TWG4.notifications.alert("Failed removing photo from album")
+
+$(document).on 'click', '.destroy-photo-btn', (e) ->
+  e.preventDefault()
+  btn = $(e.target).closest('.destroy-photo-btn')
+  photo_id = btn.closest('[data-photo-id]').data('photo-id')
+  TWG4.json_ajax('DELETE', "#{location.origin}/albums/#{TWG4.album.current_album_id()}/photos/#{photo_id}")
+  .done ->
+    $(document).one 'turbolinks:load', -> TWG4.notifications.notify("Photo deleted successfully")
+    Turbolinks.clearCache()
+    Turbolinks.visit location.href
+  .fail -> TWG4.notifications.alert("Failed deleting photo")

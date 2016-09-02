@@ -40,12 +40,11 @@
 
 <section id="album-content">
   <% for photo in @photos do %>
-    <div class="thumbnail-container" style="background-image: url(<%= photo.image_url(:thumbnail) %>);">
+    <div class="thumbnail-container" style="background-image: url(<%= photo.image_url(:thumbnail) %>);" data-photo-id="<%= photo.id %>">
       <%= link_to "", [@album, photo] if can? :show, photo %>
       <%= remove_photo_button @album, photo, hidden: true %>
       <%= destroy_button [@album, photo], add_class: 'btn-sm btn-thumbnail destroy-photo-btn', hidden: true %>
-      <%= button_tag glyphicon('plus') + "Add photo", type: "button", class: 'btn btn-sm btn-create-bright btn-thumbnail add-photo-btn',
-                     'data-photo-id': photo.id, hidden: true %>
+      <%= button_tag glyphicon('plus') + "Add photo", type: "button", class: 'btn btn-sm btn-create-bright btn-thumbnail add-photo-btn', hidden: true %>
     </div>
   <% end %>
 </section>
