@@ -10,4 +10,14 @@ class PhotoInAlbum < ApplicationRecord
   def self.get(album, photo)
     PhotoInAlbum.find_by(album_id: album.id, photo_id: photo.id)
   end
+
+
+  def position
+    @position ||= 1 + PhotoInAlbum.where(["album_id = ? AND display_order < ?", album_id, display_order]).count
+  end
+
+  def page
+    @page ||= (position / Photo.default_per_page.to_f).ceil
+  end
+
 end

@@ -6,7 +6,7 @@
   <ul class="breadcrumb">
     <%=
       nav = [link_to("Albums", albums_path)]
-      nav << link_to(@album.name, @album) if @album.try(:persisted?)
+      nav << link_to(@album.name, path_to_album_page_with_photo(@album, @photo)) if @album.try(:persisted?)
       nav << link_to("Photo", [@album, @photo]) if @album.try(:persisted?) and @photo.try(:persisted?)
       nav.map { |x| content_tag :li, x }.join.html_safe
     %>

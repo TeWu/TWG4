@@ -36,4 +36,9 @@ module AlbumsHelper
     album_photo_path album.id, next_photo_id if next_photo_id
   end
 
+  def path_to_album_page_with_photo(album, photo)
+    page = album.page_with(photo)
+    album_path(album, page: page == 1 ? nil : page)
+  end
+
 end

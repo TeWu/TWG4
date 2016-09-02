@@ -11,7 +11,7 @@ class PhotosController < ApplicationController
 
   def create
     authorize! :add_new_photo, @album
-    @photo.photo_in_albums.first.display_order = @album.position_to_add_photo
+    @photo.photo_in_albums.first.display_order = @album.display_order_for_new_photo
 
     respond_to do |format|
       if @photo.save
