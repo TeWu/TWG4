@@ -67,3 +67,8 @@ $(document).on 'click', '#save-desc-btn', -> TWG4.photo.description_editor.save(
 $(document).on 'click', '#cancel-desc-edit-btn', -> TWG4.photo.description_editor.cancel()
 
 $(document).on 'click', '#comment-indicator', -> $(window).scrollTo '#photo-info-and-ctrl', 200
+
+$(document).on 'click', '#prev-photo-btn, #next-photo-btn', (e) ->
+  e.preventDefault()
+  form = $(e.target).closest('form')[0]
+  Turbolinks.visit form.action

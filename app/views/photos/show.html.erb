@@ -24,8 +24,7 @@
   </div>
   <div id="photo-controls">
     <div class="btn-group" role="group">
-      <a role="button" href="<%= prev_photo_path(@album, @photo) %>" class="btn btn-default"><%= glyphicon 'arrow-left' %></a>
-      <a role="button" href="<%= next_photo_path(@album, @photo) %>" class="btn btn-default">Next<%= glyphicon 'arrow-right', style: "margin-left: 10px" %></a>
+      <%= photo_nav_buttons @album, @photo %>
     </div>
   </div>
 </section>

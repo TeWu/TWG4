@@ -79,7 +79,7 @@
     }
   }
 
-  #photo-controls a[href=""] {
+  #photo-controls button[disabled=disabled] {
     pointer-events: none;
     color: fade_out($btn-default-color, 0.7);
     background-color: fade_out($btn-default-bg, 0.7);
