@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   load_and_authorize_resource :album
-  load_and_authorize_resource :photo, through: :album
+  load_and_authorize_resource :photo, through: :album, except: :create
 
 
   def show
@@ -10,16 +10,26 @@ class PhotosController < ApplicationController
   end
 
   def create
+    redirect_to @album, {alert: "No photos uploaded"} and return if uploaded_photos_files.blank?
+
     authorize! :add_new_photo, @album
-    @photo.photo_in_albums.first.display_order = @album.display_order_for_new_photo
+    @photos = @album.photos.build_from_files uploaded_photos_files
+    @photos.each { |photo| authorize! :create, photo }
+    successful_saves_count = @photos.map(&:save).count(true)
 
     respond_to do |format|
-      if @photo.save
-        format.html { redirect_to [@album, @photo], notice: "Photo created successfully" }
-        format.json { render :show, status: :created, location: [@album, @photo] }
-      else
-        format.html { prepare_and_render_view 'albums/show' }
-        format.json { render json: @photo.errors, status: :unprocessable_entity }
+      format.html do
+        redirect_options = if successful_saves_count == @photos.count
+                             {notice: "Photos uploaded successfully"}
+                           elsif successful_saves_count > 0
+                             {alert: "Some photos was not uploaded successfully"}
+                           else
+                             {alert: "Photos upload failed"}
+                           end
+        redirect_to album_path(@album, page: 'last'), redirect_options
+      end
+      format.json do
+        render :index, status: (successful_saves_count > 0 ? :created : :unprocessable_entity)
       end
     end
   end
@@ -45,7 +55,11 @@ class PhotosController < ApplicationController
   private
 
   def photo_params
-    params.require(:photo).permit(:image, :description)
+    params.require(:photo).permit(:description)
+  end
+
+  def uploaded_photos_files
+    params[:photos_upload].try { |x| x[:files] }
   end
 
 end

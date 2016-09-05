@@ -7,6 +7,7 @@ class Ability < BaseAbility
 
   def active user
     can :create, main_models
+    can :create, :photos_upload
     can :modify, Album, owner: user
     can :modify, Comment, author: user
   end
@@ -17,7 +18,7 @@ class Ability < BaseAbility
   end
 
   def admin(*)
-    can :manage, main_models + [User]
+    can :manage, main_models + [User, :photos_upload]
   end
 
   def super_admin(*)

@@ -2,16 +2,17 @@ module AlbumsHelper
 
   def add_new_photo_link(album)
     if can? :new, Photo and can? :add_new_photo, album
-      dropdown_link_to_modal_form_for [@album, @photo_to_upload], glyphicon('cloud-upload') + " Upload new photos",
-                                      modal: {title: "Upload photos", primary_btn: {value: "Upload"}, auto_open: @photo.present?},
-                                      form: {html: {multipart: true}}
+      dropdown_link_to_modal_form_for :photos_upload, glyphicon('cloud-upload') + " Upload new photos",
+                                      modal: {title: "Upload photos", primary_btn: {value: "Upload"}},
+                                      form: {url: album_photos_path(album), validate: false, html: {multipart: true}} do |f|
+        f.file_field :files, multiple: true
+      end
     end
   end
 
   def add_existing_photo_link(current_album, albums_from, albums_to)
     if can? :add_existing_photo, Album
-      link_content = glyphicon('plus') + " Add photos from other album"
-      link_to_modal link_content, modal: {title: "Add photos", primary_btn: {id: "add-photo-select-albums-btn"}, defer_output: true} do
+      dropdown_link_to_modal glyphicon('plus') + " Add photos from other album", modal: {title: "Add photos", primary_btn: {id: "add-photo-select-albums-btn"}} do
         render partial: 'photos_in_albums/add_existing_photo_form', locals: {current_album: current_album, albums_from: albums_from, albums_to: albums_to}
       end
     end
