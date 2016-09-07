@@ -35,7 +35,7 @@
   }
 
   #photo-description::first-line {
-    font-size: 130%;
+    font-size: $photo-description-first-line-font-size;
   }
 
   #photo-description-textarea {
@@ -45,7 +45,7 @@
     resize: none;
     box-sizing: border-box;
     overflow: auto;
-    font-size: 130%;
+    font-size: $photo-description-first-line-font-size;
 
     &:disabled { color: fade_out($body-text-color, 0.6) }
   }
