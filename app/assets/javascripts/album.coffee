@@ -46,7 +46,7 @@ $(window).on 'resize', -> $.doTimeout 'adjust_album_content_width', 10, TWG4.alb
     setup_album_view: ->
       @disable_add_buttons_for_already_added_photos()
       $('#album-title').after(@album_subtitle_elem())
-    album_subtitle_elem: -> '<h2 id="adding-photos">(Adding photos to album: <span class="album-name">' + @target_album.name + '</span>)</h2>'
+    album_subtitle_elem: -> '<h2 id="adding-photos">Adding photos to album: <span class="album-name">' + @target_album.name + '</span></h2>'
     disable_add_buttons_for_already_added_photos: ->
       t = @
       $('.add-photo-btn').each ->

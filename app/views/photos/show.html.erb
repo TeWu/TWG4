@@ -10,9 +10,9 @@
 
 <section id="photo-info-and-ctrl">
   <div id="photo-description" class="photo-description"><%= @photo.description %></div>
-  <textarea id="photo-description-textarea" style="display: none;" class="photo-description" data-autogrow></textarea>
+  <textarea id="photo-description-textarea" hidden="hidden" class="photo-description" data-autogrow></textarea>
   <div id="photo-desc-buttons">
-    <div id="photo-desc-spinner" style="display: none;"><%= render 'spinner' %></div>
+    <div id="photo-desc-spinner" hidden="hidden"><%= render 'spinner' %></div>
     <div id="photo-desc-editor-controls">
       <%= glyphicon 'ok', id: 'save-desc-btn', hidden: true %>
       <%= glyphicon 'remove', id: 'cancel-desc-edit-btn', hidden: true %>

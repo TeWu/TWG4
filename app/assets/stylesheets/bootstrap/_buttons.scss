@@ -111,6 +111,8 @@ a.btn {
 }
 .btn-thumbnail {
   width: $photo-image-thumbnail-width;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   border-radius: 0 !important;
 }
 
