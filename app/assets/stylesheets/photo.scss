@@ -1,4 +1,5 @@
-@import 'flexbox';
+@import 'mixins/flexbox';
+@import 'mixins/highlights';
 
 #photo {
   width: 0; height: 0;

@@ -1,17 +1,4 @@
-@import 'flexbox';
-
-html, body {
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  min-width: $body-min-width;
-  background-color: $body-bg-color;
-  color: $body-text-color;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+@import 'mixins/flexbox';
 
 body > header {
   display: flex;

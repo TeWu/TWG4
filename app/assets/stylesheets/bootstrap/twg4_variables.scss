@@ -1,3 +1,6 @@
 $brand-success: darken(#77b300, 22%);
 $brand-warning: darken(#e7c217, 22%);
 $brand-danger: darken(#d9534f, 22%);
+
+@import 'bootstrap-sprockets';
+@import 'themes/cyborg/variables';

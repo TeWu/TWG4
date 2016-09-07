@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="<%= locale %>">
 <head>
-  <title><%= title ? "#{title} @ " : "" %>TWG4</title>
+  <title><%= title ? "#{title} | " : "" %>TWG4</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'common', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
@@ -19,7 +20,7 @@
 </main>
 
 <footer>
-  <p><%= twg4 %> v<%= TWG4::VERSION %></p>
+  <%= render 'footer' %>
 </footer>
 
 </body>
