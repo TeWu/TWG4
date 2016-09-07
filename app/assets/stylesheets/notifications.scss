@@ -5,6 +5,8 @@
   position: absolute;
   top: $header-height;
   width: 100%;
+  font-size: $notifications-text-size;
+  font-weight: bold;
 
   &.sticky {
     position: fixed;
