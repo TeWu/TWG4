@@ -32,6 +32,13 @@ hr {
   background-color: fade_out(lighten($header-logo-shadow-color, 15%), 0.4);
 }
 
+span {
+  &.icon-label-l > .glyphicon { margin-right: 5px; }
+  &.icon-label-r > .glyphicon { margin-left: 10px; }
+
+  &.caret { margin: 5px !important; }
+}
+
 table.resources-list {
   width: $body-min-width - 20px;
   margin: 5px 0 27px 0;

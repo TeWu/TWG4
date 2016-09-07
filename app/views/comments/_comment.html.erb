@@ -7,7 +7,7 @@
     <div class="spacer"></div>
     <div class="comment-actions">
       <%= edit_link [@album, @photo, comment], class: 'edit-comment' %>
-      <%= destroy_button [@album, @photo, comment], "Delete", class: 'destroy-comment' %>
+      <%= destroy_button([@album, @photo, comment], class: 'destroy-comment') { "Delete" } %>
     </div>
   </header>
   <div class="comment-content"><%= comment.content %></div>

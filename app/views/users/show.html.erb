@@ -1,7 +1,7 @@
 <% self.title = @user.display_name %>
 <% content_for :context_menu do %>
   <div class="btn-group" role="group">
-    <%= link_to_modal_form_for @user_to_update || @user, glyphicon('pencil') + " Edit user", modal: {auto_open: @user_to_update.present?} %>
+    <%= link_to_modal_form_for @user_to_update || @user, icon_label('pencil', "Edit user"), modal: {auto_open: @user_to_update.present?} %>
     <%= destroy_button @user, add_class: 'btn-in-group-rightmost' %>
   </div>
 <% end %>

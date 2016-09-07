@@ -22,7 +22,7 @@ module PhotosHelper
                                class: 'btn btn-default btn-in-group-rightmost',
                                form_class: :single_button_form,
                                disabled: next_photo_path.nil? do
-      "Next #{glyphicon('arrow-right', style: "margin-left: 10px")}".html_safe
+      icon_label 'arrow-right', "Next", icon_position: :right
     end
     prev_photo_btn + next_photo_btn
   end

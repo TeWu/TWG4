@@ -3,11 +3,11 @@
   <div class="btn-group" role="group">
     <div class="btn-group" role="group">
       <button id="manage-album-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= glyphicon 'book' %> Manage album <span class="caret"></span>
+        <%= icon_label 'book', "Manage album" %><span class="caret"></span>
       </button>
       <ul class="dropdown-menu" aria-labelledby="manage-album-btn">
-        <li><%= dropdown_link_to_modal_form_for @album_to_update || @album, glyphicon('pencil') + " Edit album", modal: {auto_open: @album_to_update.present?} %></li>
-        <li><a href="#" id="dropdown-delete-album-btn"><%= glyphicon 'trash' %> Delete album</a></li>
+        <li><%= dropdown_link_to_modal_form_for @album_to_update || @album, icon_label('pencil', "Edit album"), modal: {auto_open: @album_to_update.present?} %></li>
+        <li><a href="#" id="dropdown-delete-album-btn"><%= icon_label 'trash', "Delete album" %></a></li>
       </ul>
     </div>
 
@@ -17,7 +17,7 @@
 
     <div class="btn-group" role="group">
       <button id="manage-photos-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= glyphicon 'picture' %> Manage photos <span class="caret"></span>
+        <%= icon_label 'picture', "Manage photos" %><span class="caret"></span>
       </button>
       <ul class="dropdown-menu" aria-labelledby="manage-photos-btn">
         <li class="dropdown-header">Add photos</li>
@@ -25,8 +25,8 @@
         <li><%= add_existing_photo_link(@album, @albums_add_photos_from, @albums_add_photos_to) %></li>
         <li class="divider" role="separator"></li>
         <li class="dropdown-header">Remove photos</li>
-        <li><a id="remove-photos-mode-link" href=""><%= glyphicon 'remove' %> Remove photos from this album</a></li>
-        <li><a id="destroy-photos-mode-link" href=""><%= glyphicon 'trash' %> Delete photos permanently</a></li>
+        <li><a id="remove-photos-mode-link" href=""><%= icon_label 'remove', "Remove photos from this album" %></a></li>
+        <li><a id="destroy-photos-mode-link" href=""><%= icon_label 'trash', "Delete photos permanently" %></a></li>
       </ul>
     </div>
   </div>
@@ -44,7 +44,7 @@
       <%= link_to "", [@album, photo] if can? :show, photo %>
       <%= remove_photo_button @album, photo, hidden: true %>
       <%= destroy_button [@album, photo], add_class: 'btn-sm btn-thumbnail destroy-photo-btn', hidden: true %>
-      <%= button_tag glyphicon('plus') + "Add photo", type: "button", class: 'btn btn-sm btn-create-bright btn-thumbnail add-photo-btn', hidden: true %>
+      <%= button_tag icon_label('plus', "Add photo"), type: "button", class: 'btn btn-sm btn-create-bright btn-thumbnail add-photo-btn', hidden: true %>
     </div>
   <% end %>
 </section>

@@ -50,10 +50,8 @@ module CrudLinksHelper
         confirm_msg = "Are you sure you want to #{content.downcase}?" if maybe_resource_human_name
       end
       defaults = {method: :delete, data: {confirm: confirm_msg}, class: "btn btn-destroy #{options[:add_class]}".strip, form: {class: :single_button_form}}
-      if block_given?
-        button_to(object, defaults.deep_merge!(options)) { yield block }
-      else
-        button_to(content, object, defaults.deep_merge!(options))
+      button_to(object, defaults.deep_merge!(options)) do
+        block_given? ? yield : icon_label('trash', content)
       end
     end
   end

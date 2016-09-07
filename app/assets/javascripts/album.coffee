@@ -77,7 +77,7 @@ $(window).on 'resize', -> $.doTimeout 'adjust_album_content_width', 10, TWG4.alb
 $(document).on 'turbolinks:load', -> TWG4.album.current_mode.on_page_load()
 $(document).on 'click', '#normal-mode-link, #remove-photos-mode-link, #destroy-photos-mode-link', (e) ->
   e.preventDefault()
-  mode_name = switch e.target.id
+  mode_name = switch e.target.closest('a').id
     when 'normal-mode-link' then 'normal'
     when 'remove-photos-mode-link' then 'remove_photo'
     when 'destroy-photos-mode-link' then 'destroy_photo'
