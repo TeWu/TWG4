@@ -46,7 +46,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_content
-    params.require(:comment).require(:content)
+    params.require(:comment)[:content]
   end
 
 end
