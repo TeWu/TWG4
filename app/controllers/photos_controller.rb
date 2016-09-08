@@ -14,7 +14,10 @@ class PhotosController < ApplicationController
 
     authorize! :add_new_photo, @album
     @photos = @album.photos.build_from_files uploaded_photos_files
-    @photos.each { |photo| authorize! :create, photo }
+    @photos.each do |photo|
+      photo.owner = current_user
+      authorize! :create, photo
+    end
     successful_saves_count = @photos.map(&:save).count(true)
 
     respond_to do |format|

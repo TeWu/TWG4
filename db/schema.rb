@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719102224) do
+ActiveRecord::Schema.define(version: 20160908160803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,9 @@ ActiveRecord::Schema.define(version: 20160719102224) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "owner_id"
     t.index ["image"], name: "index_photos_on_image", unique: true, using: :btree
+    t.index ["owner_id"], name: "index_photos_on_owner_id", using: :btree
   end
 
   create_table "photos_in_albums", force: :cascade do |t|
@@ -67,6 +69,7 @@ ActiveRecord::Schema.define(version: 20160719102224) do
   add_foreign_key "albums", "users", column: "owner_id"
   add_foreign_key "comments", "photos"
   add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "photos", "users", column: "owner_id"
   add_foreign_key "photos_in_albums", "albums"
   add_foreign_key "photos_in_albums", "photos"
 end

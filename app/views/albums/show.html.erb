@@ -32,7 +32,7 @@
                 visible: can?(:remove_photo, @album)
             }, {
                 elem: link_to(icon_label('trash', "Delete photos permanently"), '', id: 'destroy-photos-mode-link'),
-                visible: can?(:destroy, @album => Photo)
+                visible: can?(:destroy_photo, @album)
             }
         ]}
     ] %>
