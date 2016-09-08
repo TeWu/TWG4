@@ -10,7 +10,7 @@
   <tr>
     <th>Display name</th>
     <th>Roles</th>
-    <th>Owned albums</th>
+    <th>Owned photos</th>
   </tr>
   </thead>
 
@@ -19,7 +19,7 @@
     <tr data-resource-url="<%= user_path(user) %>">
       <td class="resource-name"><%= show_link user, user.display_name %></td>
       <td><%= user.roles_string %></td>
-      <td><%= user.owned_albums.count %></td>
+      <td><%= user.owned_photos.count %></td>
     </tr>
   <% end %>
   </tbody>
