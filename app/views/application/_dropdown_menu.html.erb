@@ -1,0 +1,10 @@
+<div class="btn-group" role="group">
+  <button id="<%= dropdown_id %>" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= btn_label %><span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="<%= dropdown_id %>">
+    <% for elem in elements %>
+      <%= elem.html_safe %>
+    <% end %>
+  </ul>
+</div>

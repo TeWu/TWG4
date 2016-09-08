@@ -25,7 +25,7 @@ module ModalHelper
 
   def link_to_modal(content, **options, &block)
     modal_options = options.delete(:modal) || {}
-    modal_options[:id] ||= modal_options[:title].dup.downcase.gsub(/[\s_]/, '-') + "-modal"
+    modal_options[:id] ||= modal_options[:title].parameterize + "-modal"
     maybe_open_modal_script = modal_options.delete(:auto_open) ? open_modal_script(modal_options[:id]) : ""
     defer_modal_output = modal_options.delete(:defer_output)
 
@@ -42,30 +42,30 @@ module ModalHelper
   end
 
   def link_to_modal_form_for(object, content = nil, **options, &block)
-    if soft_can? :new, object
-      resource = object.is_a?(Array) ? object.last : object
-      is_ar_resource = resource.is_a? ActiveRecord::Base
-      modal_options = options.delete(:modal) || {}
-      modal_options[:title] ||= (resource.persisted? ? "Edit " : "Create a new ") + resource.model_name.human.downcase if is_ar_resource
-      modal_id = modal_options[:title].dup.downcase!.gsub!(/[\s_]/, '-') + "-modal"
-      maybe_open_modal_script = modal_options.delete(:auto_open) ? open_modal_script(modal_id) : ""
-      defer_modal_output = modal_options.delete(:defer_output)
-      form_options = options.delete(:form) || {}
-      options.reverse_merge!(location: "#" + modal_id, 'data-toggle': "modal", skip_auth_check: true)
+    resource = object.is_a?(Array) ? object.last : object
+    is_ar_resource = resource.is_a? ActiveRecord::Base
+    return nil if is_ar_resource and not soft_can? (resource.persisted? ? :edit : :new), object
 
-      link_elem = if is_ar_resource
-                    resource.persisted? ? edit_link(object, content, options, &block) : create_link(object, content, options, &block)
-                  else
-                    link_to(content, options[:location], options)
-                  end
-      link_and_possibly_deferred_modal(
-          link_elem,
-          modal_form(modal_options.merge(resource: object, id: modal_id, form_options: form_options)) do |f|
-            field_set { is_ar_resource ? render("#{resource.model_name.plural}/inputs", f: f) : yield(f) }
-          end + maybe_open_modal_script,
-          defer_modal_output
-      )
-    end
+    modal_options = options.delete(:modal) || {}
+    modal_options[:title] ||= (resource.persisted? ? "Edit " : "Create a new ") + resource.model_name.human.downcase if is_ar_resource
+    modal_id = modal_options[:title].parameterize + "-modal"
+    maybe_open_modal_script = modal_options.delete(:auto_open) ? open_modal_script(modal_id) : ""
+    defer_modal_output = modal_options.delete(:defer_output)
+    form_options = options.delete(:form) || {}
+    options.reverse_merge!(location: "#" + modal_id, 'data-toggle': "modal", skip_auth_check: true)
+
+    link_elem = if is_ar_resource
+                  resource.persisted? ? edit_link(object, content, options, &block) : create_link(object, content, options, &block)
+                else
+                  link_to(content, options[:location], options)
+                end
+    link_and_possibly_deferred_modal(
+        link_elem,
+        modal_form(modal_options.merge(resource: object, id: modal_id, form_options: form_options)) do |f|
+          field_set { is_ar_resource ? render("#{resource.model_name.plural}/inputs", f: f) : yield(f) }
+        end + maybe_open_modal_script,
+        defer_modal_output
+    )
   end
 
   def deferred_modals

@@ -1,34 +1,41 @@
 <% self.title = @album.name %>
 <% content_for :context_menu do %>
   <div class="btn-group" role="group">
-    <div class="btn-group" role="group">
-      <button id="manage-album-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= icon_label 'book', "Manage album" %><span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="manage-album-btn">
-        <li><%= dropdown_link_to_modal_form_for @album_to_update || @album, icon_label('pencil', "Edit album"), modal: {auto_open: @album_to_update.present?} %></li>
-        <li><a href="#" id="dropdown-delete-album-btn"><%= icon_label 'trash', "Delete album" %></a></li>
-      </ul>
-    </div>
+    <%= dropdown_menu 'book', "Manage album", [
+        {
+            elem: dropdown_link_to_modal_form_for(@album_to_update || @album, icon_label('pencil', "Edit album"),
+                                                  modal: {auto_open: @album_to_update.present?}),
+            visible: can?(:edit, @album)
+        }, {
+            elem: link_to(icon_label('trash', "Delete album"), '', id: 'dropdown-delete-album-btn'),
+            visible: can?(:destroy, @album)
+        },
+    ] %>
 
     <div class="btn-group" role="group">
       <%= destroy_button @album, add_class: 'btn-in-group-middle', id: 'delete-album-btn', hidden: true %>
     </div>
 
-    <div class="btn-group" role="group">
-      <button id="manage-photos-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= icon_label 'picture', "Manage photos" %><span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="manage-photos-btn">
-        <li class="dropdown-header">Add photos</li>
-        <li><%= add_new_photo_link(@album) %></li>
-        <li><%= add_existing_photo_link(@album, @albums_add_photos_from, @albums_add_photos_to) %></li>
-        <li class="divider" role="separator"></li>
-        <li class="dropdown-header">Remove photos</li>
-        <li><a id="remove-photos-mode-link" href=""><%= icon_label 'remove', "Remove photos from this album" %></a></li>
-        <li><a id="destroy-photos-mode-link" href=""><%= icon_label 'trash', "Delete photos permanently" %></a></li>
-      </ul>
-    </div>
+    <%= dropdown_menu 'picture', "Manage photos", [
+        {"Add photos" => [
+            {
+                elem: add_new_photo_link(@album),
+                visible: (can? :new, Photo and can? :add_new_photo, @album)
+            }, {
+                elem: add_existing_photo_link(@album, @albums_add_photos_from, @albums_add_photos_to),
+                visible: can?(:add_existing_photo, @album)
+            }
+        ]},
+        {"Remove photos" => [
+            {
+                elem: link_to(icon_label('remove', "Remove photos from this album"), '', id: 'remove-photos-mode-link'),
+                visible: can?(:remove_photo, @album)
+            }, {
+                elem: link_to(icon_label('trash', "Delete photos permanently"), '', id: 'destroy-photos-mode-link'),
+                visible: can?(:destroy, @album => Photo)
+            }
+        ]}
+    ] %>
   </div>
   <a id="normal-mode-link" class="btn btn-default" href="#">Hide buttons</a>
   <%= deferred_modals -%>
