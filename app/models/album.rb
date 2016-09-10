@@ -7,7 +7,12 @@ class Album < ApplicationRecord
   validates :owner, presence: true, on: :create
 
 
+  def photos
+    special? ? special_purpose_class.photos : super
+  end
+
   def ordered_photos
+    return special_purpose_class.ordered_photos if special?
     pia = PhotoInAlbum.table_name
     Photo.joins(:photo_in_albums).where(pia => {album_id: id}).order("#{pia}.display_order ASC")
   end
@@ -35,6 +40,7 @@ class Album < ApplicationRecord
   end
 
   def neighbour_photo_id(current_photo, is_prev)
+    return special_purpose_class.neighbour_photo_id(current_photo, is_prev) if special?
     rel, sort_order = is_prev ? ['<', 'DESC'] : ['>', 'ASC']
     current_display_order = current_photo.photo_in_albums.find_by(album: self).display_order
     PhotoInAlbum.where(["album_id = ? AND display_order #{rel} ?", id, current_display_order])
@@ -47,7 +53,16 @@ class Album < ApplicationRecord
   end
 
   def page_with(photo)
-    photo ? photo.photo_in_albums.find_by(album: self).page : nil
+    photo ? photo.photo_in_albums.find_by(album: self).try(:page) : nil
+  end
+
+
+  def special?
+    not special_purpose.nil?
+  end
+
+  def special_purpose_class
+    @special_purpose_class ||= TWG4::AlbumSpecialPurpose.new(special_purpose) if special?
   end
 
 end

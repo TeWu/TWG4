@@ -20,16 +20,16 @@
         {"Add photos" => [
             {
                 elem: add_new_photo_link(@album),
-                visible: (can? :new, Photo and can? :add_new_photo, @album)
+                visible: (can? :new, Photo and can? :add_new_photo, @album and not @album.special?)
             }, {
                 elem: add_existing_photo_link(@album, @albums_add_photos_from, @albums_add_photos_to),
-                visible: can?(:add_existing_photo, @album)
+                visible: (can? :add_existing_photo, @album and not @album.special?)
             }
         ]},
         {"Remove photos" => [
             {
                 elem: link_to(icon_label('remove', "Remove photos from this album"), '', id: 'remove-photos-mode-link'),
-                visible: can?(:remove_photo, @album)
+                visible: (can? :remove_photo, @album and not @album.special?)
             }, {
                 elem: link_to(icon_label('trash', "Delete photos permanently"), '', id: 'destroy-photos-mode-link'),
                 visible: can?(:destroy_photo, @album)

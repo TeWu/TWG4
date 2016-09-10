@@ -10,18 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908160803) do
+ActiveRecord::Schema.define(version: 20160910073503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "albums", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",            null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "owner_id"
+    t.string   "special_purpose"
     t.index ["name"], name: "index_albums_on_name", unique: true, using: :btree
     t.index ["owner_id"], name: "index_albums_on_owner_id", using: :btree
+    t.index ["special_purpose"], name: "index_albums_on_special_purpose", unique: true, using: :btree
   end
 
   create_table "comments", force: :cascade do |t|

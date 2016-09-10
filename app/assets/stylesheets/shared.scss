@@ -39,6 +39,14 @@ span {
   &.caret { margin: 5px !important; }
 }
 
+table {
+  tr.table-divider-above, tr:not(.special-album) + .special-album {
+    & > th, & > td {
+      border-top: 3px solid $resources-list-border-color;
+    }
+  }
+}
+
 table.resources-list {
   width: $body-min-width - 20px;
   margin: 5px 0 27px 0;
@@ -95,11 +103,5 @@ table.resource-info {
   td, th {
     padding: 3px 7px 2px 4px;
     white-space: nowrap;
-  }
-
-  tr.table-divider-above {
-    & > th, & > td {
-      border-top: 3px solid $resources-list-border-color;
-    }
   }
 }

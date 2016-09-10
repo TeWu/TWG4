@@ -8,7 +8,7 @@ class AlbumsController < ApplicationController
 
   view_preparation :index do
     authorize! :index, Album
-    @albums = Album.accessible_by(current_ability)
+    @albums = Album.order("special_purpose DESC").accessible_by(current_ability)
     @new_album = @album || Album.new(current_ability.attributes_for(:new, Album).merge(owner: current_user))
   end
 
@@ -21,7 +21,7 @@ class AlbumsController < ApplicationController
     authorize! :show, @album
     authorize! :index, Photo
     @albums_add_photos_from = Album.accessible_by(current_ability, :show)
-    @albums_add_photos_to = Album.accessible_by(current_ability, :add_existing_photo)
+    @albums_add_photos_to = Album.where(special_purpose: nil).accessible_by(current_ability, :add_existing_photo)
     @photos = @album.ordered_photos.accessible_by(current_ability).page(page_num)
     @photo_to_upload = @photo || Photo.new
   end
