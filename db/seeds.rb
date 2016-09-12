@@ -1,5 +1,5 @@
 # Create users
-admin = User.create! username: "admin", display_name: "Admin", password: "admin", password_confirmation: "admin"
+admin = User.create! username: "admin", display_name: "Admin", password: "admin", password_confirmation: "admin", roles: [:active, :super_admin]
 
 # Create special purpose albums
 TWG4::AlbumSpecialPurpose::SPECIAL_PURPOSES_DEFINITIONS.keys.each do |special_album_purpose|
