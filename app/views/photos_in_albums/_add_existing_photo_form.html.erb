@@ -1,6 +1,6 @@
 <%= simple_form_for :add_existing_photo, method: :get do |f| %>
   <%= field_set do %>
-    <%= f.input :from_album, collection: albums_from, include_blank: false %>
-    <%= f.input :to_album, collection: albums_to, selected: current_album.id %>
+    <%= f.input :from_album, collection: albums_from, value_method: :to_param, include_blank: false %>
+    <%= f.input :to_album, collection: albums_to, value_method: :to_param, selected: current_album.to_param %>
   <% end %>
 <% end %>

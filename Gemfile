@@ -49,6 +49,8 @@ gem 'client_side_validations-simple_form', github: 'TeWu/client_side_validations
 gem 'mini_magick' # For image processing
 gem 'carrierwave' # For image upload and processing automation
 
+gem 'stringex' # For pretty url id segments
+
 gem 'kaminari' # For pagination
 
 gem 'autoprefixer-rails' # Adds vendor prefixes to CSS rules, using the Asset Pipeline

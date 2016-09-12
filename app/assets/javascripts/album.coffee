@@ -1,6 +1,6 @@
 TWG4.album ||= {}
 
-TWG4.album.current_album_id = -> $('nav[data-current-album-id]').data('current-album-id')
+TWG4.album.current_album_param = -> $('#album-menu').data('current-album')
 
 TWG4.album.adjust_album_content_width = ->
   content = $('#album-content')
@@ -39,7 +39,7 @@ $(window).on 'resize', -> $.doTimeout 'adjust_album_content_width', 10, TWG4.alb
       @__proto__.on_set.call(@)
     on_unset: ->
       $(document).one 'turbolinks:load', -> @elems().hide()
-      Turbolinks.visit "#{location.origin}/albums/#{@target_album.id}?page=last"
+      Turbolinks.visit "#{location.origin}/albums/#{@target_album.param}?page=last"
     on_page_load: ->
       @setup_album_view()
       @__proto__.on_page_load.call(@)
@@ -89,14 +89,14 @@ $(document).on 'click', '#dropdown-delete-album-btn', (e) ->
 
 $(document).on 'click', '#add-photo-select-albums-btn', (e) ->
   btn = $(e.target).closest('#add-photo-select-albums-btn')
-  src_album_id = $('#add_existing_photo_from_album').val()
+  src_album_param = $('#add_existing_photo_from_album').val()
   target_album =
-    id: $('#add_existing_photo_to_album').val()
+    param: $('#add_existing_photo_to_album').val()
     name: $('#add_existing_photo_to_album option:selected').text()
-  TWG4.json_ajax('GET', "#{location.origin}/albums/#{target_album.id}/photo_ids")
+  TWG4.json_ajax('GET', "#{location.origin}/albums/#{target_album.param}/photo_ids")
   .done (resp) ->
     $(document).one 'turbolinks:load', -> TWG4.album.set_mode('add_photo', {target_album: $.extend target_album, {photo_ids: resp.ids}})
-    Turbolinks.visit "#{location.origin}/albums/#{src_album_id}"
+    Turbolinks.visit "#{location.origin}/albums/#{src_album_param}"
   .fail ->
     $('form.add_existing_photo').closest('.modal').modal('hide')
     TWG4.notifications.alert("Server couldn't be reached")
@@ -110,7 +110,7 @@ $(document).on 'click', '.add-photo-btn', (e) ->
   btn.prop('disabled', true)
   btn.html("Adding photo &hellip;")
   TWG4.json_ajax(
-    'POST', "#{location.origin}/albums/#{target_album.id}/add_photo",
+    'POST', "#{location.origin}/albums/#{target_album.param}/add_photo",
     {photo_id: photo_id}
   )
   .done ->
@@ -126,7 +126,7 @@ $(document).on 'click', '.remove-photo-btn', (e) ->
   e.preventDefault()
   btn = $(e.target).closest('.remove-photo-btn')
   photo_id = btn.closest('[data-photo-id]').data('photo-id')
-  TWG4.json_ajax('DELETE', "#{location.origin}/albums/#{TWG4.album.current_album_id()}/remove_photo/#{photo_id}")
+  TWG4.json_ajax('DELETE', "#{location.origin}/albums/#{TWG4.album.current_album_param()}/remove_photo/#{photo_id}")
   .done ->
     $(document).one 'turbolinks:load', -> TWG4.notifications.notify("Photo removed from album successfully")
     Turbolinks.clearCache()
@@ -137,7 +137,7 @@ $(document).on 'click', '.destroy-photo-btn', (e) ->
   e.preventDefault()
   btn = $(e.target).closest('.destroy-photo-btn')
   photo_id = btn.closest('[data-photo-id]').data('photo-id')
-  TWG4.json_ajax('DELETE', "#{location.origin}/albums/#{TWG4.album.current_album_id()}/photos/#{photo_id}")
+  TWG4.json_ajax('DELETE', "#{location.origin}/albums/#{TWG4.album.current_album_param()}/photos/#{photo_id}")
   .done ->
     $(document).one 'turbolinks:load', -> TWG4.notifications.notify("Photo deleted successfully")
     Turbolinks.clearCache()

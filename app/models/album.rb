@@ -1,4 +1,6 @@
 class Album < ApplicationRecord
+  include URLSegmentSupport[:name]
+
   belongs_to :owner, class_name: 'User', inverse_of: :owned_albums
   has_many :photo_in_albums, dependent: :destroy
   has_many :photos, through: :photo_in_albums, extend: PhotoBuilders
@@ -20,7 +22,6 @@ class Album < ApplicationRecord
   def build_photo_in_album(photo)
     photo_in_albums.build photo: photo, display_order: display_order_for_new_photo
   end
-
 
   def display_order_for_new_photo
     (display_order_of_last_photo || 0) + 1

@@ -23,12 +23,12 @@ module AlbumsHelper
 
   def prev_photo_path(album, photo)
     prev_photo_id = album.prev_photo_id(photo)
-    album_photo_path album.id, prev_photo_id if prev_photo_id
+    album_photo_path album, prev_photo_id if prev_photo_id
   end
 
   def next_photo_path(album, photo)
     next_photo_id = album.next_photo_id(photo)
-    album_photo_path album.id, next_photo_id if next_photo_id
+    album_photo_path album, next_photo_id if next_photo_id
   end
 
   def path_to_album_page_with_photo(album, photo)

@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  load_and_authorize_resource :album
+  load_and_authorize_resource :album, find_by: :param
   load_and_authorize_resource :photo, through: :album
   load_and_authorize_resource :comment, through: :photo, except: :create
 

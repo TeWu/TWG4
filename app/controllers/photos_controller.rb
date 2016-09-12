@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  load_and_authorize_resource :album
+  load_and_authorize_resource :album, find_by: :param
   load_and_authorize_resource :photo, through: :album, except: :create
 
 

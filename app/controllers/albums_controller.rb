@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  load_and_authorize_resource except: [:index, :show]
+  load_and_authorize_resource except: [:index, :show], find_by: :param
 
 
   def index
@@ -17,7 +17,7 @@ class AlbumsController < ApplicationController
   end
 
   view_preparation :show do
-    @album ||= Album.find(params[:id])
+    @album ||= Album.find_by_param!(params[:id])
     authorize! :show, @album
     authorize! :index, Photo
     @albums_add_photos_from = Album.accessible_by(current_ability, :show)
