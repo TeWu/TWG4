@@ -19,6 +19,5 @@
 //= require modal
 //= require scroll_snap
 //= require grow_textarea
-//= require disable_btn_onclick
 //= require album
 //= require photo

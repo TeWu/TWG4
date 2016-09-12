@@ -91,6 +91,7 @@ $(document).on 'click', '#dropdown-delete-album-btn', (e) ->
 
 $(document).on 'click', '#add-photo-select-albums-btn', (e) ->
   btn = $(e.target).closest('#add-photo-select-albums-btn')
+  btn.prop('disabled', true)
   src_album_param = $('#add_existing_photo_from_album').val()
   target_album =
     param: $('#add_existing_photo_to_album').val()
