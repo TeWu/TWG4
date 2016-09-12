@@ -23,13 +23,15 @@ $(window).on 'resize', -> $.doTimeout 'adjust_album_content_width', 10, TWG4.alb
     elems: -> $(@elemsSelector)
     on_set: -> @elems().show 400
     on_unset: -> @elems().hide 400
-    on_page_load: -> @elems().show()
+    on_page_load: ->
+      @elems().show()
+      modes.normal.elems().show()
 
   modes.normal = $.extend new Mode(),
     elemsSelector: '#normal-mode-link'
     on_set: Mode::on_unset
     on_unset: Mode::on_set
-    on_page_load: -> @elems().hide()
+    on_page_load: ->
   modes.remove_photo = $.extend new Mode(), {elemsSelector: '.remove-photo-btn'}
   modes.destroy_photo = $.extend new Mode(), {elemsSelector: '.destroy-photo-btn'}
   modes.add_photo = $.extend new Mode(),
