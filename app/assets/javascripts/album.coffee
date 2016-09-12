@@ -93,7 +93,7 @@ $(document).on 'click', '#add-photo-select-albums-btn', (e) ->
   target_album =
     param: $('#add_existing_photo_to_album').val()
     name: $('#add_existing_photo_to_album option:selected').text()
-  TWG4.json_ajax('GET', "#{location.origin}/albums/#{target_album.param}/photo_ids")
+  TWG4.json_ajax('GET', "#{location.origin}/albums/#{target_album.param}/photo-ids")
   .done (resp) ->
     $(document).one 'turbolinks:load', -> TWG4.album.set_mode('add_photo', {target_album: $.extend target_album, {photo_ids: resp.ids}})
     Turbolinks.visit "#{location.origin}/albums/#{src_album_param}"
@@ -110,7 +110,7 @@ $(document).on 'click', '.add-photo-btn', (e) ->
   btn.prop('disabled', true)
   btn.html("Adding photo &hellip;")
   TWG4.json_ajax(
-    'POST', "#{location.origin}/albums/#{target_album.param}/add_photo",
+    'POST', "#{location.origin}/albums/#{target_album.param}/add-photo",
     {photo_id: photo_id}
   )
   .done ->
@@ -126,7 +126,7 @@ $(document).on 'click', '.remove-photo-btn', (e) ->
   e.preventDefault()
   btn = $(e.target).closest('.remove-photo-btn')
   photo_id = btn.closest('[data-photo-id]').data('photo-id')
-  TWG4.json_ajax('DELETE', "#{location.origin}/albums/#{TWG4.album.current_album_param()}/remove_photo/#{photo_id}")
+  TWG4.json_ajax('DELETE', "#{location.origin}/albums/#{TWG4.album.current_album_param()}/remove-photo/#{photo_id}")
   .done ->
     $(document).one 'turbolinks:load', -> TWG4.notifications.notify("Photo removed from album successfully")
     Turbolinks.clearCache()

@@ -15,13 +15,13 @@ Rails.application.routes.draw do
     end
 
     member do
-      get 'add_photo' => 'photos_in_albums#new', as: 'add_photo_to'
-      post 'add_photo' => 'photos_in_albums#create', as: nil
+      get 'add-photo' => 'photos_in_albums#new', as: 'add_photo_to'
+      post 'add-photo' => 'photos_in_albums#create', as: nil
 
-      delete 'remove_photo/:photo_id' => 'photos_in_albums#destroy', as: 'remove_photo_from'
+      delete 'remove-photo/:photo_id' => 'photos_in_albums#destroy', as: 'remove_photo_from'
 
       scope json_only do
-        get 'photo_ids' => 'photos_in_albums#photo_ids'
+        get 'photo-ids' => 'photos_in_albums#photo_ids'
       end
     end
   end
