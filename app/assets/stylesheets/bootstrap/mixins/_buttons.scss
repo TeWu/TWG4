@@ -9,11 +9,7 @@
   border-color: $border;
 
   &:focus,
-  &.focus {
-    color: $color_action;
-    background-color: lighten($background_action, 25%);
-        border-color: lighten($border_action, 10%);
-  }
+  &.focus,
   &:hover {
     color: $color_action;
     background-color: lighten($background_action, 12%);
