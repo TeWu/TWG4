@@ -69,7 +69,7 @@ module ModalHelper
   end
 
   def deferred_modals
-    (@deferred_modals * "\n").html_safe.tap { @deferred_modals.clear } if @deferred_modals
+    safe_join(@deferred_modals, "\n").tap { @deferred_modals.clear } if @deferred_modals
   end
 
   # -------
