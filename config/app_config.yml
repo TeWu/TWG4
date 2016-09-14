@@ -1,0 +1,18 @@
+default: &default
+  image_sizes:
+    thumbnail: {width: 170, height: 170}
+    medium: {width: 1920, height: 1080}
+
+  # Roles are defined like 'role_name: position_in_roles_bitmask'.
+  # NOTE: Roles should be positioned from the least to the most privileged (because of how permissions are defined in Ability class).
+  # NOTE: roles bitmask is usually 32 bits (4 bytes) long +- sign bit.
+  # ! WARNING ! Be careful when changing position in roles bitmask for existing role - it can change whether or not this role is assigned to existing users.
+  roles: {active: 0, moderator: 4, admin: 6, super_admin: 7}
+
+
+development:
+  <<: *default
+test:
+  <<: *default
+production:
+  <<: *default
