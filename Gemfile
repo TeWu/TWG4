@@ -38,6 +38,8 @@ group :development do
   gem 'guard-livereload', '>= 2.5.2' # Auto-reload browser when file change (no browser extensions needed, thanks to rack-livereload gem). WARNING: Versions before 2.5.2 have security vulnerability.
 end
 
+gem 'memoist' # For method memoization
+
 gem 'argon2' # Password hashing with Argon2 - OWASP recommended algorithm and the Password Hashing Competition winner https://github.com/P-H-C/phc-winner-argon2
 gem 'cancancan', github: 'CanCanCommunity/cancancan', branch: 'develop' # For authorization. Using develop branch for as much Rails 5 support as possible.
 

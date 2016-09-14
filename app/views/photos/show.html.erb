@@ -1,4 +1,8 @@
 <% self.title = "#{@photo.id} - #{@album.name}" %>
+<% content_for :head do %>
+  <%= tag :link, rel: 'prev', href: prev_photo_path(@album, @photo) if prev_photo_path(@album, @photo) -%>
+  <%= tag :link, rel: 'next', href: next_photo_path(@album, @photo) if next_photo_path(@album, @photo) -%>
+<% end %>
 <% content_for :context_menu do %>
   <%= destroy_button [@album, @photo] %>
 <% end %>

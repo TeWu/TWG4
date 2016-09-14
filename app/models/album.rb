@@ -1,4 +1,5 @@
 class Album < ApplicationRecord
+  extend Memoist
   include URLSegmentSupport[:name]
 
   belongs_to :owner, class_name: 'User', inverse_of: :owned_albums
@@ -48,6 +49,7 @@ class Album < ApplicationRecord
         .order("display_order #{sort_order}")
         .limit(1).pluck(:photo_id).first
   end
+  memoize :neighbour_photo_id
 
   def page_count
     photos.page(1).total_pages
