@@ -13,7 +13,7 @@ module CrudNavigationHelper
   def create_link(object, content = nil, **options, &block)
     if options.delete(:skip_auth_check) or soft_can? :new, object
       location = options.delete :location
-      defaults = {role: 'button', class: "btn btn-create #{options[:add_class]}".strip}
+      defaults = {role: 'button', class: "btn btn-create #{options.delete(:add_class)}".strip}
       html_options = defaults.deep_merge(options)
 
       model, super_model = object.is_a?(Array) ? object.reverse : object
@@ -31,7 +31,7 @@ module CrudNavigationHelper
   def edit_link(object, content = nil, **options, &block)
     if options.delete(:skip_auth_check) or soft_can? :edit, object
       content = "Edit" if content.blank?
-      defaults = {role: 'button', class: "btn btn-edit #{options[:add_class]}".strip}
+      defaults = {role: 'button', class: "btn btn-edit #{options.delete(:add_class)}".strip}
       location = options.delete :location
       if block_given?
         link_to(location || [:edit, object].flatten, defaults.deep_merge!(options)) { yield block }
@@ -49,7 +49,7 @@ module CrudNavigationHelper
         content = "Delete #{maybe_resource_human_name}".strip
         confirm_msg = "Are you sure you want to #{content.downcase}?" if maybe_resource_human_name
       end
-      defaults = {method: :delete, data: {confirm: confirm_msg}, class: "btn btn-destroy #{options[:add_class]}".strip, form: {class: :single_button_form}}
+      defaults = {method: :delete, data: {confirm: confirm_msg}, class: "btn btn-destroy #{options.delete(:add_class)}".strip, form: {class: :single_button_form}}
       button_to(object, defaults.deep_merge!(options)) do
         block_given? ? yield : icon_label('trash', content)
       end
