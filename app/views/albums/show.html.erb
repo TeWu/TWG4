@@ -1,4 +1,7 @@
 <% self.title = @album.name %>
+<% content_for :head do %>
+  <%= rel_next_prev_link_tags @photos %>
+<% end %>
 <% content_for :context_menu do %>
   <div class="btn-group" role="group">
     <%= dropdown_menu 'book', "Manage album", [
@@ -42,8 +45,7 @@
 <% end %>
 
 <h1 id="album-title"><%= @album.name %></h1>
-
-<%= paginate @photos %>
+<%= paginate @photos, add_class: "pagination-top" %>
 
 <section id="album-content">
   <% for photo in @photos do %>
@@ -55,3 +57,6 @@
     </div>
   <% end %>
 </section>
+
+<%= paginate @photos, add_class: "pagination-bottom" %>
+<div class="page-entries-info"><%= page_entries_info @photos if @photos.total_pages > 1 %></div>

@@ -1,5 +1,5 @@
 
-#albums { margin: 32px 0; }
+#albums { margin: 32px 0 15px 0; }
 
 #album-title { margin: 30px 0 0 0; }
 
@@ -16,7 +16,7 @@ h2#adding-photos {
   display: flex;
   flex-wrap: wrap;
   padding: 15px;
-  margin: 13px 15px 30px 15px;
+  margin: 13px 15px;
   box-sizing: border-box;
   background-color: #2e2f30;
   border: 1px dashed #444;
