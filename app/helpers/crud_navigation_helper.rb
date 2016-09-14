@@ -1,4 +1,4 @@
-module CrudLinksHelper
+module CrudNavigationHelper
 
   def show_link(object, content = "Show", **options, &block)
     if soft_can? :show, object
