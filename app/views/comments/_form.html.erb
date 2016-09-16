@@ -2,7 +2,7 @@
   <%= f.input :content, placeholder: "Drop a comment...", input_html: {rows: 3} %>
 
   <section class="form-actions">
-    <%= f.button :button, "Cancel", type: :button, 'data-turbolinks-visit': polymorphic_url([@album, @photo], anchor: 'comment-section'), class: 'btn-sm btn-default' if comment.persisted? %>
+    <%= f.button :button, "Cancel", type: :button, 'data-turbolinks-visit': polymorphic_url([@album, @photo], anchor: 'comments-section'), class: 'btn-sm btn-default' if comment.persisted? %>
     <%= f.button :submit, class: 'btn-sm btn-create-comment' %>
   </section>
 <% end %>

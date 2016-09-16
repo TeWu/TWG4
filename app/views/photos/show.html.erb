@@ -34,7 +34,7 @@
 </section>
 
 <% if can? :show, @photo => Comment %>
-  <section id="comment-section">
+  <section id="comments-section">
     <h3>Comments &#8226; <%= @comments.count %></h3>
 
     <% if can? :new, @photo => Comment %>

@@ -8,7 +8,7 @@ class PhotosController < ApplicationController
   end
 
   view_preparation :show do
-    @comments = @photo.comments.accessible_by(current_ability, :show)
+    @comments = @photo.comments.accessible_by(current_ability, :show).order('created_at DESC')
     @new_comment = @photo.comments.build(flash[:new_comment])
     @new_comment.valid? if flash[:new_comment]
   end
