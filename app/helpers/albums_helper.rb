@@ -21,14 +21,20 @@ module AlbumsHelper
   end
 
 
-  def prev_photo_path(album, photo)
+  def prev_photo_url(album, photo, **options)
     prev_photo_id = album.prev_photo_id(photo)
-    album_photo_path album, prev_photo_id if prev_photo_id
+    album_photo_url album, prev_photo_id, options if prev_photo_id
+  end
+  def prev_photo_path (album, photo, **options)
+    prev_photo_url(album, photo, {only_path: true}.merge!(options))
   end
 
-  def next_photo_path(album, photo)
+  def next_photo_url(album, photo, **options)
     next_photo_id = album.next_photo_id(photo)
-    album_photo_path album, next_photo_id if next_photo_id
+    album_photo_url album, next_photo_id, options if next_photo_id
+  end
+  def next_photo_path (album, photo, **options)
+    next_photo_url(album, photo, {only_path: true}.merge!(options))
   end
 
   def path_to_album_page_with_photo(album, photo)

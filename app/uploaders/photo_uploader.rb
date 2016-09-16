@@ -51,6 +51,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "/assets/fallback/" + [version_name, "default.png"].compact.join('_')
   end
 
+  def serializable_hash(options = nil)
+    {"url" => url}.merge Hash[versions.map { |name, version| [name, {"url" => model.try { |m| m.image_url(name) } || version.url}] }]
+  end
+
 
   protected
 

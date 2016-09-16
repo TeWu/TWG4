@@ -20,17 +20,23 @@ class AlbumsController < ApplicationController
     @album ||= Album.find_by_param!(params[:id])
     authorize! :show, @album
     authorize! :index, Photo
-    @albums_add_photos_from = Album.accessible_by(current_ability, :show)
-    @albums_add_photos_to = Album.where(special_purpose: nil).accessible_by(current_ability, :add_existing_photo)
-    @photos = @album.ordered_photos.accessible_by(current_ability).page(page_num)
-    @photo_to_upload = @photo || Photo.new
+    photos = @album.ordered_photos.accessible_by(current_ability)
+    respond_to do |format|
+      format.html do
+        @albums_add_photos_from = Album.accessible_by(current_ability, :show)
+        @albums_add_photos_to = Album.where(special_purpose: nil).accessible_by(current_ability, :add_existing_photo)
+        @photos = photos.page(page_num)
+        @photo_to_upload = @photo || Photo.new
+      end
+      format.json { @photo_urls = photos.pluck(:id).map { |id| album_photo_url(@album, id, anchor: nil) } }
+    end
   end
 
   def create
     respond_to do |format|
       if @album.save
         format.html { redirect_to @album, notice: "Album created successfully" }
-        format.json { render :show, status: :created, location: @album }
+        format.json { prepare_and_render_view :show, status: :created, location: @album }
       else
         format.html { prepare_and_render_view :index }
         format.json { render json: @album.errors, status: :unprocessable_entity }
@@ -42,7 +48,7 @@ class AlbumsController < ApplicationController
     respond_to do |format|
       if @album.update(album_params)
         format.html { redirect_to @album, notice: "Album updated successfully" }
-        format.json { render :show, status: :ok, location: @album }
+        format.json { prepare_and_render_view :show, status: :ok, location: @album }
       else
         format.html do
           @album_to_update = @album

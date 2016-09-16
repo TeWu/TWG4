@@ -4,14 +4,16 @@ class PhotosController < ApplicationController
 
 
   def show
+    prepare_and_render_view :show
+  end
+
+  view_preparation :show do
     @comments = @photo.comments.accessible_by(current_ability, :show)
     @new_comment = @photo.comments.build(flash[:new_comment])
     @new_comment.valid? if flash[:new_comment]
   end
 
   def create
-    redirect_to @album, {alert: "No photos uploaded"} and return if uploaded_photos_files.blank?
-
     authorize! :add_new_photo, @album
     @photos = @album.photos.build_from_files uploaded_photos_files
     @photos.each do |photo|
@@ -22,7 +24,9 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_options = if successful_saves_count == @photos.count
+        redirect_options = if uploaded_photos_files.blank?
+                             {alert: "No photos uploaded"}
+                           elsif successful_saves_count == @photos.count
                              {notice: "Photos uploaded successfully"}
                            elsif successful_saves_count > 0
                              {alert: "Some photos was not uploaded successfully"}
@@ -32,14 +36,18 @@ class PhotosController < ApplicationController
         redirect_to album_path(@album, page: 'last'), redirect_options
       end
       format.json do
-        render :index, status: (successful_saves_count > 0 ? :created : :unprocessable_entity)
+        if uploaded_photos_files.any?
+          render :index, status: (successful_saves_count > 0 ? :created : :unprocessable_entity)
+        else
+          head :no_content
+        end
       end
     end
   end
 
   def update
     if @photo.update(photo_params)
-      render :show, status: :ok, location: [@album, @photo]
+      prepare_and_render_view :show, status: :ok, location: [@album, @photo]
     else
       render json: @photo.errors, status: :unprocessable_entity
     end
@@ -62,7 +70,7 @@ class PhotosController < ApplicationController
   end
 
   def uploaded_photos_files
-    params[:photos_upload].try { |x| x[:files] }
+    params[:photos_upload].try { |x| x[:files] } || []
   end
 
 end

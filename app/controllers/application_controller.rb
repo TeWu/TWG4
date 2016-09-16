@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
-      format.json { head :forbidden }
       format.html { redirect_to login_url, alert: exception.message }
+      format.json { head :forbidden }
     end
   end
 

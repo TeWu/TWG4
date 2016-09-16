@@ -3,7 +3,7 @@ module ViewPreparation
 
   included do
 
-    def prepare_and_render_view(view)
+    def prepare_and_render_view(view, *args)
       if view.is_a? String and view.include? '/'
         c, action = view.split '/'
         controller = "#{c.capitalize}Controller".constantize
@@ -12,7 +12,7 @@ module ViewPreparation
       action ||= view
 
       controller.send("prepare_#{action.to_s}_view", self)
-      render view
+      render view, *args
     end
 
   end
