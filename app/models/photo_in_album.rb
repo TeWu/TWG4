@@ -4,6 +4,7 @@ class PhotoInAlbum < ApplicationRecord
   belongs_to :album, inverse_of: :photo_in_albums
 
   validates :photo, :album, presence: true
+  validates :photo, uniqueness: {scope: :album, message: "is already in this album"}
   validates :display_order, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
 
