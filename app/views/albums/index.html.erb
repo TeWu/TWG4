@@ -16,7 +16,7 @@
   <% @albums.each do |album| %>
     <tr <%= %q{class="special-album"}.html_safe if album.special? %> data-resource-url="<%= album_path(album) %>">
       <td class="resource-name"><%= show_link album, album.name %></td>
-      <td><%= album.photos.count %></td>
+      <td><%= album.photos.accessible_by(current_ability).count %></td>
       <td><%= album.owner.try(:display_name) %></td>
     </tr>
   <% end %>
