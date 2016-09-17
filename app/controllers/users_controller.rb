@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    @user.roles = authorized_roles_param
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: "User created successfully" }
@@ -52,7 +53,24 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:display_name, :username, :password, :password_confirmation, roles: [])
+    params.require(:user).permit(:display_name, :username, :password, :password_confirmation).merge(roles: authorized_roles_param)
+  end
+
+  def authorized_roles_param
+    old_roles = (@user.present? && @user.persisted?) ? @user.roles : TWG4::CONFIG[:new_user_roles_default]
+    new_roles = params.require(:user)[:roles]
+    raise(Exception, "Illegal roles param value") unless new_roles.nil? || new_roles.class == Array
+    if new_roles.nil? || new_roles == old_roles
+      old_roles
+    elsif can?(:assign_all_roles, @user || User)
+      new_roles
+    elsif can?(:assign_nongranting_roles, @user || User)
+      new_nongranting_roles = new_roles.select { |r| r.in? TWG4::CONFIG[:nongranting_roles] }
+      old_granting_roles = old_roles.select { |r| r.in? TWG4::CONFIG[:granting_roles] }
+      new_nongranting_roles + old_granting_roles
+    else
+      old_roles
+    end
   end
 
 end

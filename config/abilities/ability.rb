@@ -1,4 +1,5 @@
 class Ability < BaseAbility
+  GRANTING_ACTIONS = [:assign_all_roles, :assign_nongranting_roles]
   protected
 
   def logged_in user
@@ -10,6 +11,7 @@ class Ability < BaseAbility
     can :modify, Album, owner: user
     can :modify, Photo, owner: user
     can :modify, Comment, author: user
+    can [:show, :update], User, id: user.id
   end
 
   def moderator

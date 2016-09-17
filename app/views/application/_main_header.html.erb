@@ -32,7 +32,7 @@
 <% if logged_in? %>
   <nav id="user-menu">
     <div class="user-controls" role="group">
-      <span class="user-name"><%= current_user.display_name %></span>
+      <%= link_to current_user.display_name, current_user, class: 'user-name' %>
       <%= destroy_button logout_url, class: "btn btn-default", title: "Log&nbsp;out".html_safe, 'data-toggle': "tooltip", 'data-placement': "bottom" do %>
         <%= glyphicon 'off' %>
       <% end %>

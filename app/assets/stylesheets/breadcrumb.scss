@@ -14,7 +14,7 @@ $bc_last_element_right_padding: $bc_first_element_left_padding;
 $bc_color_border: $header-control-group-border-color;
 $bc_color_arrow: $bc_color_border;
 $bc_color_fill: $header-control-group-bg-color;
-$bc_color_fill_hover: lighten($bc_color_fill, 12%);
+$bc_color_fill_hover: $header-control-group-bg-color-hover;
 $bc_color_fill_last_elem: lighten($bc_color_fill, 16%);
 $bc_color_text: #252525;
 $bc_color_text_last_elem: black;

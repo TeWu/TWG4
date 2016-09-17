@@ -51,9 +51,9 @@
   }
 
   #photo-desc-buttons {
+    @include center-items-vertically;
     height: $photo-info-and-ctrl-min-height;
     padding: 0 10px;
-    @include center-items-vertically;
     color: fade_out($body-text-color, 0.8);
 
     span {

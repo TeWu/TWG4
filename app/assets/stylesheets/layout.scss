@@ -37,16 +37,24 @@ body > header {
     padding: 0 10px 0 30px;
 
     .user-controls {
+      @include center-items-vertically;
       height: $header-control-group-height;
       overflow: hidden;
       border: 1px solid $header-control-group-border-color;
       border-radius: 5px;
-      color: black;
-      background-color: $header-control-group-bg-color;
-      @include center-items-vertically;
     }
 
-    .user-name { padding: 0 7px 0 10px; }
+    .user-name {
+      @include center-items-vertically;
+      height: $header-control-group-height;
+      padding: 0 7px 0 10px;
+      color: black;
+      text-decoration: none;
+      background-color: $header-control-group-bg-color;
+
+      &:hover { background-color: $header-control-group-bg-color-hover }
+    }
+
     .btn { border-radius: 0; }
   }
 }

@@ -2,5 +2,16 @@
 <%= f.input :username %>
 <%= f.input :password %>
 <%= f.input :password_confirmation %>
-<% checked_roles = f.object.roles.presence || ([:active] if f.object.new_record?) %>
-<%= f.input :roles, collection: TWG4::CONFIG[:roles].keys, as: :check_boxes, checked: checked_roles %>
+<%
+  visible_roles = if can? :assign_all_roles, f.object
+                    TWG4::CONFIG[:roles].keys
+                  elsif can? :assign_nongranting_roles, f.object
+                    TWG4::CONFIG[:nongranting_roles]
+                  else
+                    []
+                  end
+%>
+<% if visible_roles.any? %>
+  <% checked_roles = f.object.roles.presence || (TWG4::CONFIG[:new_user_roles_default] if f.object.new_record?) %>
+  <%= f.input :roles, collection: visible_roles, as: :check_boxes, checked: checked_roles %>
+<% end %>
