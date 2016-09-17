@@ -74,6 +74,7 @@ body > main {
 body > footer {
   height: $footer-height;
   padding: 10px;
-  font-size: 84%;
+  color: $footer-text-color;
+  font-size: $footer-text-size;
   text-align: center;
 }
