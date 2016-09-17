@@ -21,7 +21,7 @@ module TWG4
       end
 
       def dump(arr)
-        arr.inject(0) do |num, obj|
+        arr.uniq.inject(0) do |num, obj|
           num + @obj2bitval[obj].to_i # 'to_i' to convert nil to 0
         end
       end
