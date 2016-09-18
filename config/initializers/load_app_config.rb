@@ -10,7 +10,7 @@ module TWG4
   CONFIG[:roles_values] = CONFIG[:roles].map { |role, i| [role, 2**i] }.to_h
   CONFIG[:roles_values_inverse] = CONFIG[:roles_values].invert
   CONFIG[:granting_roles] = CONFIG[:roles].keys.select do |role|
-    ability = Ability.new(User.new roles: [role])
+    ability = Ability.new User.new(roles: [role]), skip_precondition: true
     Ability::GRANTING_ACTIONS.any? do |granting_action|
       ability.can? granting_action, User
     end

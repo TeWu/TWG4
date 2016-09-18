@@ -1,10 +1,12 @@
 class BaseAbility
   include CanCan::Ability
 
+  cattr_accessor :precondition
   attr_reader :user
 
-  def initialize(user)
+  def initialize(user, **options)
     @user = user
+    @options = options
     create_action_aliases
     user ? draw(user) : draw_guest
   end
@@ -13,13 +15,16 @@ class BaseAbility
   protected
 
   def draw(user)
-    logged_in(user)
-    for role in user.roles
-      m = method(role)
-      m.arity == 1 ? m.call(user) : m.call
+    if precondition.nil? || precondition.call(user) || @options[:skip_precondition]
+      logged_in(user)
+      for role in user.roles
+        m = method(role)
+        m.arity == 1 ? m.call(user) : m.call
+      end
     end
   end
 
+  def logged_in(user); end
   def draw_guest; end
 
   def create_action_aliases

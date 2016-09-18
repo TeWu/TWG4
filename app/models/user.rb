@@ -14,6 +14,7 @@ class User < ApplicationRecord
   validates :password, length: {in: valid_password_range}, allow_blank: true, on: :update
 
   before_save :hash_password
+  before_save { self.is_admin = is_admin }
 
   serialize :roles_bitmask, TWG4::Serializers::RolesBitmaskSerializer
 
@@ -37,8 +38,19 @@ class User < ApplicationRecord
   delegate :can?, :cannot?, to: :ability
 
   def has_role?(role)
-    roles.include? role
+    roles.include? role.to_s
   end
+
+  def has_any_role?(*roles)
+    return self.roles.any? if roles.empty?
+    roles = roles.flatten.map(&:to_s)
+    (self.roles || []).any? { |role| role.in? roles }
+  end
+
+  def is_admin
+    has_any_role?(Ability::ADMIN_ROLES)
+  end
+  alias_method :is_admin?, :is_admin
 
   def roles_string
     roles.each(&:to_s) * ", "

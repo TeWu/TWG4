@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916152626) do
+ActiveRecord::Schema.define(version: 20160918094146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,14 +62,16 @@ ActiveRecord::Schema.define(version: 20160916152626) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "display_name",             null: false
-    t.string   "username",                 null: false
-    t.string   "passhash",      limit: 96, null: false
+    t.string   "display_name",                             null: false
+    t.string   "username",                                 null: false
+    t.string   "passhash",      limit: 96,                 null: false
     t.integer  "roles_bitmask"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "url_segment",              null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "url_segment",                              null: false
+    t.boolean  "is_admin",                 default: false, null: false
     t.index ["display_name"], name: "index_users_on_display_name", unique: true, using: :btree
+    t.index ["is_admin"], name: "index_users_on_is_admin", using: :btree
     t.index ["url_segment"], name: "index_users_on_url_segment", unique: true, using: :btree
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
