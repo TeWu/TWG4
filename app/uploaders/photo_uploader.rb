@@ -8,7 +8,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   MEDIUM_SIZE = TWG4::CONFIG[:image_sizes][:medium]
   MEDIUM_GENERATION_MARGIN = 200
 
-  storage :file
+  storage :dropbox
 
   # Override the directory where uploaded files will be stored.
   def store_dir
