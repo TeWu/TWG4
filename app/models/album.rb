@@ -43,10 +43,10 @@ class Album < ApplicationRecord
 
   def neighbour_photo_id(current_photo, is_prev)
     return special_purpose_class.neighbour_photo_id(current_photo, is_prev) if special?
-    rel, sort_order = is_prev ? ['<', 'DESC'] : ['>', 'ASC']
+    rel, sort_order = is_prev ? ['<', :desc] : ['>', :asc]
     current_display_order = current_photo.photo_in_albums.find_by(album: self).display_order
     PhotoInAlbum.where(["album_id = ? AND display_order #{rel} ?", id, current_display_order])
-        .order("display_order #{sort_order}")
+        .order(display_order: sort_order)
         .limit(1).pluck(:photo_id).first
   end
   memoize :neighbour_photo_id

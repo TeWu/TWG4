@@ -8,7 +8,7 @@ class AlbumsController < ApplicationController
 
   view_preparation :index do
     authorize! :index, Album
-    @albums = Album.order("special_purpose DESC").accessible_by(current_ability)
+    @albums = Album.accessible_by(current_ability).order(special_purpose: :desc, name: :asc, created_at: :asc)
     @new_album = @album || Album.new(current_ability.attributes_for(:new, Album).merge(owner: current_user))
   end
 

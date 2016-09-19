@@ -30,8 +30,8 @@ module TWG4
     end
 
     def neighbour_photo_id(current_photo, is_prev)
-      rel, sort_order = is_prev ? ['<', 'DESC'] : ['>', 'ASC']
-      photos.order("#{order_by_attribute} #{sort_order}")
+      rel, sort_order = is_prev ? ['<', :desc] : ['>', :asc]
+      photos.order(order_by_attribute => sort_order)
           .where(["#{Photo.table_name}.#{order_by_attribute} #{rel} ?", current_photo[order_by_attribute]])
           .limit(1).pluck(:id).first
     end
