@@ -68,13 +68,21 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
 
   def generate_thumbnail?(picture)
-    image = MiniMagick::Image.open(picture.path)
-    image.width > THUMBNAIL_SIZE[:width] + THUMBNAIL_GENERATION_MARGIN || image.height > THUMBNAIL_SIZE[:height] + THUMBNAIL_GENERATION_MARGIN
+    if picture.is_a? CarrierWave::SanitizedFile
+      image = MiniMagick::Image.open(picture.path)
+      image.width > THUMBNAIL_SIZE[:width] + THUMBNAIL_GENERATION_MARGIN || image.height > THUMBNAIL_SIZE[:height] + THUMBNAIL_GENERATION_MARGIN
+    else
+      thumbnail.url != thumbnail.default_url and File.exists? File.join(Rails.root, 'public', thumbnail.url) # Dropbox store workaround
+    end
   end
 
   def generate_medium?(picture)
-    image = MiniMagick::Image.open(picture.path)
-    image.width > MEDIUM_SIZE[:width] + MEDIUM_GENERATION_MARGIN || image.height > MEDIUM_SIZE[:height] + MEDIUM_GENERATION_MARGIN
+    if picture.is_a? CarrierWave::SanitizedFile
+      image = MiniMagick::Image.open(picture.path)
+      image.width > MEDIUM_SIZE[:width] + MEDIUM_GENERATION_MARGIN || image.height > MEDIUM_SIZE[:height] + MEDIUM_GENERATION_MARGIN
+    else
+      medium.url != medium.default_url and File.exists? File.join(Rails.root, 'public', medium.url) # Dropbox store workaround
+    end
   end
 
 end
