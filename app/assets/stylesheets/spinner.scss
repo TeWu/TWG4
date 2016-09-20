@@ -1,46 +1,51 @@
 @import 'sass/utils';
 
-$spinner-size: 24px;
-$spinner-scale: strip-unit($spinner-size - 4px) / 168;
-$spinner-color: $body-text-color;
-
-.spinner-container {
+@mixin spinner-variant($spinner-size) {
+  $spinner-scale: strip-unit($spinner-size - 4px) / 168;
   margin-right: $spinner-size;
   margin-bottom: $spinner-size;
-  overflow: visible;
+
+  & > div { transform: scale($spinner-scale) }
 }
 
 .spinner {
-  position: relative;
-  background: none;
-  transform: scale($spinner-scale);
+  overflow: visible;
 
   & > div {
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    margin-left: 4px;
-    margin-top: 4px;
+    position: relative;
+    background: none;
 
     & > div {
-      width: 100%;
-      height: 100%;
-      border-radius: 15px;
-      background: $spinner-color;
-    }
-  }
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      margin-left: 4px;
+      margin-top: 4px;
 
-  @for $i from 1 through 8 {
-    & > div:nth-of-type(#{$i}) {
-      transform: translate(84px, 84px) rotate(#{45 * $i}deg) translate(70px, 0);
       & > div {
-        animation: spinner 1s linear infinite;
-        animation-delay: #{0.12 * ($i - 1)}s;
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        background: $spinner-color;
       }
     }
-  }
 
+    @for $i from 1 through 8 {
+      & > div:nth-of-type(#{$i}) {
+        transform: translate(84px, 84px) rotate(#{45 * $i}deg) translate(70px, 0);
+        & > div {
+          animation: spinner 1s linear infinite;
+          animation-delay: #{0.12 * ($i - 1)}s;
+        }
+      }
+    }
+
+  }
 }
+
+.spinner-small { @include spinner-variant($spinner-small-size) }
+
+.spinner-big { @include spinner-variant($spinner-big-size) }
 
 @keyframes spinner {
   0% { opacity: 1; transform: scale(1.5); }

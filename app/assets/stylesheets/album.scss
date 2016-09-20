@@ -43,3 +43,16 @@ h2#adding-photos {
     }
   }
 }
+
+#photos-upload-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+
+  .spinner-label {
+    margin-top: 20px;
+    font-size: 140%;
+  }
+}

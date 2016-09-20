@@ -1,4 +1,4 @@
-<fieldset>
+<%= content_tag :fieldset, **html_options do %>
   <% if title %>
     <legend><%= title %></legend>
   <% end %>
@@ -7,4 +7,4 @@
     <%= content %>
     </tbody>
   </table>
-</fieldset>
+<% end %>

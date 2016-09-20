@@ -62,7 +62,7 @@ module ModalHelper
     link_and_possibly_deferred_modal(
         link_elem,
         modal_form(modal_options.merge(resource: object, id: modal_id, form_options: form_options)) do |f|
-          field_set { is_ar_resource ? render("#{resource.model_name.plural}/inputs", f: f) : yield(f) }
+          is_ar_resource ? field_set { render("#{resource.model_name.plural}/inputs", f: f) } : yield(f)
         end + maybe_open_modal_script,
         defer_modal_output
     )

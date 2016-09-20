@@ -89,6 +89,11 @@ $(document).on 'click', '#dropdown-delete-album-btn', (e) ->
   e.preventDefault()
   $('#delete-album-btn').toggle(200)
 
+$(document).on 'click', '#upload-photos-submit-btn', ->
+  $('#upload-photos-modal').on 'hide.bs.modal', (e) -> e.preventDefault() # Prevent hiding upload photos modal
+  $('#photos-upload-spinner-container').show()
+  $('#photos-upload-fieldset').hide()
+
 $(document).on 'click', '#add-photo-select-albums-btn', (e) ->
   btn = $(e.target).closest('#add-photo-select-albums-btn')
   btn.prop('disabled', true)

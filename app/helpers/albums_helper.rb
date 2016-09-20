@@ -2,9 +2,15 @@ module AlbumsHelper
 
   def add_new_photo_link(album)
     dropdown_link_to_modal_form_for :photos_upload, icon_label('cloud-upload', "Upload new photos"),
-                                    modal: {title: "Upload photos", primary_btn: {value: "Upload"}},
+                                    modal: {title: "Upload photos", primary_btn: {value: "Upload", id: 'upload-photos-submit-btn'}},
                                     form: {url: album_photos_path(album), validate: false, html: {multipart: true}} do |f|
-      f.file_field :files, multiple: true
+      fieldset_elem = field_set(id: 'photos-upload-fieldset') do
+        f.file_field(:files, multiple: true)
+      end
+      spinner_elem = content_tag(:div, id: 'photos-upload-spinner-container', style: 'display: none', hidden: true) do
+        render('spinner', variant: 'big') + content_tag(:div, class: 'spinner-label') { "Uploading&hellip;".html_safe }
+      end
+      safe_join [fieldset_elem, spinner_elem]
     end
   end
 
