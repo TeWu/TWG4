@@ -15,5 +15,6 @@
 .idea
 
 # Uploaded files
+/public/assets
 /public/uploads/*
 !public/uploads/photo_images/.keep
