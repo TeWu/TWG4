@@ -26,6 +26,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # Process files as they are uploaded:
   process :auto_orient
+  process resize_to_limit: MEDIUM_SIZE[:as_array]
 
   # Create different versions of your uploaded files:
   version :thumbnail, if: :generate_thumbnail? do
