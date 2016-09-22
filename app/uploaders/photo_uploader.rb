@@ -25,7 +25,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
 
   # Process files as they are uploaded:
-  # process resize_to_limit: [4096, 2160]
+  process :auto_orient
 
   # Create different versions of your uploaded files:
   version :thumbnail, if: :generate_thumbnail? do
@@ -65,6 +65,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
         break name unless Photo.exists?(image: name)
       end
     end
+  end
+
+  def auto_orient
+    manipulate! { |img| img.tap(&:auto_orient) } # Rotates the image based on the EXIF Orientation
   end
 
   def generate_thumbnail?(picture)
