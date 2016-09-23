@@ -125,10 +125,12 @@ $(document).on 'click', '.add-photo-btn', (e) ->
     target_album.photo_ids.push(photo_id)
     btn.html("Photo added successfully")
     TWG4.notifications.notify("Photo added successfully")
-  .fail ->
+  .fail (resp) ->
     btn.html(btn_original_content)
     btn.prop('disabled', false)
-    TWG4.notifications.alert("Failed adding photo")
+    msg = "Failed adding photo"
+    msg = resp.responseJSON.alert if resp.responseJSON? && resp.responseJSON.alert?
+    TWG4.notifications.alert(msg)
 
 $(document).on 'click', '.remove-photo-btn', (e) ->
   e.preventDefault()
@@ -139,7 +141,10 @@ $(document).on 'click', '.remove-photo-btn', (e) ->
     $(document).one 'turbolinks:load', -> TWG4.notifications.notify("Photo removed from album successfully")
     Turbolinks.clearCache()
     Turbolinks.visit location.href
-  .fail -> TWG4.notifications.alert("Failed removing photo from album")
+  .fail (resp) ->
+    msg = "Failed removing photo from album"
+    msg = resp.responseJSON.alert if resp.responseJSON? && resp.responseJSON.alert?
+    TWG4.notifications.alert(msg)
 
 $(document).on 'click', '.destroy-photo-btn', (e) ->
   e.preventDefault()
@@ -150,4 +155,7 @@ $(document).on 'click', '.destroy-photo-btn', (e) ->
     $(document).one 'turbolinks:load', -> TWG4.notifications.notify("Photo deleted successfully")
     Turbolinks.clearCache()
     Turbolinks.visit location.href
-  .fail -> TWG4.notifications.alert("Failed deleting photo")
+  .fail (resp) ->
+    msg = "Failed deleting photo"
+    msg = resp.responseJSON.alert if resp.responseJSON? && resp.responseJSON.alert?
+    TWG4.notifications.alert(msg)

@@ -7,6 +7,8 @@ class PhotosInAlbumsController < ApplicationController
     authorize! :add_existing_photo, @album
     @photo_in_album = @album.build_photo_in_album(@photo)
 
+    respond_with_not_permitted_in_demo_msg and return unless is_permitted_in_demo? @album.owner
+
     if @photo_in_album.save
       render json: @photo_in_album, status: :created, location: [@album, @photo]
     else
@@ -16,6 +18,9 @@ class PhotosInAlbumsController < ApplicationController
 
   def destroy
     authorize! :remove_photo, @album
+
+    respond_with_not_permitted_in_demo_msg @album and return unless is_permitted_in_demo? @album.owner
+
     PhotoInAlbum.get(@album, @photo).destroy
     respond_to do |format|
       format.html { redirect_to @album, notice: "Photo removed from album successfully" }

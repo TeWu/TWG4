@@ -26,6 +26,10 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.id <= TWG4::CONFIG[:demo][:protected_users_max_id] and current_user.try(:id) != TWG4::CONFIG[:demo][:real_admin_user_id]
+      respond_with_not_permitted_in_demo_msg @user and return
+    end
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: "User updated successfully" }
@@ -42,6 +46,10 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if @user.id <= TWG4::CONFIG[:demo][:protected_users_max_id] and current_user.try(:id) != TWG4::CONFIG[:demo][:real_admin_user_id]
+      respond_with_not_permitted_in_demo_msg @user and return
+    end
+
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: "User deleted successfully" }

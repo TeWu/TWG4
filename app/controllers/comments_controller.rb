@@ -23,6 +23,8 @@ class CommentsController < ApplicationController
   end
 
   def update
+    respond_with_not_permitted_in_demo_msg photo_comments_section_path and return unless is_permitted_in_demo? @comment.author
+
     respond_to do |format|
       if @comment.update(content: comment_content)
         format.html { redirect_to photo_comments_section_path, notice: "Comment updated successfully" }
@@ -35,6 +37,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    respond_with_not_permitted_in_demo_msg photo_comments_section_path and return unless is_permitted_in_demo? @comment.author
+
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to photo_comments_section_path, notice: "Comment deleted successfully" }

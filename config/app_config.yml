@@ -10,6 +10,10 @@ default: &default
   roles: {active: 0, moderator: 4, admin: 6, super_admin: 7}
   new_user_roles_default: [active]
 
+  demo:
+    real_admin_user_id: 1
+    protected_users_max_id: 5
+
 
 development:
   <<: *default

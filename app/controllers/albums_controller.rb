@@ -45,6 +45,8 @@ class AlbumsController < ApplicationController
   end
 
   def update
+    respond_with_not_permitted_in_demo_msg @album and return unless is_permitted_in_demo?(@album.owner) and album_params[:owner_id] != TWG4::CONFIG[:demo][:real_admin_user_id].to_s
+
     respond_to do |format|
       if @album.update(album_params)
         format.html { redirect_to @album, notice: "Album updated successfully" }
@@ -61,6 +63,8 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
+    respond_with_not_permitted_in_demo_msg @album and return unless is_permitted_in_demo? @album.owner
+
     @album.destroy
     respond_to do |format|
       format.html { redirect_to albums_url, notice: "Album deleted successfully" }
