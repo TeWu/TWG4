@@ -70,11 +70,3 @@ body > main {
   border-color: lighten($content_bg_color, 3%);
   border-radius: 6px;
 }
-
-body > footer {
-  height: $footer-height;
-  padding: 10px;
-  color: $footer-text-color;
-  font-size: $footer-text-size;
-  text-align: center;
-}
