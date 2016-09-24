@@ -26,4 +26,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, except: [:new, :edit]
+
+  scope 'maintenance' do
+    get 'resource-hashes' => 'maintenance#resource_hashes'
+  end
 end
