@@ -13,13 +13,14 @@ A live demo is available here:
 
 To log in, use one of the fallowing credentials:
 
-```
+```text
 username: sadmin
 password: sadmin1024
 permissions: Super admin - It is the most privileged user, it has permission to do everything.
                            It is still restricted by the live demo restrictions (described below).
 ```
-```
+
+```text
 username: admin
 password: admin512
 permissions: Admin - Can do everything that normal user can + Can modify all albums, photos and comments,
@@ -27,13 +28,15 @@ permissions: Admin - Can do everything that normal user can + Can modify all alb
                      and user's profiles + Can create new users and modify existing users, except admins
                      and super admins.
 ```
-```
+
+```text
 username: mod
 password: mod16
 permissions: Moderator - Can do everything that normal user can + Can modify all comments, except those
                          authored by admins and super admins.
 ```
-```
+
+```text
 username: user
 password: user8
 permissions: Normal user - Can access all albums and photos. Can create new albums and modify albums that
