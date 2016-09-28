@@ -20,32 +20,7 @@ class PhotosController < ApplicationController
       photo.owner = current_user
       authorize! :create, photo
     end
-
     respond_with_not_permitted_in_demo_msg @album
-
-    # successful_saves_count = @photos.map(&:save).count(true)
-    # 
-    # respond_to do |format|
-    #   format.html do
-    #     redirect_options = if uploaded_photos_files.blank?
-    #                          {alert: "No photos uploaded"}
-    #                        elsif successful_saves_count == @photos.count
-    #                          {notice: "Photos uploaded successfully"}
-    #                        elsif successful_saves_count > 0
-    #                          {alert: "Some photos was not uploaded successfully"}
-    #                        else
-    #                          {alert: "Photos upload failed"}
-    #                        end
-    #     redirect_to album_path(@album, page: 'last'), redirect_options
-    #   end
-    #   format.json do
-    #     if uploaded_photos_files.any?
-    #       render :index, status: (successful_saves_count > 0 ? :created : :unprocessable_entity)
-    #     else
-    #       head :no_content
-    #     end
-    #   end
-    # end
   end
 
   def update
@@ -58,14 +33,7 @@ class PhotosController < ApplicationController
 
   def destroy
     @photo.albums.each { |album| authorize! :remove_photo, album }
-
     respond_with_not_permitted_in_demo_msg @album
-
-    # @photo.destroy
-    # respond_to do |format|
-    #   format.html { redirect_to @album, notice: "Photo deleted successfully" }
-    #   format.json { head :no_content }
-    # end
   end
 
 
