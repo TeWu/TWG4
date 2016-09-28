@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def is_permitted_in_demo?(user)
-    user.nil? or user.id != TWG4::CONFIG[:demo][:real_admin_user_id] or current_user.try(:id) == TWG4::CONFIG[:demo][:real_admin_user_id]
+    user_id = user.is_a?(Integer) ? user : user.try(:id)
+    user_id.nil? or user_id != TWG4::CONFIG[:demo][:real_admin_user_id] or current_user.try(:id) == TWG4::CONFIG[:demo][:real_admin_user_id]
   end
 
   def respond_with_not_permitted_in_demo_msg(redirection_target = nil)

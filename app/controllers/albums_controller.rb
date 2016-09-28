@@ -33,6 +33,8 @@ class AlbumsController < ApplicationController
   end
 
   def create
+    respond_with_not_permitted_in_demo_msg albums_path and return unless is_permitted_in_demo?(@album.owner)
+
     respond_to do |format|
       if @album.save
         format.html { redirect_to @album, notice: "Album created successfully" }
@@ -45,7 +47,7 @@ class AlbumsController < ApplicationController
   end
 
   def update
-    respond_with_not_permitted_in_demo_msg @album and return unless is_permitted_in_demo?(@album.owner) and album_params[:owner_id] != TWG4::CONFIG[:demo][:real_admin_user_id].to_s
+    respond_with_not_permitted_in_demo_msg @album and return unless is_permitted_in_demo?(@album.owner) and is_permitted_in_demo?(album_params[:owner_id].to_i)
 
     respond_to do |format|
       if @album.update(album_params)
