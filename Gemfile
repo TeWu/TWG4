@@ -18,26 +18,6 @@ gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
 
-group :development, :test do
-  gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-end
-
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console'
-  gem 'listen', '~> 3.0.5'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-
-  gem 'better_errors' # WARNING: this gem MUST stay in :development group
-  gem 'binding_of_caller' # For advanced features of better_errors gem
-  gem 'pry-rails', '~> 0.3' # Use Pry REPL as Rails console
-
-  gem 'rack-livereload', '>= 0.3.16' # see below
-  gem 'guard-livereload', '>= 2.5.2' # Auto-reload browser when file change (no browser extensions needed, thanks to rack-livereload gem). WARNING: Versions before 2.5.2 have security vulnerability.
-end
-
 gem 'memoist' # For method memoization
 
 gem 'argon2' # Password hashing with Argon2 - OWASP recommended algorithm and the Password Hashing Competition winner https://github.com/P-H-C/phc-winner-argon2
@@ -57,3 +37,33 @@ gem 'kaminari' # For pagination
 
 gem 'autoprefixer-rails' # Adds vendor prefixes to CSS rules, using the Asset Pipeline
 gem 'bootstrap-sass' # Bootstrap framework
+
+
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+
+  gem 'better_errors' # WARNING: this gem MUST stay in :development group
+  gem 'binding_of_caller' # For advanced features of better_errors gem
+
+  gem 'rack-livereload', '>= 0.3.16' # see below
+  gem 'guard-livereload', '>= 2.5.2' # Auto-reload browser when file change (no browser extensions needed, thanks to rack-livereload gem). WARNING: Versions before 2.5.2 have security vulnerability.
+end
+
+group :development, :test do
+  gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'pry-rails', '~> 0.3' # Use Pry REPL as Rails console
+  gem 'rspec-rails', '~> 3.6'
+  gem 'factory_girl_rails', '~> 4.8'
+  gem 'faker', '~> 1.7'
+end
+
+group :test do
+  gem 'capybara', '~> 2.14'
+  gem 'selenium-webdriver', '~> 3.4'
+  gem "database_cleaner", '~> 1.6'
+end
