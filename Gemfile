@@ -46,12 +46,15 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-commands-rspec'
 
   gem 'better_errors' # WARNING: this gem MUST stay in :development group
   gem 'binding_of_caller' # For advanced features of better_errors gem
 
   gem 'rack-livereload', '>= 0.3.16' # see below
   gem 'guard-livereload', '>= 2.5.2' # Auto-reload browser when file change (no browser extensions needed, thanks to rack-livereload gem). WARNING: Versions before 2.5.2 have security vulnerability.
+
+  gem 'guard-rspec', require: false # Auto-run specs when file change
 end
 
 group :development, :test do
